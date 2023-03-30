@@ -1,75 +1,36 @@
-// import './App.css';
-
-// import { useState } from 'react';
-// import axios from 'axios';
-
-// function App() {
-//   const [message, setMessage] = useState('');
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault(); // prevent the form from submitting normally
-
-//     const formData = new FormData(event.target); // create a FormData object from the form data
-//     axios.post('http://127.0.0.1:5000/trim', formData)
-//       .then(response => {
-//         setMessage(response.data.message);
-//       })
-//       .catch(error => {
-//         console.error(error);
-//       });
-//   };
-
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <h1>Video Trimmer</h1>
-//       <form id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data">
-//         <div className="form-group">
-//           <label htmlFor="video-file">Select a video file:</label>
-//           <input type="file" id="video-file" name="video-file" className="form-control-file" />
-//         </div>
-//         <div className="form-group">
-//           <label htmlFor="start-time">Start time (in seconds):</label>
-//           <input type="text" id="start-time" name="start-time" className="form-control" />
-//         </div>
-//         <div className="form-group">
-//           <label htmlFor="end-time">End time (in seconds):</label>
-//           <input type="text" id="end-time" name="end-time" className="form-control" />
-//         </div>
-//         <button type="submit" id="trim-button" className="btn btn-primary">Trim Video</button>
-//       </form>
-//       {message && <p>{message}</p>}
-//       </header>
-//     </div>
-//   );
-// }
-
-
-// export default App;
-
 import './App.css';
 
 import { useState } from 'react';
 import axios from 'axios';
+import { css } from '@emotion/react';
+import { ClipLoader } from 'react-spinners';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 function App() {
   const [message, setMessage] = useState('');
-  // const [videoURL, setVideoURL] = useState('');
   const [videoFilename, setVideoFilename] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault(); // prevent the form from submitting normally
 
     const formData = new FormData(event.target); // create a FormData object from the form data
+    setLoading(true);
     axios.post('http://127.0.0.1:5000/trim', formData)
       .then(response => {
         setVideoFilename(response.data.file);
-        // setVideoURL(`http://127.0.0.1:5000/uploads/${response.data.file}`)
         setMessage('Video trimmed successfully.');
+        setLoading(false);
       })
       .catch(error => {
         setMessage('Error trimming video.');
         console.error(error);
+        setLoading(false);
       });
   };
 
@@ -102,6 +63,7 @@ function App() {
          <button type="submit" id="trim-button" className="btn btn-primary">Trim Video</button>
         </form>
         {message && <p>{message}</p>}
+        {loading && <ClipLoader color="#123abc" css={override} size={50} />}
         {videoFilename && (
           <div>
             <h2>Trimmed Video</h2>
