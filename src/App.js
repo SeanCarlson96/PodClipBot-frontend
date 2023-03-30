@@ -54,17 +54,17 @@ import axios from 'axios';
 
 function App() {
   const [message, setMessage] = useState('');
-  const [videoURL, setVideoURL] = useState('');
+  // const [videoURL, setVideoURL] = useState('');
+  const [videoFilename, setVideoFilename] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault(); // prevent the form from submitting normally
 
     const formData = new FormData(event.target); // create a FormData object from the form data
-    axios.post('http://127.0.0.1:5000/trim', formData, { responseType: 'blob' })
+    axios.post('http://127.0.0.1:5000/trim', formData)
       .then(response => {
-        const file = new Blob([response.data], { type: 'video/mp4' });
-        const url = URL.createObjectURL(file);
-        setVideoURL(url);
+        setVideoFilename(response.data.file);
+        // setVideoURL(`http://127.0.0.1:5000/uploads/${response.data.file}`)
         setMessage('Video trimmed successfully.');
       })
       .catch(error => {
@@ -75,7 +75,7 @@ function App() {
 
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = videoURL;
+    link.href = `http://127.0.0.1:5000/uploads/${videoFilename}`;
     link.download = 'trimmed_video.mp4';
     document.body.appendChild(link);
     link.click();
@@ -102,11 +102,11 @@ function App() {
          <button type="submit" id="trim-button" className="btn btn-primary">Trim Video</button>
         </form>
         {message && <p>{message}</p>}
-        {videoURL && (
+        {videoFilename && (
           <div>
             <h2>Trimmed Video</h2>
             <video width="152" height="270" controls>
-              <source src={videoURL} type="video/mp4" />
+              <source src={`http://127.0.0.1:5000/uploads/${videoFilename}`} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             <br />
