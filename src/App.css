@@ -1,15 +1,27 @@
 body {
 	font-family: Arial, sans-serif;
-	background-color: #d4d1d1;
+	background-color: #fff;
 }
 
 .App {
+	margin: 20px auto;
+	max-width: 800px;
+	padding: 20px;
+	border: 2px solid black;
+	min-height: 82.5vh;
+	/* background-color: #fff; */
+	/* border-radius: 5px; */
+	/* box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2); */
+}
+
+.Tool {
 	margin: 0 auto;
 	max-width: 800px;
 	padding: 20px;
-	background-color: #fff;
-	border-radius: 5px;
-	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+	/* border: 2px solid red; */
+	/* background-color: #fff; */
+	/* border-radius: 5px; */
+	/* box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2); */
 }
 
 h1 {
@@ -19,6 +31,10 @@ h1 {
 
 .form-group {
 	margin-bottom: 1rem;
+}
+
+.form-group input[type="text"] {
+	border: 1px solid #909ca4;
 }
 
 label {
@@ -36,7 +52,8 @@ label {
 	color: #495057;
 	background-color: #fff;
 	background-clip: padding-box;
-	border: 1px solid #ced4da;
+	/* border: 1px solid #ced4da; */
+	border: 1px solid #8e9fb0;
 	border-radius: 0.25rem;
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -75,3 +92,11 @@ label {
 	margin: 0 auto;
 	border-color: red;
 }
+.clip-time-input {
+	display: flex;
+	/* justify-content: space-between; */
+}
+
+/* .nav-link {
+	color: white;
+} */

@@ -1,9 +1,11 @@
-import '../App.css';
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { css } from '@emotion/react';
 import { ClipLoader } from 'react-spinners';
+import ClipTimeInput from './ClipTimeInput';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHammer } from '@fortawesome/free-solid-svg-icons';
 
 const override = css`
   display: block;
@@ -16,6 +18,7 @@ function Tool() {
   const [videoFilename, setVideoFilename] = useState('');
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+
 //   const [progressNum, setProgressNum] = useState(2);
 
   // useEffect(() => {
@@ -46,37 +49,76 @@ function Tool() {
   //     });
   // };
 
+  // const handleSubmit = (event) => {
+  //   event.preventDefault(); // prevent the form from submitting normally
+  
+  //   const formData = new FormData(event.target); // create a FormData object from the form data
+  //   setLoading(true);
+  //   axios.post('http://127.0.0.1:5000/trim', formData)
+  //     .then(response => {
+  //       setVideoFilename(response.data.file);
+  //       setMessage('Video trimmed successfully.');
+  //       setLoading(false);
+  //     })
+  //     .catch(error => {
+  //       setMessage('Error trimming video.');
+  //       console.error(error);
+  //       setLoading(false);
+  //     });
+  
+  //   // Set up event source to receive progress updates
+  //   const source = new EventSource('http://127.0.0.1:5000/progress');
+  //   source.onmessage = (event) => {
+  //     // console.log("Received progress update:", event.data);
+  //     setProgress(parseFloat(event.data));
+  //   };
+  //   source.onerror = (event) => {
+  //     console.log("Error receiving progress updates:", event);
+  //   }
+  //   return () => {
+  //     console.log("Closing progress updates source");
+  //     source.close();
+  //   };
+  // };
   const handleSubmit = (event) => {
     event.preventDefault(); // prevent the form from submitting normally
   
     const formData = new FormData(event.target); // create a FormData object from the form data
     setLoading(true);
+  
+    // Set up event source to receive progress updates
+    const source = new EventSource('http://127.0.0.1:5000/progress');
+    source.onmessage = (event) => {
+      // console.log("Received progress update:", event.data);
+      setProgress(parseFloat(event.data));
+    };
+    source.onerror = (event) => {
+      // console.log("Error receiving progress updates:", event);
+      console.log("Error receiving progress");
+    };
+  
     axios.post('http://127.0.0.1:5000/trim', formData)
       .then(response => {
         setVideoFilename(response.data.file);
         setMessage('Video trimmed successfully.');
         setLoading(false);
+        console.log("Closing progress updates source");
+        source.close(); // Close the event source when the video is trimmed successfully
       })
       .catch(error => {
         setMessage('Error trimming video.');
         console.error(error);
         setLoading(false);
+        console.log("Closing progress updates source");
+        source.close(); // Close the event source when an error occurs
       });
   
-    // Set up event source to receive progress updates
-    const source = new EventSource('http://127.0.0.1:5000/progress');
-    source.onmessage = (event) => {
-      console.log("Received progress update:", event.data);
-      setProgress(parseFloat(event.data));
-    };
-    source.onerror = (event) => {
-      console.log("Error receiving progress updates:", event);
-    }
     return () => {
       console.log("Closing progress updates source");
       source.close();
     };
   };
+  
 
   const handleDownload = () => {
     const link = document.createElement('a');
@@ -87,32 +129,67 @@ function Tool() {
     document.body.removeChild(link);
   };
 
+  const [clipInputs, setClipInputs] = useState([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} />]);
+
+  function handleAddClipTimeInput() {
+    setClipInputs(prevState => {
+      const clipNumber = prevState.length + 1;
+      return [...prevState, <ClipTimeInput key={clipNumber} clipNumber={clipNumber} handleRemove={handleRemoveClipTimeInput(clipNumber)} />];
+    });
+  }
+
+  function handleRemoveClipTimeInput(clipNumberToRemove) {
+    return () => {
+      setClipInputs(prevState => {
+        const newClipInputs = prevState.filter(clipInput => clipInput.props.clipNumber !== clipNumberToRemove);
+        return newClipInputs.map((clipInput, index) => {
+          const newClipNumber = index + 1;
+          const newHandleRemove = handleRemoveClipTimeInput(newClipNumber);
+          return <ClipTimeInput key={newClipNumber} clipNumber={newClipNumber} handleRemove={newHandleRemove} />;
+        });
+      });
+    };
+  }
+  
   return (
-    <div className="App">
+    <div className="Tool">
       <header className="App-header">
-        <h1>Tool</h1>
+        <h1>Automated Short Form Tool</h1>
         <p>Upload your full length video file and enter the timestamps for your desired clips</p>
-        <form id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data">
+
+        <form id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data" className='mt-10 flex flex-col gap-4'>
+          
           <div className="form-group">
-            <label htmlFor="video-file">Select a video file:</label>
+            <label htmlFor="video-file">1. Upload your full length video file:</label>
             <input type="file" id="video-file" name="video-file" className="form-control-file" />
           </div>
-          <div className="form-group">
-            <label htmlFor="start-time">Start time (in seconds):</label>
-            <input type="text" id="start-time" name="start-time" className="form-control" />
+
+          <div className="form-group flex flex-col gap-2">
+            <div className='flex justify-between'>
+              <label htmlFor="video-file">2. Add timestamps for your desired clips:</label>
+              <button type="button" className="btn btn-primary w-36 self-end" onClick={handleAddClipTimeInput}>
+                <FontAwesomeIcon icon={faPlus} /> Add A Clip
+              </button>
+            </div>
+            {clipInputs}
           </div>
-          <div className="form-group">
-            <label htmlFor="end-time">End time (in seconds):</label>
-            <input type="text" id="end-time" name="end-time" className="form-control" />
+
+          <div className="form-group flex flex-col gap-2">
+            <label htmlFor="video-file">3. Build your clips:</label>
+            <button type="submit" id="trim-button" className="btn btn-primary w-36 self-start">
+              <FontAwesomeIcon icon={faHammer} /> Build Clips
+            </button>
           </div>
-         <button type="submit" id="trim-button" className="btn btn-primary">Trim Video</button>
+
         </form>
+
         {message && <p>{message}</p>}
         {loading && <ClipLoader color="#123abc" css={override} size={50} id="loading-icon"/>}
-        <div>
-          {/* Your existing form and components */}
-          <progress value={progress} max="100" />
-        </div>
+        {progress > 0 ? (
+          <div>
+            <progress value={progress} max="100" />
+          </div>
+        ) : null}
         {videoFilename && (
           <div>
             <h2>Trimmed Video</h2>

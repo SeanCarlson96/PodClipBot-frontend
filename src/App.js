@@ -1,14 +1,23 @@
-import React from 'react';
-import Header from './components/Header';
-import Tool from './components/Tool';
+import './App.css';
+import './index.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
-function App() {
-  return (
-    <div>
+import Header from './components/Header';
+import Footer from './components/Footer';
+
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Routing from "./Routes";
+
+const App = () => (
+  <Router>
       <Header />
-      <Tool />
+    <div className="App">
+      <Routing />
     </div>
-  );
-}
+      <Footer />
+  </Router>
+);
 
 export default App;
