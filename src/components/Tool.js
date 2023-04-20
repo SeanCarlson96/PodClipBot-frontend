@@ -154,8 +154,8 @@ function Tool() {
   return (
     <div className="Tool">
       <header className="App-header">
-        <h1>Automated Short Form Tool</h1>
-        <p>Upload your full length video file and enter the timestamps for your desired clips</p>
+        <h1 className="font-extralight">PodClipBot Clip Creation Tool</h1>
+        <p className="font-light">Upload your full length video file and enter the timestamps for your desired clips. The Podcast Clip Bot will then create the clips for you to download. Each clip will automatically crop the video to the proper aspect ratio, center the video, add subtitles, and add random royalty free background music. If you would like to customize the tool to create higher value clips, we have subscription options available that allow for highly customizable clips.</p>
 
         <form id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data" className='mt-10 flex flex-col gap-4'>
           
@@ -166,7 +166,7 @@ function Tool() {
 
           <div className="form-group flex flex-col gap-2">
             <div className='flex justify-between'>
-              <label htmlFor="video-file">2. Add timestamps for your desired clips:</label>
+              <label htmlFor="video-file">2. Add timestamps for as many clips as you'd like:</label>
               <button type="button" className="btn btn-primary w-36 self-end" onClick={handleAddClipTimeInput}>
                 <FontAwesomeIcon icon={faPlus} /> Add A Clip
               </button>

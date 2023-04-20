@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import UserContext from '../contexts/UserContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const { setUser } = useContext(UserContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,7 +21,9 @@ const Login = () => {
             if (response.ok) {
                 const data = await response.json();
                 // Store the access token and use it for authenticated requests
-                console.log('Access Token:', data.access_token);
+                // console.log('Access Token:', data.access_token);
+                localStorage.setItem('access_token', data.access_token);
+                setUser(data.user);
                 setMessage('Login successful');
             } else {
                 setMessage('Invalid email or password.');

@@ -9,7 +9,7 @@ function ClipTimeInput({ handleRemove, clipNumber }) {
   };
 
   return (
-    <div className="clip-time-input shadow-md border-2 border-gray-400 rounded position-relative">
+    <div className="clip-time-input bg-white rounded position-relative">
       <button type="button" className="btn btn-danger position-absolute top-0 end-0 m-2" onClick={handleClick}>
         <FontAwesomeIcon icon={faXmark} /> 
       </button>
