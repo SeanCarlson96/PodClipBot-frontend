@@ -55,7 +55,7 @@ const Header = () => {
               Subscription
             </NavLink>
           </li>
-          {/* <li className="nav-item">
+          <li className="nav-item">
             <NavLink
               className="nav-link"
               activeclassname="font-weight-bold"
@@ -66,9 +66,9 @@ const Header = () => {
                 color: isActive ? '#b7b7b7' : 'white',
               })}
             >
-              {user.username}<FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faUser} />
             </NavLink>
-          </li> */}
+          </li>
             {user ? (
               // <div>
               //   <span>Welcome, {user.username}!</span>

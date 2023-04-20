@@ -154,7 +154,7 @@ function Tool() {
   return (
     <div className="Tool">
       <header className="App-header">
-        <h1 className="font-extralight">PodClipBot Clip Creation Tool</h1>
+        <h1 className="font-extralight">Clip Creation Tool</h1>
         <p className="font-light">Upload your full length video file and enter the timestamps for your desired clips. The Podcast Clip Bot will then create the clips for you to download. Each clip will automatically crop the video to the proper aspect ratio, center the video, add subtitles, and add random royalty free background music. If you would like to customize the tool to create higher value clips, we have subscription options available that allow for highly customizable clips.</p>
 
         <form id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data" className='mt-10 flex flex-col gap-4'>
