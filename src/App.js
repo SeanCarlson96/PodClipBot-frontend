@@ -14,7 +14,7 @@ import UserContext from './contexts/UserContext';
 function App() {
   const [user, setUser] = useState(null);
 
-  console.log(user)
+  // console.log(user)
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');

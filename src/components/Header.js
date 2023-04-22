@@ -61,7 +61,7 @@ const Header = () => {
               activeclassname="font-weight-bold"
               isActive={isActive}
               exact
-              to="/"
+              to="/login"
               style={({ isActive }) => ({
                 color: isActive ? '#b7b7b7' : 'white',
               })}
