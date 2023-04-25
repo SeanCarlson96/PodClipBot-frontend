@@ -22,12 +22,12 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-primary p-1">
+    <nav className="navbar navbar-expand-lg navbar-light bg-secondary p-1">
       <div className="container-fluid d-flex justify-content-between">
         <a className="navbar-brand pl-4" href="/">
           <img src={process.env.PUBLIC_URL + '/PodClipBot.com2.png'} alt="logo" className="logo w-44" />
         </a>
-        <ul className="navbar-nav">
+        <ul className="navbar-nav flex flex-row space-x-2">
           <li className="nav-item">
             <NavLink
               className="nav-link"

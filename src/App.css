@@ -104,3 +104,13 @@ label {
 /* .nav-link {
 	color: white;
 } */
+
+.clip-box {
+	width: 152px;
+	height: 270px;
+}
+
+progress {
+	width: 152px;
+	margin-left: 1px;
+}
