@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Registration = () => {
     const [formData, setFormData] = useState({
@@ -8,6 +10,10 @@ const Registration = () => {
         password: '',
         confirmPassword: '',
       });
+
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
+
     
       const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,10 +30,10 @@ const Registration = () => {
         try {
           const response = await axios.post('http://127.0.0.1:5000/register', formData);
           console.log(response.data);
-          // Handle successful registration (e.g., show a success message or redirect to login)
+          navigate('/login');
         } catch (error) {
           console.error('Registration error:', error);
-          // Handle registration errors (e.g., show an error message)
+          setMessage('Registration failed. Please try again.')
         }
       };
 
@@ -88,6 +94,11 @@ const Registration = () => {
                 <button type="submit" className="btn btn-primary w-full mt-3">
                   Register
                 </button>
+                {message && (
+                    <div className="mt-4 text-center text-red-500">
+                        <p>{message}</p>
+                    </div>
+                )}
               </form>
             </div>
           </div>

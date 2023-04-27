@@ -8,62 +8,59 @@ import { faHammer } from '@fortawesome/free-solid-svg-icons';
 import CustomVideoPlayer from './CustomVideoPlayer';
 import { Tooltip } from 'bootstrap';
 import io from 'socket.io-client';
-
+import ClipModel from '../ClipModel';
 
 function Tool() {
   // const [message, setMessage] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
-  // const [videoFilenames, setVideoFilenames] = useState(() => {
-  //   const storedFiles = localStorage.getItem('videoFiles');
-  //   return storedFiles ? JSON.parse(storedFiles) : [];
-  // });
-  // const [loading, setLoading] = useState(false);
   const [clipInputs, setClipInputs] = useState([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} />]);
-  // const [clipsExpected, setClipsExpected] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
   const [progress, setProgress] = useState(0);
   const [videoClips, setVideoClips] = useState(() => {
     const storedFiles = localStorage.getItem('videoFiles');
     return storedFiles
-      ? JSON.parse(storedFiles).map((fileObj) => ({
-          filename: fileObj.filename,
-          loading: false,
-        }))
+      ? JSON.parse(storedFiles).map(
+          (fileObj) => new ClipModel(fileObj.name, fileObj.filename, false)
+        )
       : [];
   });
-  const [currentClipIndex, setCurrentClipIndex] = useState(0);
+  // const [currentClipIndex, setCurrentClipIndex] = useState(0);
+  const [currentClipName, setCurrentClipName] = useState('');
+
+  // console.log(videoClips)
+  // console.log(currentClipIndex)
+  // console.log(currentClipName)
   
   useEffect(() => {
     // console.log('videoClips', videoClips)
-
     const socket = io('http://127.0.0.1:5000');
-  
     socket.on('connect', () => {
-      console.log('Connected to the server');
+      // console.log('Connected to the server');
     });
-  
+    socket.on('current_clip_in_edit', (data) => {
+      console.log('Current clip in edit:', data)
+      if(data.name !== currentClipName) {
+        setCurrentClipName(data.name);
+      }
+    });
     socket.on('video_processing_progress', (data) => {
-      // console.log('Progress:', data.progress);
+      // console.log('Progress:', data);
       setProgress(data.progress);
     });
-
     socket.on('video_file_ready', (data) => {
-
-      const newVideoClip = {
-        filename: data.filename,
-        loading: false,
-      };
+      console.log('Received ', data.name);
+      const newVideoClip = new ClipModel(data.name, data.filename, false);
     
       setVideoClips((prevState) => {
         let updated = false;
         const updatedClips = prevState.map((clip) => {
-          if (!updated && clip.filename === '') {
+          if (!updated && clip.name === data.name) {
             updated = true;
             return newVideoClip;
           }
           return clip;
         });
-
+    
         localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
         return updatedClips;
       });
@@ -71,21 +68,33 @@ function Tool() {
       if (progress === 100) {
         setProgress(0);
       }
-
-      setCurrentClipIndex((prevIndex) => prevIndex + 1);
+      // setCurrentClipIndex((prevIndex) => prevIndex + 1);
     });
-  
+    socket.on("processing_canceled", (data) => {
+      console.log('Processing canceled:', data)
+      // const clipName = data.clipName;
+    
+      // setVideoClips((prevState) => {
+      //   return prevState.map((clip) =>
+      //     clip.name === clipName
+      //       ? new ClipModel(clip.name, clip.filename, false)
+      //       : clip
+      //   );
+      // });
+    });
     return () => {
       socket.disconnect();
     };
-  }, [videoClips, progress]);
-
-
+  }, [videoClips, progress, currentClipName]);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltips.forEach((tooltip) => new Tooltip(tooltip));
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('videoFiles', JSON.stringify(videoClips));
+  }, [videoClips]);
 
   const handleVideoFileChange = (event) => {
     const file = event.target.files[0];
@@ -111,12 +120,15 @@ function Tool() {
     let entriesCount = 0;
     formData.forEach(() => {
       entriesCount++;
-    });    
+    });
     const result = (entriesCount - 1) / 2;
-    // setClipsExpected(result);
-    const emptyClips = Array.from({ length: result }, () => ({ filename: '', loading: true }));
-    setVideoClips(emptyClips);
+    buildEmptyClips(result);
   };
+
+  const buildEmptyClips = (numberOfClips) => {
+    const emptyClips = Array.from({ length: numberOfClips }, (_, index) => new ClipModel(`Clip ${index + 1}`, '', true));
+    setVideoClips(emptyClips);
+  }
 
   function convertToSeconds(timestamp) {
     const [hours, minutes, seconds] = timestamp.split(':').map(Number);
@@ -185,6 +197,7 @@ function Tool() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("Building clips")
     localStorage.removeItem('videoFiles');
     // setVideoFilenames([]);
     setVideoClips([]);
@@ -213,6 +226,33 @@ function Tool() {
     return () => {
       console.log("Closing");
     };
+  };
+
+  const handleCancel = (clipName) => {
+    console.log("Canceling " + clipName);
+    setProgress(0);
+    // Emit the cancel_processing message with the clip's name
+    const socket = io('http://127.0.0.1:5000');
+    socket.emit("cancel_processing", { clipName: clipName });
+  
+    // Update the videoClips state to remove the clip with the specified clipName
+    // setVideoClips((prevState) => {
+    //   const updatedClips = prevState.filter((clip) => clip.name !== clipName);
+    //   return updatedClips;
+    // });
+    setVideoClips((prevState) => {
+      console.log('Previous state:', prevState);
+    
+      const updatedClips = prevState.filter((clip) => {
+        console.log('Current clip name:', clip.name);
+        console.log('Clip name to remove:', clipName);
+        return clip.name !== clipName;
+      });
+    
+      console.log('Updated clips:', updatedClips);
+      return updatedClips;
+    });
+    
   };
 
   function handleAddClipTimeInput() {
@@ -275,6 +315,7 @@ function Tool() {
             <button type="submit" id="trim-button" className="btn btn-primary w-36 self-start">
               <FontAwesomeIcon icon={faHammer} /> Build Clips
             </button>
+            {/* <p><a>Cancel Process</a></p> */}
           </div>
         </form>
 
@@ -284,41 +325,48 @@ function Tool() {
           {videoClips.map((clip, index) => (
             <div key={index} className="border border-black mr-2">
               {clip.loading ? (
-                index === currentClipIndex ? (
-                  <div className="clip-box w-24 h-24 relative flex items-center justify-center">
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <p className='text-xs'>Constructing Clip {index + 1}</p>
-                      <div className="progress w-11/12 border border-black" style={{ height: '10px' }}>
+                clip.name === currentClipName ? (
+                  <div className="clip-box relative flex items-center justify-center">
+                    <div className="w-11/12  flex flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <p className='text-xs'>Constructing {clip.name}</p>
+                        <div className="progress w-full" style={{ height: '10px' }}>
                         <div
-                          className="progress-bar"
-                          role="progressbar"
-                          style={{ width: `${progress}%` }}
-                          aria-valuenow={progress}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
+                            className="progress-bar"
+                            role="progressbar"
+                              style={{ width: `${progress}%` }}
+                              aria-valuenow={progress}
+                            aria-valuemin="0"
+                            aria-valuemax="100"
                         ></div>
-                      </div>
+                        </div>
+                        <button
+                            className="btn btn-danger mt-4"
+                            onClick={() => handleCancel(clip.name)}
+                        >
+                        Cancel
+                        </button>
                     </div>
-                  </div>
+                </div>
                 ) : (
-                  <div className="clip-box w-24 h-24 relative">
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="clip-box relative">
+                    <div className="w-full flex flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                       <ClipLoader color="#123abc" size={50} id="loading-icon" />
+                        <p className='text-xs pt-2'>{clip.name} waiting...</p>
                     </div>
                   </div>
                 )
               ) : (
-                <CustomVideoPlayer
-                  src={`http://127.0.0.1:5000/uploads/${clip.filename}`}
-                  filename={clip.filename}
-                />
+                <div>
+                  {/* <p>Name = {clip.name}</p> */}
+                  <CustomVideoPlayer
+                    src={`http://127.0.0.1:5000/uploads/${clip.filename}`}
+                    filename={clip.filename}
+                  />
+                </div>
               )}
             </div>
           ))}
         </div>
-
-
-
 
       </header>
     </div>

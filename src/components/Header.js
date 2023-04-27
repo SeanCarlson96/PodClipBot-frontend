@@ -14,13 +14,6 @@ const Header = () => {
     localStorage.removeItem('access_token');
   };
 
-  const isActive = (match, location) => {
-    if (match) {
-      return true;
-    }
-    return false;
-  };
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-secondary p-1">
       <div className="container-fluid d-flex justify-content-between">
@@ -31,13 +24,9 @@ const Header = () => {
           <li className="nav-item">
             <NavLink
               className="nav-link"
-              activeclassname="font-weight-bold"
-              isActive={isActive}
-              exact
+              activeclassname="font-bold text-gray-400"
+              exact='true'
               to="/"
-              style={({ isActive }) => ({
-                color: isActive ? '#b7b7b7' : 'white',
-              })}
             >
               Tool
             </NavLink>
@@ -45,12 +34,9 @@ const Header = () => {
           <li className="nav-item">
             <NavLink
               className="nav-link"
-              activeclassname="font-weight-bold"
-              isActive={isActive}
+              activeclassname="font-bold text-gray-400"
+              exact='true'
               to="/subscriptions"
-              style={({ isActive }) => ({
-                color: isActive ? '#b7b7b7' : 'white',
-              })}
             >
               Subscription
             </NavLink>
@@ -58,13 +44,9 @@ const Header = () => {
           <li className="nav-item">
             <NavLink
               className="nav-link"
-              activeclassname="font-weight-bold"
-              isActive={isActive}
-              exact
+              activeclassname="font-bold text-gray-400"
+              exact='true'
               to="/login"
-              style={({ isActive }) => ({
-                color: isActive ? '#b7b7b7' : 'white',
-              })}
             >
               <FontAwesomeIcon icon={faUser} />
             </NavLink>
@@ -77,13 +59,9 @@ const Header = () => {
               <li className="nav-item">
               <NavLink
                 className="nav-link"
-                activeclassname="font-weight-bold"
-                isActive={isActive}
-                exact
+                activeclassname="font-bold text-gray-400"
+                exact='true'
                 to="/login"
-                style={({ isActive }) => ({
-                  color: isActive ? '#b7b7b7' : 'white',
-                })}
                 onClick={handleLogout}
               >
               <FontAwesomeIcon icon={faSignOut} />
@@ -93,12 +71,9 @@ const Header = () => {
               <li className="nav-item">
                 <NavLink
                   className="nav-link"
-                  activeclassname="font-weight-bold"
-                  isActive={isActive}
+                  activeclassname="font-bold text-gray-400"
+                  exact='true'
                   to="/login"
-                  style={({ isActive }) => ({
-                    color: isActive ? '#b7b7b7' : 'white',
-                  })}
                 >
                   Login
                 </NavLink>

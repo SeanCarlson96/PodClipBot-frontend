@@ -81,6 +81,7 @@ const Login = () => {
                 )}
             </form>
             <p className="text-center"><a href="/registration">Register</a></p>
+
         </div>
     );
 };
