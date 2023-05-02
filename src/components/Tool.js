@@ -309,7 +309,7 @@ function Tool() {
           </div>
           <div className="form-group flex flex-col gap-2">
             <div className='flex justify-between mb-2'>
-              <label htmlFor="add-clips">2. Add timestamps for as many clips as you'd like:</label>
+              <label className='border border-black' htmlFor="add-clips">2. Add timestamps for as many clips as you'd like:</label>
               <button type="button" id="add-clips" className="btn btn-primary w-36 self-end" onClick={handleAddClipTimeInput}>
                 <FontAwesomeIcon icon={faPlus} /> Add A Clip
               </button>
