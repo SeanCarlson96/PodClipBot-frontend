@@ -26,6 +26,7 @@ function Tool() {
   });
   // const [currentClipIndex, setCurrentClipIndex] = useState(0);
   const [currentClipName, setCurrentClipName] = useState('');
+  const [building, setBuilding] = useState(false);
 
   // console.log(videoClips)
   // console.log(currentClipIndex)
@@ -51,15 +52,21 @@ function Tool() {
   //     console.log('Received ', data.name);
   //     const newVideoClip = new ClipModel(data.name, data.filename, false);
     
-  //     setVideoClips((prevState) => {
-  //       let updated = false;
-  //       const updatedClips = prevState.map((clip) => {
-  //         if (!updated && clip.name === data.name) {
-  //           updated = true;
-  //           return newVideoClip;
-  //         }
-  //         return clip;
-  //       });
+      // setVideoClips((prevState) => {
+      //   let updated = false;
+      //   const updatedClips = prevState.map((clip, index) => {
+      //     if (!updated && clip.name === data.name) {
+      //       updated = true;
+
+      //       // Check if the current clip is the last clip in the array
+      //       if (index === prevState.length - 1) {
+      //         setBuilding(false);
+      //       }
+
+      //       return newVideoClip;
+      //     }
+      //     return clip;
+      //   });
     
   //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
   //       return updatedClips;
@@ -191,7 +198,7 @@ function Tool() {
 
       index++;
     }
-  
+    setBuilding(true);
     return { isValid: true, errorMessage: '' };
   };
 
@@ -236,23 +243,23 @@ function Tool() {
     socket.emit("cancel_processing", { clipName: clipName });
   
     // Update the videoClips state to remove the clip with the specified clipName
-    // setVideoClips((prevState) => {
-    //   const updatedClips = prevState.filter((clip) => clip.name !== clipName);
-    //   return updatedClips;
-    // });
     setVideoClips((prevState) => {
-      console.log('Previous state:', prevState);
-    
       const updatedClips = prevState.filter((clip) => {
-        console.log('Current clip name:', clip.name);
-        console.log('Clip name to remove:', clipName);
         return clip.name !== clipName;
       });
-    
-      console.log('Updated clips:', updatedClips);
       return updatedClips;
     });
     
+  };
+
+  const cancelWholeProcess = () => {
+    // Emit the 'cancel_all_processing' event
+    const socket = io('http://127.0.0.1:5000');
+    socket.emit('cancel_all_processing');
+  };
+
+  const clearVideoClips = () => {
+    setVideoClips([]);
   };
 
   function handleAddClipTimeInput() {
@@ -312,10 +319,22 @@ function Tool() {
           <div className="form-group flex flex-col gap-2">
             <label htmlFor="trim-button">3. Build your clips:</label>
             {validationMessage && <p className="text-red-500">{validationMessage}</p>}
-            <button type="submit" id="trim-button" className="btn btn-primary w-36 self-start">
-              <FontAwesomeIcon icon={faHammer} /> Build Clips
-            </button>
-            {/* <p><a>Cancel Process</a></p> */}
+            <div>
+              <button type="submit" id="trim-button" className="btn btn-primary w-36 self-start">
+                <FontAwesomeIcon icon={faHammer} /> Build Clips
+              </button>
+              {building ? (
+                <button className="text-xs ml-3" onClick={cancelWholeProcess}>
+                  Cancel Entire Process
+                </button>
+              ) : (
+                videoClips.length > 0 && (
+                  <button className="text-xs ml-3" onClick={clearVideoClips}>
+                    Clear Video Clips
+                  </button>
+                )
+              )}
+            </div>
           </div>
         </form>
 
