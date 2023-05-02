@@ -20,22 +20,34 @@ function ClipTimeInput({ handleRemove, clipNumber }) {
   };
 
   return (
-    <div className="clip-time-input bg-white rounded position-relative">
-      <button type="button" className="btn btn-danger position-absolute top-0 end-0 m-2" onClick={handleClick}>
+
+    <div className="bg-white rounded position-relative">
+
+      <button type="button" className="btn btn-danger position-absolute top-0 end-0 m-2 border" onClick={handleClick}>
         <FontAwesomeIcon icon={faXmark} />
       </button>
-      <div className="form-group px-4 flex items-center">
-        <label className="m-auto">Clip {clipNumber}</label>
+
+      <div className="h-100 my-2 mr-12 flex justify-around items-center">
+
+        <div className="form-group m-0">
+          <label className="m-auto">Clip {clipNumber}</label>
+        </div>
+
+        <div className="form-group m-0">
+            <label htmlFor={`start-time-${clipNumber}`}>Start time (HH:MM:SS):</label>
+            <input type="text" id={`start-time-${clipNumber}`} name={`start-time-${clipNumber}`} className="form-control" value={startTime} onInput={handleInput(setStartTime)} />
+        </div>
+
+        <div className="form-group m-0">
+            <label htmlFor={`end-time-${clipNumber}`}>End time (HH:MM:SS):</label>
+            <input type="text" id={`end-time-${clipNumber}`} name={`end-time-${clipNumber}`} className="form-control" value={endTime} onInput={handleInput(setEndTime)} />
+        </div>
+
       </div>
-      <div className="form-group px-4">
-          <label htmlFor={`start-time-${clipNumber}`}>Start time (HH:MM:SS):</label>
-          <input type="text" id={`start-time-${clipNumber}`} name={`start-time-${clipNumber}`} className="form-control" value={startTime} onInput={handleInput(setStartTime)} />
-      </div>
-      <div className="form-group px-4">
-          <label htmlFor={`end-time-${clipNumber}`}>End time (HH:MM:SS):</label>
-          <input type="text" id={`end-time-${clipNumber}`} name={`end-time-${clipNumber}`} className="form-control" value={endTime} onInput={handleInput(setEndTime)} />
-      </div>
+
+
     </div>
+
   );
 }
 

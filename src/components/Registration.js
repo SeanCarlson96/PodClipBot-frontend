@@ -41,7 +41,7 @@ const Registration = () => {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-md-6">
-              <h2 className="text-center my-4">Registration</h2>
+              <h1 className="text-center">Registration</h1>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="username">Name</label>
@@ -91,7 +91,7 @@ const Registration = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button type="submit" className="btn btn-primary w-36">
                   Register
                 </button>
                 {message && (

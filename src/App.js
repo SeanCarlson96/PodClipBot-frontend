@@ -38,9 +38,9 @@ function App() {
     <UserContext.Provider value={{ user, setUser: handleSetUser }}>
       <Router>
           <Header />
-        <div className="App">
-          <Routing />
-        </div>
+          <div className="App p-5">
+            <Routing />
+          </div>
           <Footer />
       </Router>
     </UserContext.Provider>

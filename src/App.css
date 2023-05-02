@@ -1,102 +1,30 @@
-body {
-	font-family: Arial, sans-serif;
+/* div {
+	border: 1px solid black;
+} */
+
+h1 {
+	font-weight: 200 !important;
+}
+
+p {
+	font-weight: 300;
+	margin-bottom: 0 !important;
+}
+
+progress {
+	width: 152px;
 }
 
 .App {
-	padding: 20px;
 	min-height: 87.5vh;
 	background-color: #f5f5f7;
 }
 
 .Tool {
-	margin: 0 auto;
 	max-width: 800px;
-	padding: 20px;
-	background-color: #f5f5f7;
-}
-
-h1 {
-	font-size: 2.5rem;
-	margin-top: 0;
-}
-
-div {
-	border: 1px solid black;
-}
-
-.form-group {
-	margin-bottom: 1rem;
-}
-
-.form-group input[type="text"] {
-	border: 1px solid #909ca4;
-}
-
-label {
-	display: block;
-	font-weight: bold;
-	margin-bottom: 0.5rem;
-}
-
-.form-control {
-	display: block;
-	width: 100%;
-	padding: 0.375rem 0.75rem;
-	font-size: 1rem;
-	line-height: 1.5;
-	color: #495057;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #8e9fb0;
-	border-radius: 0.25rem;
-	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.form-control-file {
-	display: block;
-	width: 100%;
-	margin-top: 0.5rem;
-}
-
-/* .btn {
-	display: inline-block;
-	font-weight: 400;
-	color: #fff;
-	text-align: center;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-color: #007bff;
-	border: 1px solid #007bff;
-	padding: 0.375rem 0.75rem;
-	font-size: 1rem;
-	line-height: 1.5;
-	border-radius: 0.25rem;
-	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.btn:hover {
-	color: #fff;
-} */
-
-#loading-icon {
-	display: block;
-	margin: 0 auto;
-	border-color: red;
-}
-
-.clip-time-input {
-	display: flex;
 }
 
 .clip-box {
 	width: 152px;
 	height: 270px;
-}
-
-progress {
-	width: 152px;
-	margin-left: 1px;
 }

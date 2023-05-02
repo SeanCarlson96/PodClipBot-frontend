@@ -32,67 +32,67 @@ function Tool() {
   // console.log(currentClipIndex)
   // console.log(currentClipName)
   
-  // useEffect(() => {
-  //   // console.log('videoClips', videoClips)
-  //   const socket = io('http://127.0.0.1:5000');
-  //   socket.on('connect', () => {
-  //     // console.log('Connected to the server');
-  //   });
-  //   socket.on('current_clip_in_edit', (data) => {
-  //     console.log('Current clip in edit:', data)
-  //     if(data.name !== currentClipName) {
-  //       setCurrentClipName(data.name);
-  //     }
-  //   });
-  //   socket.on('video_processing_progress', (data) => {
-  //     // console.log('Progress:', data);
-  //     setProgress(data.progress);
-  //   });
-  //   socket.on('video_file_ready', (data) => {
-  //     console.log('Received ', data.name);
-  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
+  useEffect(() => {
+    // console.log('videoClips', videoClips)
+    const socket = io('http://127.0.0.1:5000');
+    socket.on('connect', () => {
+      // console.log('Connected to the server');
+    });
+    socket.on('current_clip_in_edit', (data) => {
+      console.log('Current clip in edit:', data)
+      if(data.name !== currentClipName) {
+        setCurrentClipName(data.name);
+      }
+    });
+    socket.on('video_processing_progress', (data) => {
+      // console.log('Progress:', data);
+      setProgress(data.progress);
+    });
+    socket.on('video_file_ready', (data) => {
+      console.log('Received ', data.name);
+      const newVideoClip = new ClipModel(data.name, data.filename, false);
+    
+      setVideoClips((prevState) => {
+        let updated = false;
+        const updatedClips = prevState.map((clip, index) => {
+          if (!updated && clip.name === data.name) {
+            updated = true;
+
+            // Check if the current clip is the last clip in the array
+            if (index === prevState.length - 1) {
+              setBuilding(false);
+            }
+
+            return newVideoClip;
+          }
+          return clip;
+        });
+    
+        localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
+        return updatedClips;
+      });
+
+      if (progress === 100) {
+        setProgress(0);
+      }
+      // setCurrentClipIndex((prevIndex) => prevIndex + 1);
+    });
+    socket.on("processing_canceled", (data) => {
+      console.log('Processing canceled:', data)
+      // const clipName = data.clipName;
     
       // setVideoClips((prevState) => {
-      //   let updated = false;
-      //   const updatedClips = prevState.map((clip, index) => {
-      //     if (!updated && clip.name === data.name) {
-      //       updated = true;
-
-      //       // Check if the current clip is the last clip in the array
-      //       if (index === prevState.length - 1) {
-      //         setBuilding(false);
-      //       }
-
-      //       return newVideoClip;
-      //     }
-      //     return clip;
-      //   });
-    
-  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
-  //       return updatedClips;
-  //     });
-
-  //     if (progress === 100) {
-  //       setProgress(0);
-  //     }
-  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
-  //   });
-  //   socket.on("processing_canceled", (data) => {
-  //     console.log('Processing canceled:', data)
-  //     // const clipName = data.clipName;
-    
-  //     // setVideoClips((prevState) => {
-  //     //   return prevState.map((clip) =>
-  //     //     clip.name === clipName
-  //     //       ? new ClipModel(clip.name, clip.filename, false)
-  //     //       : clip
-  //     //   );
-  //     // });
-  //   });
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, [videoClips, progress, currentClipName]);
+      //   return prevState.map((clip) =>
+      //     clip.name === clipName
+      //       ? new ClipModel(clip.name, clip.filename, false)
+      //       : clip
+      //   );
+      // });
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, [videoClips, progress, currentClipName]);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -283,53 +283,58 @@ function Tool() {
   }
   
   return (
-    <div className="Tool">
-      <header className="App-header">
-        <h1 className="font-extralight">Clip Creation Tool</h1>
-        <p className="font-light">
-          Upload your full length video file and enter the timestamps for your desired clips. 
-          The Podcast Clip Bot will then create the clips for you to download. Each clip will 
-          automatically crop the video to the proper short-form aspect ratio, center the video, add subtitles, 
-          and add random royalty free background music. If you would like to customize the tool to 
-          create higher value clips, we have subscription options available that allow for highly customizable clips.
-        </p>
+    <div className="Tool mx-auto flex flex-col gap-4">
 
-        <form id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data" className='mt-10 flex flex-col gap-4'>
-          <div className="form-group">
-            <label htmlFor="video-file">1. Upload your full length video file:</label>
-            <span
-              className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="Accepted file types: MP4, WebM, Ogg, MOV, AVI, FLV, MKV, WMV, MPEG, 3GP, M4V"
-            >
-              ?
-            </span>
+        <div>
+          <h1>Clip Creation Tool</h1>
+          <p>
+            Upload your full length video file and enter the timestamps for your desired clips. 
+            The Podcast Clip Bot will then create the clips for you to download. Each clip will 
+            automatically crop the video to the proper short-form aspect ratio, center the video, add subtitles, 
+            and add random royalty free background music. If you would like to customize the tool to 
+            create higher value clips, we have subscription options available that allow for highly customizable clips.
+          </p>
+        </div>
+
+        <form className='flex flex-col gap-4' id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data">
+          {/* Step 1 */}
+          <div className="form-group flex flex-col gap-2">
+            <label className="flex gap-2 font-bold" htmlFor="video-file">1. Upload your full length video file: 
+              <span
+                className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Accepted file types: MP4, WebM, Ogg, MOV, AVI, FLV, MKV, WMV, MPEG, 3GP, M4V"
+              >?</span>
+            </label>
+            
             <input type="file" id="video-file" name="video-file" className="form-control-file"  onChange={handleVideoFileChange} />
           </div>
-          <div className="form-group flex flex-col gap-2">
-            <div className='flex justify-between mb-2'>
-              <label className='border border-black' htmlFor="add-clips">2. Add timestamps for as many clips as you'd like:</label>
-              <button type="button" id="add-clips" className="btn btn-primary w-36 self-end" onClick={handleAddClipTimeInput}>
+          {/* Step 2 */}
+          <div className="form-group flex flex-col gap-3">
+            <div className='flex justify-between items-center p-0'>
+              <label className="font-bold" htmlFor="add-clips">2. Add timestamps for as many clips as you'd like:</label>
+              <button type="button" id="add-clips" className="btn btn-primary w-36" onClick={handleAddClipTimeInput}>
                 <FontAwesomeIcon icon={faPlus} /> Add A Clip
               </button>
             </div>
             {clipInputs}
           </div>
+          {/* Step 3 */}
           <div className="form-group flex flex-col gap-2">
-            <label htmlFor="trim-button">3. Build your clips:</label>
+            <label className="font-bold" htmlFor="trim-button">3. Build your clips:</label>
             {validationMessage && <p className="text-red-500">{validationMessage}</p>}
-            <div>
-              <button type="submit" id="trim-button" className="btn btn-primary w-36 self-start">
+            <div className="flex gap-3">
+              <button type="submit" id="trim-button" className="btn btn-primary w-36">
                 <FontAwesomeIcon icon={faHammer} /> Build Clips
               </button>
               {building ? (
-                <button className="text-xs ml-3" onClick={cancelWholeProcess}>
+                <button className="text-xs" onClick={cancelWholeProcess}>
                   Cancel Entire Process
                 </button>
               ) : (
                 videoClips.length > 0 && (
-                  <button className="text-xs ml-3" onClick={clearVideoClips}>
+                  <button className="text-xs" onClick={clearVideoClips}>
                     Clear Video Clips
                   </button>
                 )
@@ -340,20 +345,20 @@ function Tool() {
 
         {/* {message && <p>{message}</p>} */}
 
-        <div className="d-flex flex-wrap">
+        <div className="flex gap-2 flex-wrap">
           {videoClips.map((clip, index) => (
-            <div key={index} className="border border-black mr-2">
+            <div key={index} className="border mr-2">
               {clip.loading ? (
                 clip.name === currentClipName ? (
                   <div className="clip-box relative flex items-center justify-center">
-                    <div className="w-11/12  flex flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-11/12 flex flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         <p className='text-xs'>Constructing {clip.name}</p>
                         <div className="progress w-full" style={{ height: '10px' }}>
                         <div
                             className="progress-bar"
                             role="progressbar"
-                              style={{ width: `${progress}%` }}
-                              aria-valuenow={progress}
+                            style={{ width: `${progress}%` }}
+                            aria-valuenow={progress}
                             aria-valuemin="0"
                             aria-valuemax="100"
                         ></div>
@@ -368,15 +373,14 @@ function Tool() {
                 </div>
                 ) : (
                   <div className="clip-box relative">
-                    <div className="w-full flex flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-full flex flex-col gap-2 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                       <ClipLoader color="#123abc" size={50} id="loading-icon" />
-                        <p className='text-xs pt-2'>{clip.name} waiting...</p>
+                        <p className='text-xs'>{clip.name} waiting...</p>
                     </div>
                   </div>
                 )
               ) : (
                 <div>
-                  {/* <p>Name = {clip.name}</p> */}
                   <CustomVideoPlayer
                     src={`http://127.0.0.1:5000/uploads/${clip.filename}`}
                     filename={clip.filename}
@@ -387,7 +391,6 @@ function Tool() {
           ))}
         </div>
 
-      </header>
     </div>
   );
 }
