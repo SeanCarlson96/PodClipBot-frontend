@@ -35,13 +35,13 @@ const Login = () => {
     };
 
     return (
-        <div className="container mx-auto">
-            <h1 className="text-center my-4 text-3xl font-bold">Login</h1>
+        <div className="container mt-5">
+            <h1 className="text-center my-4 text-3xl font-bold">Sign In</h1>
             <form onSubmit={handleSubmit} className="w-full max-w-sm mx-auto">
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                    {/* <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                         Email
-                    </label>
+                    </label> */}
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="email"
@@ -52,12 +52,12 @@ const Login = () => {
                         required
                     />
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                <div className="mb-4">
+                    {/* <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                         Password
-                    </label>
+                    </label> */}
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="password"
                         type="password"
                         placeholder="Password"
@@ -80,7 +80,7 @@ const Login = () => {
                     </div>
                 )}
             </form>
-            <p className="text-center"><a href="/registration">Register</a></p>
+            <p className="text-center mt-2"><a href="/registration">Register</a></p>
 
         </div>
     );

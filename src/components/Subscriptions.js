@@ -1,7 +1,7 @@
 
 const SubscriptionCard = ({ planName, price, benefits }) => (
-  <div className="bg-white border-2 border-black rounded-lg shadow-md p-6 mx-2 my-6 w-full sm:w-1/3">
-    <h2 className="text-2xl font-bold mb-4">{planName}</h2>
+  <div className="bg-white rounded-lg p-6 mx-2 my-6 flex-shrink flex-grow">
+    <h2 className="mb-4 font-light">{planName}</h2>
     <p className="text-xl text-gray-600 mb-6">${price}/month</p>
     <ul className="list-unstyled">
       {benefits.map((benefit, index) => (
@@ -44,8 +44,8 @@ const Subscriptions = () => {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-4xl font-bold">Subscription Plans</h1>
-      <p className="mb-10">Unlock new features of our tool with each level of subscription!</p>
+      <h1 className="font-extralight">Subscription Plans</h1>
+      <p className="mb-10 font-light">Unlock new features of our tool with each level of subscription!</p>
       <div className="flex flex-wrap justify-center">
         {subscriptionOptions.map((option, index) => (
           <SubscriptionCard key={index} {...option} />

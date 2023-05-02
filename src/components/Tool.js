@@ -31,61 +31,61 @@ function Tool() {
   // console.log(currentClipIndex)
   // console.log(currentClipName)
   
-  useEffect(() => {
-    // console.log('videoClips', videoClips)
-    const socket = io('http://127.0.0.1:5000');
-    socket.on('connect', () => {
-      // console.log('Connected to the server');
-    });
-    socket.on('current_clip_in_edit', (data) => {
-      console.log('Current clip in edit:', data)
-      if(data.name !== currentClipName) {
-        setCurrentClipName(data.name);
-      }
-    });
-    socket.on('video_processing_progress', (data) => {
-      // console.log('Progress:', data);
-      setProgress(data.progress);
-    });
-    socket.on('video_file_ready', (data) => {
-      console.log('Received ', data.name);
-      const newVideoClip = new ClipModel(data.name, data.filename, false);
+  // useEffect(() => {
+  //   // console.log('videoClips', videoClips)
+  //   const socket = io('http://127.0.0.1:5000');
+  //   socket.on('connect', () => {
+  //     // console.log('Connected to the server');
+  //   });
+  //   socket.on('current_clip_in_edit', (data) => {
+  //     console.log('Current clip in edit:', data)
+  //     if(data.name !== currentClipName) {
+  //       setCurrentClipName(data.name);
+  //     }
+  //   });
+  //   socket.on('video_processing_progress', (data) => {
+  //     // console.log('Progress:', data);
+  //     setProgress(data.progress);
+  //   });
+  //   socket.on('video_file_ready', (data) => {
+  //     console.log('Received ', data.name);
+  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
     
-      setVideoClips((prevState) => {
-        let updated = false;
-        const updatedClips = prevState.map((clip) => {
-          if (!updated && clip.name === data.name) {
-            updated = true;
-            return newVideoClip;
-          }
-          return clip;
-        });
+  //     setVideoClips((prevState) => {
+  //       let updated = false;
+  //       const updatedClips = prevState.map((clip) => {
+  //         if (!updated && clip.name === data.name) {
+  //           updated = true;
+  //           return newVideoClip;
+  //         }
+  //         return clip;
+  //       });
     
-        localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
-        return updatedClips;
-      });
+  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
+  //       return updatedClips;
+  //     });
 
-      if (progress === 100) {
-        setProgress(0);
-      }
-      // setCurrentClipIndex((prevIndex) => prevIndex + 1);
-    });
-    socket.on("processing_canceled", (data) => {
-      console.log('Processing canceled:', data)
-      // const clipName = data.clipName;
+  //     if (progress === 100) {
+  //       setProgress(0);
+  //     }
+  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
+  //   });
+  //   socket.on("processing_canceled", (data) => {
+  //     console.log('Processing canceled:', data)
+  //     // const clipName = data.clipName;
     
-      // setVideoClips((prevState) => {
-      //   return prevState.map((clip) =>
-      //     clip.name === clipName
-      //       ? new ClipModel(clip.name, clip.filename, false)
-      //       : clip
-      //   );
-      // });
-    });
-    return () => {
-      socket.disconnect();
-    };
-  }, [videoClips, progress, currentClipName]);
+  //     // setVideoClips((prevState) => {
+  //     //   return prevState.map((clip) =>
+  //     //     clip.name === clipName
+  //     //       ? new ClipModel(clip.name, clip.filename, false)
+  //     //       : clip
+  //     //   );
+  //     // });
+  //   });
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [videoClips, progress, currentClipName]);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -301,7 +301,7 @@ function Tool() {
             <input type="file" id="video-file" name="video-file" className="form-control-file"  onChange={handleVideoFileChange} />
           </div>
           <div className="form-group flex flex-col gap-2">
-            <div className='flex justify-between'>
+            <div className='flex justify-between mb-2'>
               <label htmlFor="add-clips">2. Add timestamps for as many clips as you'd like:</label>
               <button type="button" id="add-clips" className="btn btn-primary w-36 self-end" onClick={handleAddClipTimeInput}>
                 <FontAwesomeIcon icon={faPlus} /> Add A Clip
