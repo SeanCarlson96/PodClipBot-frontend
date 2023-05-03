@@ -1,11 +1,13 @@
 import { useContext, useState } from 'react';
 import UserContext from '../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const { setUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,7 +26,7 @@ const Login = () => {
                 // console.log('Access Token:', data.access_token);
                 localStorage.setItem('access_token', data.access_token);
                 setUser(data.user);
-                setMessage('Login successful');
+                navigate('/');
             } else {
                 setMessage('Invalid email or password.');
             }
@@ -39,7 +41,7 @@ const Login = () => {
 
             <h1>Sign In</h1>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center w-full">
+            <form className="flex flex-col gap-4 items-center w-full" onSubmit={handleSubmit}>
                 
                 <input
                     className="form-control"
@@ -64,10 +66,12 @@ const Login = () => {
                 <button className="btn btn-primary w-36" type="submit">Sign In</button>
 
             </form>
+
+            <a href="/email-input">Forgot Password</a>
             
             {message && (<p className="text-red-500">{message}</p>)}
 
-            <a href="/registration">Register</a>
+            {/* <a href="/registration">Register</a> */}
 
         </div>
     );

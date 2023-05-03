@@ -52,7 +52,7 @@ const Header = () => {
                   className="nav-link"
                   activeclassname="font-bold text-gray-400"
                   exact='true'
-                  to="/login"
+                  to="/profile"
                 >
                   <FontAwesomeIcon icon={faUser} />
                 </NavLink>
@@ -74,9 +74,9 @@ const Header = () => {
                   className="nav-link"
                   activeclassname="font-bold text-gray-400"
                   exact='true'
-                  to="/login"
+                  to="/registration"
                 >
-                  Sign In
+                  Register
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -84,9 +84,9 @@ const Header = () => {
                   className="nav-link"
                   activeclassname="font-bold text-gray-400"
                   exact='true'
-                  to="/registration"
+                  to="/login"
                 >
-                  Register
+                  Sign In
                 </NavLink>
               </li>
               </>

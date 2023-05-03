@@ -253,9 +253,15 @@ function Tool() {
   };
 
   const cancelWholeProcess = () => {
-    // Emit the 'cancel_all_processing' event
-    const socket = io('http://127.0.0.1:5000');
-    socket.emit('cancel_all_processing');
+    console.log("Canceling remaining process");
+    // Filter the videoClips to get the names of clips with loading value true
+    const undeliveredClipNames = videoClips
+      .filter((clip) => clip.loading)
+      .map((clip) => clip.name);
+  
+    // Loop through the undelivered clip names and call handleCancel for each
+    undeliveredClipNames.forEach((clipName) => handleCancel(clipName));
+    setBuilding(false);
   };
 
   const clearVideoClips = () => {
@@ -284,7 +290,7 @@ function Tool() {
   
   return (
     <div className="Tool mx-auto flex flex-col gap-4">
-
+        {/* H1 and paragraph */}
         <div>
           <h1>Clip Creation Tool</h1>
           <p>
@@ -308,7 +314,7 @@ function Tool() {
               >?</span>
             </label>
             
-            <input type="file" id="video-file" name="video-file" className="form-control-file"  onChange={handleVideoFileChange} />
+            <input type="file" id="video-file" name="video-file" className="form-control-file"  onChange={handleVideoFileChange}/>
           </div>
           {/* Step 2 */}
           <div className="form-group flex flex-col gap-3">
@@ -325,16 +331,16 @@ function Tool() {
             <label className="font-bold" htmlFor="trim-button">3. Build your clips:</label>
             {validationMessage && <p className="text-red-500">{validationMessage}</p>}
             <div className="flex gap-3">
-              <button type="submit" id="trim-button" className="btn btn-primary w-36">
+              <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building ? true : false}>
                 <FontAwesomeIcon icon={faHammer} /> Build Clips
               </button>
               {building ? (
-                <button className="text-xs" onClick={cancelWholeProcess}>
-                  Cancel Entire Process
+                <button className="text-xs" type="button" onClick={cancelWholeProcess}>
+                  Cancel Remaining Process
                 </button>
               ) : (
                 videoClips.length > 0 && (
-                  <button className="text-xs" onClick={clearVideoClips}>
+                  <button className="text-xs" type="button" onClick={clearVideoClips}>
                     Clear Video Clips
                   </button>
                 )
@@ -343,8 +349,7 @@ function Tool() {
           </div>
         </form>
 
-        {/* {message && <p>{message}</p>} */}
-
+        {/* Display Clips */}
         <div className="flex gap-2 flex-wrap">
           {videoClips.map((clip, index) => (
             <div key={index} className="border mr-2">
