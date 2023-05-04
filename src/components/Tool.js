@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import ClipTimeInput from './ClipTimeInput';
@@ -9,11 +9,11 @@ import CustomVideoPlayer from './CustomVideoPlayer';
 import { Tooltip } from 'bootstrap';
 import io from 'socket.io-client';
 import ClipModel from '../ClipModel';
+import UserContext from '../contexts/UserContext';
 
 function Tool() {
-  // const [message, setMessage] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
-  const [clipInputs, setClipInputs] = useState([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} />]);
+  const [clipInputs, setClipInputs] = useState([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} newTimes={["00:00:00", "00:00:00"]} />]);
   const [videoDuration, setVideoDuration] = useState(0);
   const [progress, setProgress] = useState(0);
   const [videoClips, setVideoClips] = useState(() => {
@@ -24,14 +24,31 @@ function Tool() {
         )
       : [];
   });
-  // const [currentClipIndex, setCurrentClipIndex] = useState(0);
   const [currentClipName, setCurrentClipName] = useState('');
   const [building, setBuilding] = useState(false);
+  const { user } = useContext(UserContext);
+  const [subscriptionMessage, setSubscriptionMessage] = useState('You are using the Free plan with limited features.');
 
-  // console.log(videoClips)
-  // console.log(currentClipIndex)
-  // console.log(currentClipName)
-  
+  useEffect(() => {
+    if(user){
+      switch (user.subscription) {
+        case 'none':
+          setSubscriptionMessage('You are using the Free plan with limited features.');
+          break;
+        case 'basic':
+          setSubscriptionMessage('You are using the Basic plan with additional features.');
+          break;
+        case 'premium':
+          setSubscriptionMessage('You are using the Premium plan with all features unlocked.');
+          break;
+        default:
+          setSubscriptionMessage('Unknown subscription plan.');
+          break;
+      }
+    }
+
+  }, [user]);
+
   useEffect(() => {
     // console.log('videoClips', videoClips)
     const socket = io('http://127.0.0.1:5000');
@@ -181,6 +198,10 @@ function Tool() {
       return { isValid: false, errorMessage: 'File size exceeds the 10 GB limit. Please upload a smaller video file.' };
     }
 
+    if (!formData.get('start-time-1')) {
+      return { isValid: false, errorMessage: 'Please create at least one clip.' };
+    }
+
     let index = 1;
     let startTime, endTime;
 
@@ -206,7 +227,6 @@ function Tool() {
     event.preventDefault();
     console.log("Building clips")
     localStorage.removeItem('videoFiles');
-    // setVideoFilenames([]);
     setVideoClips([]);
     const formData = new FormData(event.target);
     const validationResult = validateForm(formData);
@@ -216,16 +236,17 @@ function Tool() {
     }
     setValidationMessage('');
     calculateClipsExpected(formData);
-    // setLoading(true);
     const file = formData.get('video-file');
     formData.set('video-file', cleanFileName(file));
   
     axios.post('http://127.0.0.1:5000/trim', formData)
-      .then(() => {
+      .then((response) => {
+        console.log(response.data.message);
         // The POST request is sent, and the WebSocket event listener will
         // handle the video files as they arrive
       })
       .catch(error => {
+        console.log(error);
         // setMessage('Error constructing clips.');
         // setLoading(false);
       });
@@ -271,7 +292,7 @@ function Tool() {
   function handleAddClipTimeInput() {
     setClipInputs(prevState => {
       const clipNumber = prevState.length + 1;
-      return [...prevState, <ClipTimeInput key={clipNumber} clipNumber={clipNumber} handleRemove={handleRemoveClipTimeInput(clipNumber)} />];
+      return [...prevState, <ClipTimeInput key={clipNumber} clipNumber={clipNumber} handleRemove={handleRemoveClipTimeInput(clipNumber)} newTimes={["00:00:00", "00:00:00"]} />];
     });
   }
 
@@ -282,11 +303,49 @@ function Tool() {
         return newClipInputs.map((clipInput, index) => {
           const newClipNumber = index + 1;
           const newHandleRemove = handleRemoveClipTimeInput(newClipNumber);
-          return <ClipTimeInput key={newClipNumber} clipNumber={newClipNumber} handleRemove={newHandleRemove} />;
+
+          const timestamps = [];
+
+          if (newClipNumber < clipNumberToRemove){
+            timestamps.push(document.getElementById(`start-time-${index + 1}`).value);
+            timestamps.push(document.getElementById(`end-time-${index + 1}`).value);
+          }
+
+          //if the newClipInputs length +1 is greater than the clipNumberToRemove
+          if(newClipNumber >= clipNumberToRemove) {
+            const nextClipStartTime = document.getElementById(`start-time-${newClipNumber + 1}`).value;
+            const nextClipEndTime = document.getElementById(`end-time-${newClipNumber + 1}`).value;
+            timestamps.push(nextClipStartTime);
+            timestamps.push(nextClipEndTime);
+          }
+
+          return <ClipTimeInput key={newClipNumber} clipNumber={newClipNumber} handleRemove={newHandleRemove} newTimes={timestamps}/>;
         });
       });
     };
   }
+
+  const handleReset = () => {
+    // Clear the "video-file" field
+    const videoFileField = document.getElementById("video-file");
+    videoFileField.value = "";
+  
+    // Select all elements with an ID starting with "start-time-" or "end-time-"
+    const startTimeFields = document.querySelectorAll('[id^="start-time-"]');
+    const endTimeFields = document.querySelectorAll('[id^="end-time-"]');
+  
+    // Reset the values of the selected elements
+    const resetField = (field) => {
+      field.value = "00:00:00";
+    };
+  
+    startTimeFields.forEach(resetField);
+    endTimeFields.forEach(resetField);
+
+    // const resetTimes = ["00:00:00", "00:00:00"];
+    setClipInputs([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} newTimes={["00:00:00", "00:00:00"]}/>]);
+    setValidationMessage('');
+  };
   
   return (
     <div className="Tool mx-auto flex flex-col gap-4">
@@ -302,6 +361,9 @@ function Tool() {
           </p>
         </div>
 
+        {<h3>{subscriptionMessage}</h3>}
+
+        {/* Form */}
         <form className='flex flex-col gap-4' id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data">
           {/* Step 1 */}
           <div className="form-group flex flex-col gap-2">
@@ -314,7 +376,7 @@ function Tool() {
               >?</span>
             </label>
             
-            <input type="file" id="video-file" name="video-file" className="form-control-file"  onChange={handleVideoFileChange}/>
+            <input type="file" id="video-file" name="video-file" className="form-control-file" onChange={handleVideoFileChange}/>
           </div>
           {/* Step 2 */}
           <div className="form-group flex flex-col gap-3">
@@ -346,6 +408,9 @@ function Tool() {
                 )
               )}
             </div>
+            <button className="text-xs self-start" type="button" onClick={handleReset}>
+              Reset Form
+            </button>
           </div>
         </form>
 
@@ -356,7 +421,7 @@ function Tool() {
               {clip.loading ? (
                 clip.name === currentClipName ? (
                   <div className="clip-box relative flex items-center justify-center">
-                    <div className="w-11/12 flex flex-col items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="w-11/12 flex flex-col gap-3 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         <p className='text-xs'>Constructing {clip.name}</p>
                         <div className="progress w-full" style={{ height: '10px' }}>
                         <div
@@ -369,7 +434,7 @@ function Tool() {
                         ></div>
                         </div>
                         <button
-                            className="btn btn-danger mt-4"
+                            className="btn btn-danger"
                             onClick={() => handleCancel(clip.name)}
                         >
                         Cancel
@@ -401,4 +466,3 @@ function Tool() {
 }
 
 export default Tool;
-

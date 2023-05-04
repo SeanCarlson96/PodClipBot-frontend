@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-function ClipTimeInput({ handleRemove, clipNumber }) {
+function ClipTimeInput({ handleRemove, clipNumber, newTimes }) {
 
   const [startTime, setStartTime] = useState("00:00:00");
   const [endTime, setEndTime] = useState("00:00:00");
+
+  useEffect(() => {
+    if (newTimes) {
+      setStartTime(newTimes[0]);
+      setEndTime(newTimes[1]);
+    }
+  }, [newTimes]);
 
   const handleClick = () => {
     handleRemove(clipNumber);

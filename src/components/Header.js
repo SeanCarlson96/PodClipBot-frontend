@@ -1,7 +1,7 @@
 
 import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import React, { useContext } from 'react';
 import UserContext from '../contexts/UserContext';
 
@@ -54,7 +54,8 @@ const Header = () => {
                   exact='true'
                   to="/profile"
                 >
-                  <FontAwesomeIcon icon={faUser} />
+                  {/* <FontAwesomeIcon icon={faUser} /> */}
+                  Profile
                 </NavLink>
               </li><li className="nav-item">
                 <NavLink
@@ -64,7 +65,8 @@ const Header = () => {
                   to="/login"
                   onClick={handleLogout}
                 >
-                  <FontAwesomeIcon icon={faSignOut} />
+                  {/* <FontAwesomeIcon icon={faSignOut} /> */}
+                  Logout
                 </NavLink>
               </li></>
             ) : (
