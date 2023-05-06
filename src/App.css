@@ -16,9 +16,9 @@ progress {
 }
 
 .App {
-	min-height: 87.5vh;
+	min-height: 90.5vh;
 	/* background-color: #f5f5f7; */
-	background-color: #c8c8e2;
+	background-color: #b9babd;
 }
 
 .Tool {
@@ -28,4 +28,14 @@ progress {
 .clip-box {
 	width: 152px;
 	height: 270px;
+}
+
+.base-plan-input {
+	border-bottom: 2px solid rgb(79, 70, 229);
+}
+.advanced-plan-input {
+	border-bottom: 2px solid rgb(239, 68, 68);
+}
+.premium-plan-input {
+	border-bottom: 2px solid rgb(245, 158, 11);
 }

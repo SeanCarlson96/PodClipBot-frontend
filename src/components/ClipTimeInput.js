@@ -30,24 +30,24 @@ function ClipTimeInput({ handleRemove, clipNumber, newTimes }) {
 
     <div className="bg-white rounded position-relative">
 
-      <button type="button" className="btn btn-danger position-absolute top-0 end-0 m-2 border" onClick={handleClick}>
+      <button type="button" className="btn btn-danger position-absolute top-0 end-0 m-2" onClick={handleClick}>
         <FontAwesomeIcon icon={faXmark} />
       </button>
 
       <div className="h-100 my-2 mr-12 flex justify-around items-center">
 
-        <div className="form-group m-0">
+        <div className="form-group">
           <label className="m-auto">Clip {clipNumber}</label>
         </div>
 
-        <div className="form-group m-0">
+        <div className="form-group">
             <label htmlFor={`start-time-${clipNumber}`}>Start time (HH:MM:SS):</label>
-            <input type="text" id={`start-time-${clipNumber}`} name={`start-time-${clipNumber}`} className="form-control" value={startTime} onInput={handleInput(setStartTime)} />
+            <input className="form-control" type="text" id={`start-time-${clipNumber}`} name={`start-time-${clipNumber}`} value={startTime} onInput={handleInput(setStartTime)} />
         </div>
 
-        <div className="form-group m-0">
+        <div className="form-group">
             <label htmlFor={`end-time-${clipNumber}`}>End time (HH:MM:SS):</label>
-            <input type="text" id={`end-time-${clipNumber}`} name={`end-time-${clipNumber}`} className="form-control" value={endTime} onInput={handleInput(setEndTime)} />
+            <input className="form-control" type="text" id={`end-time-${clipNumber}`} name={`end-time-${clipNumber}`} value={endTime} onInput={handleInput(setEndTime)} />
         </div>
 
       </div>

@@ -19,18 +19,18 @@ const SubscriptionCard = ({ planName, price, benefits }) => (
 const Subscriptions = () => {
   const subscriptionOptions = [
     {
-      planName: "Basic",
-      price: 9.99,
+      planName: "Base",
+      price: 1.99,
       benefits: ["Feature 1", "Feature 2"],
     },
     {
-      planName: "Pro",
-      price: 19.99,
+      planName: "Base Plus",
+      price: 4.99,
       benefits: ["Feature 1", "Feature 2", "Feature 3", "Feature 4"],
     },
     {
-      planName: "Enterprise",
-      price: 49.99,
+      planName: "Premium",
+      price: 9.99,
       benefits: [
         "Feature 1",
         "Feature 2",

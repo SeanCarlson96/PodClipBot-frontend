@@ -10,6 +10,7 @@ import { Tooltip } from 'bootstrap';
 import io from 'socket.io-client';
 import ClipModel from '../ClipModel';
 import UserContext from '../contexts/UserContext';
+import SubscriptionSwitch from './SubscriptionSwitch';
 
 function Tool() {
   const [validationMessage, setValidationMessage] = useState('');
@@ -27,7 +28,7 @@ function Tool() {
   const [currentClipName, setCurrentClipName] = useState('');
   const [building, setBuilding] = useState(false);
   const { user } = useContext(UserContext);
-  const [subscriptionMessage, setSubscriptionMessage] = useState('You are using the Free plan with limited features.');
+  const [subscriptionMessage, setSubscriptionMessage] = useState('');
 
   useEffect(() => {
     if(user){
@@ -35,8 +36,11 @@ function Tool() {
         case 'none':
           setSubscriptionMessage('You are using the Free plan with limited features.');
           break;
-        case 'basic':
-          setSubscriptionMessage('You are using the Basic plan with additional features.');
+        case 'base':
+          setSubscriptionMessage('You are using the Base plan with additional features.');
+          break;
+        case 'advanced':
+          setSubscriptionMessage('You are using the Advanced plan with additional features.');
           break;
         case 'premium':
           setSubscriptionMessage('You are using the Premium plan with all features unlocked.');
@@ -45,8 +49,9 @@ function Tool() {
           setSubscriptionMessage('Unknown subscription plan.');
           break;
       }
+    } else {
+      setSubscriptionMessage('You are using the Free plan with limited features.');
     }
-
   }, [user]);
 
   useEffect(() => {
@@ -361,21 +366,18 @@ function Tool() {
           </p>
         </div>
 
-        {<h3>{subscriptionMessage}</h3>}
-
         {/* Form */}
         <form className='flex flex-col gap-4' id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data">
           {/* Step 1 */}
           <div className="form-group flex flex-col gap-2">
-            <label className="flex gap-2 font-bold" htmlFor="video-file">1. Upload your full length video file: 
-              <span
-                className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Accepted file types: MP4, WebM, Ogg, MOV, AVI, FLV, MKV, WMV, MPEG, 3GP, M4V"
-              >?</span>
-            </label>
-            
+              <label className="flex gap-2 font-bold" htmlFor="video-file">1. Upload your full length video file:
+                <span
+                  className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Accepted file types: MP4, WebM, Ogg, MOV, AVI, FLV, MKV, WMV, MPEG, 3GP, M4V"
+                >?</span>
+              </label>
             <input type="file" id="video-file" name="video-file" className="form-control-file" onChange={handleVideoFileChange}/>
           </div>
           {/* Step 2 */}
@@ -389,28 +391,40 @@ function Tool() {
             {clipInputs}
           </div>
           {/* Step 3 */}
-          <div className="form-group flex flex-col gap-2">
-            <label className="font-bold" htmlFor="trim-button">3. Build your clips:</label>
-            {validationMessage && <p className="text-red-500">{validationMessage}</p>}
-            <div className="flex gap-3">
-              <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building ? true : false}>
-                <FontAwesomeIcon icon={faHammer} /> Build Clips
-              </button>
-              {building ? (
-                <button className="text-xs" type="button" onClick={cancelWholeProcess}>
-                  Cancel Remaining Process
-                </button>
-              ) : (
-                videoClips.length > 0 && (
-                  <button className="text-xs" type="button" onClick={clearVideoClips}>
-                    Clear Video Clips
-                  </button>
-                )
-              )}
+          <div className="form-group flex flex-col gap-3">
+            <div className='flex gap-4'>
+              <label className="font-bold">3. Style your clips:</label>
+              {<div className="text-indigo-600">{subscriptionMessage}</div>}
             </div>
-            <button className="text-xs self-start" type="button" onClick={handleReset}>
-              Reset Form
-            </button>
+            <div>
+              <SubscriptionSwitch user={user} />
+            </div>
+          </div>
+          {/* Step 4 */}
+          <div className="form-group flex flex-col gap-2">
+            <label className="font-bold">4. Build your clips:</label>
+            {validationMessage && <p className="text-red-500">{validationMessage}</p>}
+            <div className="flex justify-between">
+              <div className="flex gap-3">
+                <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building ? true : false}>
+                  <FontAwesomeIcon icon={faHammer} /> Build Clips
+                </button>
+                {building ? (
+                  <button className="text-xs" type="button" onClick={cancelWholeProcess}>
+                    Cancel Remaining Process
+                  </button>
+                ) : (
+                  videoClips.length > 0 && (
+                    <button className="text-xs" type="button" onClick={clearVideoClips}>
+                      Clear Video Clips
+                    </button>
+                  )
+                )}
+              </div>
+              <button className="text-xs" type="button" onClick={handleReset}>
+                Reset Form
+              </button>
+            </div>
           </div>
         </form>
 
@@ -422,7 +436,7 @@ function Tool() {
                 clip.name === currentClipName ? (
                   <div className="clip-box relative flex items-center justify-center">
                     <div className="w-11/12 flex flex-col gap-3 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        <p className='text-xs'>Constructing {clip.name}</p>
+                        <p className='text-xs'>Building {clip.name}</p>
                         <div className="progress w-full" style={{ height: '10px' }}>
                         <div
                             className="progress-bar"
