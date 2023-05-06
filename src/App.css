@@ -30,10 +30,10 @@ progress {
 	height: 270px;
 }
 
-.base-plan-input {
+.base-plan-input label {
 	border-bottom: 2px solid rgb(79, 70, 229);
 }
-.advanced-plan-input {
+.advanced-plan-input label {
 	border-bottom: 2px solid rgb(239, 68, 68);
 }
 .premium-plan-input {

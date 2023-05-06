@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
+// import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import ClipTimeInput from './ClipTimeInput';
@@ -9,7 +10,7 @@ import CustomVideoPlayer from './CustomVideoPlayer';
 import { Tooltip } from 'bootstrap';
 import io from 'socket.io-client';
 import ClipModel from '../ClipModel';
-import UserContext from '../contexts/UserContext';
+// import UserContext from '../contexts/UserContext';
 import SubscriptionSwitch from './SubscriptionSwitch';
 
 function Tool() {
@@ -27,23 +28,37 @@ function Tool() {
   });
   const [currentClipName, setCurrentClipName] = useState('');
   const [building, setBuilding] = useState(false);
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
+
+  // const user = {"email":"client@gmail.com","username":"c","subscription":"base"};
+  const user = useMemo(() => ({
+    email: 'client@gmail.com',
+    username: 'c',
+    subscription: 'advanced',
+  }), []);
+  
   const [subscriptionMessage, setSubscriptionMessage] = useState('');
+  const [subTextColor, setSubTextColor] = useState('');
 
   useEffect(() => {
     if(user){
+      console.log(user);
       switch (user.subscription) {
         case 'none':
           setSubscriptionMessage('You are using the Free plan with limited features.');
+          setSubTextColor('black');
           break;
         case 'base':
           setSubscriptionMessage('You are using the Base plan with additional features.');
+          setSubTextColor('rgb(79, 70, 229)');
           break;
         case 'advanced':
           setSubscriptionMessage('You are using the Advanced plan with additional features.');
+          setSubTextColor('rgb(239, 68, 68)');
           break;
         case 'premium':
           setSubscriptionMessage('You are using the Premium plan with all features unlocked.');
+          setSubTextColor('rgb(245, 158, 11)');
           break;
         default:
           setSubscriptionMessage('Unknown subscription plan.');
@@ -54,67 +69,67 @@ function Tool() {
     }
   }, [user]);
 
-  useEffect(() => {
-    // console.log('videoClips', videoClips)
-    const socket = io('http://127.0.0.1:5000');
-    socket.on('connect', () => {
-      // console.log('Connected to the server');
-    });
-    socket.on('current_clip_in_edit', (data) => {
-      console.log('Current clip in edit:', data)
-      if(data.name !== currentClipName) {
-        setCurrentClipName(data.name);
-      }
-    });
-    socket.on('video_processing_progress', (data) => {
-      // console.log('Progress:', data);
-      setProgress(data.progress);
-    });
-    socket.on('video_file_ready', (data) => {
-      console.log('Received ', data.name);
-      const newVideoClip = new ClipModel(data.name, data.filename, false);
+  // useEffect(() => {
+  //   // console.log('videoClips', videoClips)
+  //   const socket = io('http://127.0.0.1:5000');
+  //   socket.on('connect', () => {
+  //     // console.log('Connected to the server');
+  //   });
+  //   socket.on('current_clip_in_edit', (data) => {
+  //     console.log('Current clip in edit:', data)
+  //     if(data.name !== currentClipName) {
+  //       setCurrentClipName(data.name);
+  //     }
+  //   });
+  //   socket.on('video_processing_progress', (data) => {
+  //     // console.log('Progress:', data);
+  //     setProgress(data.progress);
+  //   });
+  //   socket.on('video_file_ready', (data) => {
+  //     console.log('Received ', data.name);
+  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
     
-      setVideoClips((prevState) => {
-        let updated = false;
-        const updatedClips = prevState.map((clip, index) => {
-          if (!updated && clip.name === data.name) {
-            updated = true;
+  //     setVideoClips((prevState) => {
+  //       let updated = false;
+  //       const updatedClips = prevState.map((clip, index) => {
+  //         if (!updated && clip.name === data.name) {
+  //           updated = true;
 
-            // Check if the current clip is the last clip in the array
-            if (index === prevState.length - 1) {
-              setBuilding(false);
-            }
+  //           // Check if the current clip is the last clip in the array
+  //           if (index === prevState.length - 1) {
+  //             setBuilding(false);
+  //           }
 
-            return newVideoClip;
-          }
-          return clip;
-        });
+  //           return newVideoClip;
+  //         }
+  //         return clip;
+  //       });
     
-        localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
-        return updatedClips;
-      });
+  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
+  //       return updatedClips;
+  //     });
 
-      if (progress === 100) {
-        setProgress(0);
-      }
-      // setCurrentClipIndex((prevIndex) => prevIndex + 1);
-    });
-    socket.on("processing_canceled", (data) => {
-      console.log('Processing canceled:', data)
-      // const clipName = data.clipName;
+  //     if (progress === 100) {
+  //       setProgress(0);
+  //     }
+  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
+  //   });
+  //   socket.on("processing_canceled", (data) => {
+  //     console.log('Processing canceled:', data)
+  //     // const clipName = data.clipName;
     
-      // setVideoClips((prevState) => {
-      //   return prevState.map((clip) =>
-      //     clip.name === clipName
-      //       ? new ClipModel(clip.name, clip.filename, false)
-      //       : clip
-      //   );
-      // });
-    });
-    return () => {
-      socket.disconnect();
-    };
-  }, [videoClips, progress, currentClipName]);
+  //     // setVideoClips((prevState) => {
+  //     //   return prevState.map((clip) =>
+  //     //     clip.name === clipName
+  //     //       ? new ClipModel(clip.name, clip.filename, false)
+  //     //       : clip
+  //     //   );
+  //     // });
+  //   });
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, [videoClips, progress, currentClipName]);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -394,7 +409,7 @@ function Tool() {
           <div className="form-group flex flex-col gap-3">
             <div className='flex gap-4'>
               <label className="font-bold">3. Style your clips:</label>
-              {<div className="text-indigo-600">{subscriptionMessage}</div>}
+              {<div style={{ color: subTextColor }}>{subscriptionMessage}</div>}
             </div>
             <div>
               <SubscriptionSwitch user={user} />
