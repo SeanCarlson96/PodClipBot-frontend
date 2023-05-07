@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FontDropdown from "./FontDropdown";
 
 const BasePlan = () => {
   const [subtitles, setSubtitles] = useState(true);
@@ -7,9 +8,9 @@ const BasePlan = () => {
   const [watermark, setWatermark] = useState(true);
   const [subtitleColor, setSubtitleColor] = useState("#ffffff");
   const [font, setFont] = useState("Arial");
-  const [fontSize, setFontSize] = useState(16);
-  const [subtitleBackgroundColor, setSubtitleBackgroundColor] =
-    useState("#000000");
+  const [fontSize, setFontSize] = useState(15);
+  const [subtitleBackground, setSubtitleBackground] =
+    useState(false);
   const [musicChoice, setMusicChoice] = useState("random");
 
   const handleSubtitlesToggle = () => {
@@ -40,8 +41,8 @@ const BasePlan = () => {
     setFontSize(e.target.value);
   };
 
-  const handleSubtitleBackgroundColorChange = (e) => {
-    setSubtitleBackgroundColor(e.target.value);
+  const handleSubtitleBackgroundToggle = () => {
+    setSubtitleBackground(!subtitleBackground);
   };
 
   const handleMusicChoiceChange = (e) => {
@@ -51,13 +52,20 @@ const BasePlan = () => {
   return (
     <div className="flex flex-col gap-4">
 
+      <input
+          type="hidden"
+          name="subscription"
+          value="base"
+      />
+
         {/* Subtitles */}
       <div className="flex flex-wrap gap-x-5 gap-y-1 items-center">
-        <div className="form-check form-switch flex gap-2 items-center">
+        <div className="form-check form-switch flex gap-2 items-center w-full">
           <input
             className="form-check-input"
             type="checkbox"
             id="subtitlesToggle"
+            name="subtitlesToggle"
             checked={subtitles}
             onChange={handleSubtitlesToggle}
           />
@@ -67,19 +75,11 @@ const BasePlan = () => {
         </div>
         <div className="font-select flex gap-2 items-center base-plan-input">
           <label htmlFor="font">Font:</label>
-          <select
-            className="form-select"
-            id="font"
+          <FontDropdown
             value={font}
             onChange={handleFontChange}
             disabled={!subtitles}
-          >
-            <option>Arial</option>
-            <option>Helvetica</option>
-            <option>Times New Roman</option>
-            <option>Verdana</option>
-            <option>Courier New</option>
-          </select>
+          />
         </div>
         <div className="font-size-select flex gap-2 items-center base-plan-input">
           <label className="w-36" htmlFor="fontSize">Font Size:</label>
@@ -87,8 +87,9 @@ const BasePlan = () => {
             className="form-control"
             type="number"
             id="fontSize"
-            min="8"
-            max="48"
+            name="fontSize"
+            min="5"
+            max="22"
             value={fontSize}
             onChange={handleFontSizeChange}
             disabled={!subtitles}
@@ -100,21 +101,23 @@ const BasePlan = () => {
             className="form-control form-control-color"
             type="color"
             id="subtitleColor"
+            name="subtitleColor"
             value={subtitleColor}
             onChange={handleSubtitleColorChange}
             disabled={!subtitles}
           />
         </div>
-        <div className="subtitle-background-color flex gap-2 items-center base-plan-input">
-          <label htmlFor="subtitleBackgroundColor">
-            Subtitle Background Color:
+        <div className="form-check form-switch flex gap-2 items-center base-plan-input">
+          <label className="form-check-label" htmlFor="subtitleBackgroundToggle">
+            Background
           </label>
           <input
-            className="form-control form-control-color"
-            type="color"
-            id="subtitleBackgroundColor"
-            value={subtitleBackgroundColor}
-            onChange={handleSubtitleBackgroundColorChange}
+            className="form-check-input"
+            type="checkbox"
+            id="subtitleBackgroundToggle"
+            name="subtitleBackgroundToggle"
+            value={subtitleBackground}
+            onChange={handleSubtitleBackgroundToggle}
             disabled={!subtitles}
           />
         </div>
@@ -122,7 +125,7 @@ const BasePlan = () => {
 
         {/* Music */}
       <div className="flex flex-wrap gap-x-5 gap-y-1 items-center">
-        <div className="form-check form-switch flex gap-2 items-center">
+        <div className="form-check form-switch flex gap-2 items-center w-full">
           <label className="form-check-label" htmlFor="musicToggle">
             Music
           </label>
@@ -130,6 +133,7 @@ const BasePlan = () => {
             className="form-check-input"
             type="checkbox"
             id="musicToggle"
+            name="musicToggle"
             checked={music}
             onChange={handleMusicToggle}
           />
@@ -140,6 +144,7 @@ const BasePlan = () => {
             className="volume-input"
             type="range"
             id="volume"
+            name="volume"
             min="0"
             max="100"
             value={volume}
@@ -153,6 +158,7 @@ const BasePlan = () => {
           <select
             className="form-select"
             id="musicChoice"
+            name="musicChoice"
             value={musicChoice}
             onChange={handleMusicChoiceChange}
             disabled={!music}
@@ -167,7 +173,7 @@ const BasePlan = () => {
 
         {/* Watermark */}
       <div className="flex flex-wrap gap-x-5 gap-y-1 items-center">
-        <div className="form-check form-switch flex gap-2 items-center base-plan-input">
+        <div className="form-check form-switch flex gap-2 items-center base-plan-input w-full">
           <label className="form-check-label" htmlFor="watermarkToggle">
             Watermark
           </label>
@@ -175,6 +181,7 @@ const BasePlan = () => {
             className="form-check-input"
             type="checkbox"
             id="watermarkToggle"
+            name="watermarkToggle"
             checked={watermark}
             onChange={handleWatermarkToggle}
           />

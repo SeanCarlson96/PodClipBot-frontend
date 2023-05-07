@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const FreePlan = () => {
-  const [subtitles, setSubtitles] = useState(false);
-  const [music, setMusic] = useState(false);
+  const [subtitles, setSubtitles] = useState(true);
+  const [music, setMusic] = useState(true);
   const [volume, setVolume] = useState(50);
 
   const handleSubtitlesToggle = () => {
@@ -19,11 +19,17 @@ const FreePlan = () => {
 
   return (
     <div className="flex gap-5 items-center">
+        <input
+          type="hidden"
+          name="subscription"
+          value="none"
+        />
       <div className="form-check form-switch flex gap-2 items-center">
         <input
           className="form-check-input"
           type="checkbox"
           id="subtitlesToggle"
+          name="subtitlesToggle"
           checked={subtitles}
           onChange={handleSubtitlesToggle}
         />
@@ -40,6 +46,7 @@ const FreePlan = () => {
           className="form-check-input"
           type="checkbox"
           id="musicToggle"
+          name="musicToggle"
           checked={music}
           onChange={handleMusicToggle}
         />
@@ -51,6 +58,7 @@ const FreePlan = () => {
           className="volume-input"
           type="range"
           id="volume"
+          name="volume"
           min="0"
           max="100"
           value={volume}

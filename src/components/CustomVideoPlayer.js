@@ -13,6 +13,7 @@ const CustomVideoPlayer = ({ src, filename }) => {
         width="152"
         height="270"
         controls
+        preload="auto"
       >
         <source src={src} type="video/mp4" />
         Your browser does not support the video tag.

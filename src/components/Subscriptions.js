@@ -21,23 +21,28 @@ const Subscriptions = () => {
     {
       planName: "Base",
       price: 1.99,
-      benefits: ["Feature 1", "Feature 2"],
+      benefits: ["Toggle Watermark", "Change Text Color", "Change Font, and Font Size", "Toggle Text Background", "Randomize, or Choose Your Background Music"],
     },
     {
-      planName: "Base Plus",
+      planName: "Advanced",
       price: 4.99,
-      benefits: ["Feature 1", "Feature 2", "Feature 3", "Feature 4"],
+      benefits: ["Upload your own background music", 
+                "Toggle music fade in, fade out", 
+                "Text Font stroke width and color", 
+                "Position your subtitles",
+                "Change text background color",
+                "Adjust subtitle segment length"
+              ],
     },
     {
       planName: "Premium",
       price: 9.99,
       benefits: [
-        "Feature 1",
-        "Feature 2",
-        "Feature 3",
-        "Feature 4",
-        "Feature 5",
-        "Feature 6",
+        "Upload your own watermark",
+        "Choose the WhisperX model",
+        "Position your watermark",
+        "Adjust watermark size, duration, and opacity",
+        "Adjust music duration"
       ],
     },
   ];

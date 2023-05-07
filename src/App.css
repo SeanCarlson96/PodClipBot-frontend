@@ -36,6 +36,11 @@ progress {
 .advanced-plan-input label {
 	border-bottom: 2px solid rgb(239, 68, 68);
 }
-.premium-plan-input {
+.premium-plan-input label {
 	border-bottom: 2px solid rgb(245, 158, 11);
 }
+
+.feature-contain label {
+	/* display: none; */
+	white-space: nowrap;
+  }
