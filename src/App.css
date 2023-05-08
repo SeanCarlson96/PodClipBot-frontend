@@ -43,4 +43,9 @@ progress {
 .feature-contain label {
 	/* display: none; */
 	white-space: nowrap;
-  }
+}
+
+.music-player audio[disabled] {
+	pointer-events: none;
+	opacity: 0.5;
+}

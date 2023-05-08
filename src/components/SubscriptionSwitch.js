@@ -1,8 +1,8 @@
 import React from 'react';
 import FreePlan from './FreePlan';
-import BasePlan from './BasePlan';
-import AdvancedPlan from './AdvancedPlan';
-import PremiumPlan from './PremiumPlan';
+import BasePlan from './base-plan-components/BasePlan';
+import AdvancedPlan from './advanced-plan-components/AdvancedPlan';
+import PremiumPlan from './premium-plan-components/PremiumPlan';
 
 function SubscriptionSwitch({ user }) {
   const renderPlan = () => {
