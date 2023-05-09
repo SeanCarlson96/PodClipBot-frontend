@@ -31,7 +31,7 @@ const AdvancedPlan = () => {
           type="hidden"
           name="subscription"
           value="advanced"
-      />
+        />
       {/* Subtitles */}
       <div className="flex flex-wrap gap-2">
         <div className="form-check form-switch flex gap-2 items-center w-full">
@@ -47,13 +47,8 @@ const AdvancedPlan = () => {
             Subtitles
           </label>
         </div>
-        {/* <BaseSubtitles subtitles={subtitles} />
-         */}
-         <BaseSubtitles subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
-
-        {/* <AdvancedSubtitles subtitles={subtitles}/> */}
+        <BaseSubtitles subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
         <AdvancedSubtitles subtitles={subtitles} subtitlesBackground={subtitlesBackground} />
-
       </div>
 
       {/* Music */}

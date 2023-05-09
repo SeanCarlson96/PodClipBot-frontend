@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 
 function AdvancedMusic({music}) {
-    const [customMusic, setCustomMusic] = useState('');
+    // const [customMusic, setCustomMusic] = useState('');
     const [musicFade, setMusicFade] = useState(true);
 
-    const handleCustomMusicUpload = (e) => {
-      setCustomMusic(e.target.files[0]);
-    };
+    // const handleCustomMusicUpload = (e) => {
+    //   setCustomMusic(e.target.files[0]);
+    // };
   
     const handleMusicFadeToggle = () => {
       setMusicFade(!musicFade);
@@ -15,16 +15,6 @@ function AdvancedMusic({music}) {
   return (
     <>
         <div className="custom-music-upload flex gap-2 items-center advanced-plan-input">
-          {/* <label htmlFor="customMusic">Custom Music Upload:</label>
-          <input
-            type="file"
-            id="customMusic"
-            name="customMusic"
-            accept="audio/*"
-            value={customMusic}
-            disabled={!music}
-            onChange={handleCustomMusicUpload}
-          /> */}
           <label className="customMusic" htmlFor="music-file">Custom Music Upload:
                 <span
                   className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
@@ -33,7 +23,9 @@ function AdvancedMusic({music}) {
                   title="Accepted file types: MP3, WAV, OGG"
                 >?</span>
               </label>
-            <input type="file" id="music-file" name="music-file" className="form-control-file" disabled={!music} onChange={handleCustomMusicUpload}/>
+            <input type="file" id="music-file" name="music-file" className="form-control-file" disabled={!music} 
+            // onChange={handleCustomMusicUpload}
+            />
         </div>
 
 

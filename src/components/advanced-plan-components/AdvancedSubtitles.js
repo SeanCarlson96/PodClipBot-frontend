@@ -5,8 +5,10 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
     useState("#000000");
   const [strokeWidth, setStrokeWidth] = useState(0);
   const [strokeColor, setStrokeColor] = useState("#000000");
-  const [subtitlePosition, setSubtitlePosition] = useState("Bottom");
-  const [subtitleSegmentLength, setSubtitleSegmentLength] = useState(0);
+  // const [subtitlePosition, setSubtitlePosition] = useState("Bottom");
+  const [subtitlePositionHorizontal, setSubtitlePositionHorizontal] = useState("center");
+  const [subtitlePositionVertical, setSubtitlePositionVertical] = useState(35);
+  const [subtitleSegmentLength, setSubtitleSegmentLength] = useState(10);
 
   const handleSubtitleBackgroundColorChange = (e) => {
     setSubtitleBackgroundColor(e.target.value);
@@ -20,8 +22,14 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
     setStrokeColor(e.target.value);
   };
 
-  const handleSubtitlePositionChange = (e) => {
-    setSubtitlePosition(e.target.value);
+  // const handleSubtitlePositionChange = (e) => {
+  //   setSubtitlePosition(e.target.value);
+  // };
+  const handleSubtitlePositionHorizontalChange = (e) => {
+    setSubtitlePositionHorizontal(e.target.value);
+  };
+  const handleSubtitlePositionVerticalChange = (e) => {
+    setSubtitlePositionVertical(e.target.value);
   };
 
   const handleSubtitleSegmentLengthChange = (e) => {
@@ -67,7 +75,7 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
           onChange={handleStrokeColorChange}
         />
       </div>
-      <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
+      {/* <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
         <label htmlFor="subtitlePosition">Subtitle Position:</label>
         <select
           className="form-select"
@@ -81,6 +89,35 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
           <option>Center</option>
           <option>Bottom</option>
         </select>
+      </div> */}
+      <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
+        <label htmlFor="subtitlePositionHorizontal">Subtitle Horizontal Position:</label>
+        <select
+          className="form-select"
+          id="subtitlePositionHorizontal"
+          name="subtitlePositionHorizontal"
+          value={subtitlePositionHorizontal}
+          disabled={!subtitles}
+          onChange={handleSubtitlePositionHorizontalChange}
+        >
+          <option value={'center'}>Center</option>
+          <option value={'left'}>Left</option>
+          <option value={'right'}>Right</option>
+        </select>
+      </div>
+      <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
+        <label htmlFor="subtitlePositionVertical">Subtitle Vertical Position (%):</label>
+        <input
+          className="form-control"
+          type="number"
+          id="subtitlePositionVertical"
+          name="subtitlePositionVertical"
+          min="0"
+          max="100"
+          value={subtitlePositionVertical}
+          disabled={!subtitles}
+          onChange={handleSubtitlePositionVerticalChange}
+        />
       </div>
       <div className="subtitle-segment-length flex gap-2 items-center advanced-plan-input">
         <label>Subtitle Segment Length:</label>
@@ -89,8 +126,8 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
           type="number"
           id="subtitleSegmentLength"
           name="subtitleSegmentLength"
-          min="4"
-          max="10"
+          min="5"
+          max="20"
           value={subtitleSegmentLength}
           disabled={!subtitles}
           onChange={handleSubtitleSegmentLengthChange}

@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 
-function BaseWatermark() {
-  const [watermark, setWatermark] = useState(true);
+function BaseWatermark({watermark, setWatermark}) {
 
   const handleWatermarkToggle = () => {
     setWatermark(!watermark);

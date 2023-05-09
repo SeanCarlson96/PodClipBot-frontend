@@ -8,6 +8,7 @@ const BasePlan = () => {
   const [music, setMusic] = useState(true);
   const [volume, setVolume] = useState(50);
   const [subtitlesBackground, setSubtitlesBackground] = useState(false);
+  const [watermark, setWatermark] = useState(true);
 
   const handleSubtitlesToggle = () => {
     setSubtitles(!subtitles);
@@ -84,7 +85,7 @@ const BasePlan = () => {
 
         {/* Watermark */}
       <div className="flex flex-wrap gap-x-5 gap-y-1 items-center">
-        <BaseWatermark />
+        <BaseWatermark watermark={watermark} setWatermark={setWatermark}/>
       </div>
 
     </div>
