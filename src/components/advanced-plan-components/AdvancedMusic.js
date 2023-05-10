@@ -15,7 +15,7 @@ function AdvancedMusic({music}) {
   return (
     <>
         <div className="custom-music-upload flex gap-2 items-center advanced-plan-input">
-          <label className="customMusic" htmlFor="music-file">Custom Music Upload:
+          <label className="customMusic flex gap-2" htmlFor="music-file">Custom Music Upload:
                 <span
                   className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
                   data-bs-toggle="tooltip"

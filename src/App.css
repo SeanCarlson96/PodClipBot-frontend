@@ -1,6 +1,12 @@
 /* div {
 	border: 1px solid black;
 } */
+/* * {
+	color: white;
+}
+.clip-input label {
+	color: black !important;
+} */
 
 h1 {
 	font-weight: 200 !important;
@@ -18,7 +24,8 @@ progress {
 .App {
 	min-height: 90.5vh;
 	/* background-color: #f5f5f7; */
-	background-color: #b9babd;
+	/* background-color: #b9babd; */
+	/* background-color: #3F444D; */
 }
 
 .Tool {

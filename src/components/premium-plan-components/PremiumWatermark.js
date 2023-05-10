@@ -97,7 +97,7 @@ function PremiumWatermark({ watermark }) {
         />
       </div> */}
       <div className="custom-watermark-upload flex gap-2 items-center premium-plan-input">
-          <label className="customWatermark" htmlFor="watermark-file">Custom Watermark Upload:
+          <label className="customWatermark flex gap-2" htmlFor="watermark-file">Custom Watermark Upload:
                 <span
                   className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
                   data-bs-toggle="tooltip"

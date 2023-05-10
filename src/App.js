@@ -6,13 +6,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routing from "./Routes";
 import UserContext from './contexts/UserContext';
+import { ThemeProvider } from './ThemeProvider';
+import { ThemeContext } from '@emotion/react';
 
 function App() {
   const [user, setUser] = useState(null);
+  const { theme } = useContext(ThemeContext);
 
   // console.log(user)
 
@@ -36,13 +39,15 @@ function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser: handleSetUser }}>
-      <Router>
-          <Header />
-          <div className="App p-5">
-            <Routing />
-          </div>
-          <Footer />
-      </Router>
+      <ThemeProvider>
+        <Router>
+            <Header />
+            <div className={`bg-${theme}-primary`}> {/* App p-5 */}
+              <Routing />
+            </div>
+            <Footer />
+        </Router>
+      </ThemeProvider>
     </UserContext.Provider>
   );
 }
