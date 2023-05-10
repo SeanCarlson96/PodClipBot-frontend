@@ -28,8 +28,8 @@ function ClipTimeInput({ handleRemove, clipNumber, newTimes }) {
 
   return (
 
-    <div className="clip-input bg-white rounded position-relative">
-
+     <div className="clip-input border rounded position-relative"> {/* bg-white */}
+     
       <button type="button" className="btn btn-danger position-absolute top-0 end-0 m-2" onClick={handleClick}>
         <FontAwesomeIcon icon={faXmark} />
       </button>

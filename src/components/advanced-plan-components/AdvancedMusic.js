@@ -35,7 +35,7 @@ function AdvancedMusic({music}) {
             type="checkbox"
             id="musicFade"
             name="musicFade"
-            value={musicFade}
+            checked={musicFade}
             disabled={!music}
             onChange={handleMusicFadeToggle}
           />

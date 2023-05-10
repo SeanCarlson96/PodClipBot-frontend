@@ -13,7 +13,6 @@ const PremiumPlan = () => {
   const [music, setMusic] = useState(true);
   const [volume, setVolume] = useState(50);
   const [subtitlesBackground, setSubtitlesBackground] = useState(false);
-
   const [watermark, setWatermark] = useState(true);
 
   const handleSubtitlesToggle = () => {

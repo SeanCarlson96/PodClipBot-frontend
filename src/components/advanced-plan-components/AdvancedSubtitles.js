@@ -113,7 +113,7 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
           type="number"
           id="subtitlePositionVertical"
           name="subtitlePositionVertical"
-          min="0"
+          min="5"
           max="100"
           value={subtitlePositionVertical}
           disabled={!subtitles}
@@ -129,7 +129,7 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
           id="subtitleSegmentLength"
           name="subtitleSegmentLength"
           min="5"
-          max="20"
+          max="15"
           value={subtitleSegmentLength}
           disabled={!subtitles}
           onChange={handleSubtitleSegmentLengthChange}

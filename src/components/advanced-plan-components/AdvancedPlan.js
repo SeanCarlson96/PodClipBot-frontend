@@ -10,6 +10,7 @@ const AdvancedPlan = () => {
   const [music, setMusic] = useState(true);
   const [volume, setVolume] = useState(50);
   const [subtitlesBackground, setSubtitlesBackground] = useState(false);
+  const [watermark, setWatermark] = useState(true);
 
 
 
@@ -87,7 +88,7 @@ const AdvancedPlan = () => {
 
       {/* Watermark */}
       <div className="flex flex-col gap-2">
-        <BaseWatermark />
+        <BaseWatermark watermark={watermark} setWatermark={setWatermark} />
       </div>
 
     </div>

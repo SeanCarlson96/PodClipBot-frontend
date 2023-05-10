@@ -4,9 +4,9 @@ function PremiumWatermark({ watermark }) {
 //   const [customWatermark, setCustomWatermark] = useState(null);
   // const [watermarkPosition, setWatermarkPosition] = useState("top-left");
   const [watermarkPositionHorizontal, setWatermarkPositionHorizontal] = useState("center");
-  const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(35);
-  const [watermarkSize, setWatermarkSize] = useState(50);
-  const [watermarkDuration, setWatermarkDuration] = useState(10);
+  const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(25);
+  const [watermarkSize, setWatermarkSize] = useState(150);
+  const [watermarkDuration, setWatermarkDuration] = useState(100);
   const [watermarkOpacity, setWatermarkOpacity] = useState(100);
 
 //   const handleCustomWatermarkUpload = (e) => {
@@ -110,14 +110,14 @@ function PremiumWatermark({ watermark }) {
             />
         </div>
       <div className="watermark-size flex gap-2 items-center premium-plan-input">
-        <label htmlFor="watermarkSize">Watermark Size: Hieght</label>
+        <label htmlFor="watermarkSize">Watermark Size: Hieght in px</label>
         <input
           className="form-control"
           type="number"
           id="watermarkSize"
           name="watermarkSize"
           min="0"
-          max="100"
+          max="500"
           value={watermarkSize}
           onChange={handleWatermarkSizeChange}
           disabled={!watermark}
