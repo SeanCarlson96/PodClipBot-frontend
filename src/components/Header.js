@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 // import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import React, { useContext } from 'react';
 import UserContext from '../contexts/UserContext';
+import ThemedComponent from './ThemedComponent';
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
@@ -93,6 +94,9 @@ const Header = () => {
               </li>
               </>
             )}
+            <li className="nav-item">
+              <ThemedComponent />
+            </li>
         </ul>
       </div>
     </nav>

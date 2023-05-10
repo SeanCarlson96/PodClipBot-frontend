@@ -1,5 +1,5 @@
-// import { useState, useEffect, useContext } from 'react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useContext } from 'react';
+// import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import ClipTimeInput from './ClipTimeInput';
@@ -12,7 +12,6 @@ import io from 'socket.io-client';
 import ClipModel from '../ClipModel';
 import UserContext from '../contexts/UserContext';
 import SubscriptionSwitch from './SubscriptionSwitch';
-import ThemedComponent from './ThemedComponent';
 
 function Tool() {
   const [validationMessage, setValidationMessage] = useState('');
@@ -29,13 +28,13 @@ function Tool() {
   });
   const [currentClipName, setCurrentClipName] = useState('');
   const [building, setBuilding] = useState(false);
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  const user = useMemo(() => ({
-    email: 'client@gmail.com',
-    username: 'c',
-    subscription: 'premium',
-  }), []);
+  // const user = useMemo(() => ({
+  //   email: 'client@gmail.com',
+  //   username: 'c',
+  //   subscription: 'premium',
+  // }), []);
   
   const [subscriptionMessage, setSubscriptionMessage] = useState('');
   const [subTextColor, setSubTextColor] = useState('');
@@ -69,67 +68,67 @@ function Tool() {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   // console.log('videoClips', videoClips)
-  //   const socket = io('http://127.0.0.1:5000');
-  //   socket.on('connect', () => {
-  //     // console.log('Connected to the server');
-  //   });
-  //   socket.on('current_clip_in_edit', (data) => {
-  //     console.log('Current clip in edit:', data)
-  //     if(data.name !== currentClipName) {
-  //       setCurrentClipName(data.name);
-  //     }
-  //   });
-  //   socket.on('video_processing_progress', (data) => {
-  //     // console.log('Progress:', data);
-  //     setProgress(data.progress);
-  //   });
-  //   socket.on('video_file_ready', (data) => {
-  //     console.log('Received', data.name);
-  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
+  useEffect(() => {
+    // console.log('videoClips', videoClips)
+    const socket = io('http://127.0.0.1:5000');
+    socket.on('connect', () => {
+      // console.log('Connected to the server');
+    });
+    socket.on('current_clip_in_edit', (data) => {
+      console.log('Current clip in edit:', data)
+      if(data.name !== currentClipName) {
+        setCurrentClipName(data.name);
+      }
+    });
+    socket.on('video_processing_progress', (data) => {
+      // console.log('Progress:', data);
+      setProgress(data.progress);
+    });
+    socket.on('video_file_ready', (data) => {
+      console.log('Received', data.name);
+      const newVideoClip = new ClipModel(data.name, data.filename, false);
     
-  //     setVideoClips((prevState) => {
-  //       let updated = false;
-  //       const updatedClips = prevState.map((clip, index) => {
-  //         if (!updated && clip.name === data.name) {
-  //           updated = true;
+      setVideoClips((prevState) => {
+        let updated = false;
+        const updatedClips = prevState.map((clip, index) => {
+          if (!updated && clip.name === data.name) {
+            updated = true;
 
-  //           // Check if the current clip is the last clip in the array
-  //           if (index === prevState.length - 1) {
-  //             setBuilding(false);
-  //           }
+            // Check if the current clip is the last clip in the array
+            if (index === prevState.length - 1) {
+              setBuilding(false);
+            }
 
-  //           return newVideoClip;
-  //         }
-  //         return clip;
-  //       });
+            return newVideoClip;
+          }
+          return clip;
+        });
     
-  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
-  //       return updatedClips;
-  //     });
+        localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
+        return updatedClips;
+      });
 
-  //     if (progress === 100) {
-  //       setProgress(0);
-  //     }
-  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
-  //   });
-  //   socket.on("processing_canceled", (data) => {
-  //     console.log('Processing canceled:', data)
-  //     // const clipName = data.clipName;
+      if (progress === 100) {
+        setProgress(0);
+      }
+      // setCurrentClipIndex((prevIndex) => prevIndex + 1);
+    });
+    socket.on("processing_canceled", (data) => {
+      console.log('Processing canceled:', data)
+      // const clipName = data.clipName;
     
-  //     // setVideoClips((prevState) => {
-  //     //   return prevState.map((clip) =>
-  //     //     clip.name === clipName
-  //     //       ? new ClipModel(clip.name, clip.filename, false)
-  //     //       : clip
-  //     //   );
-  //     // });
-  //   });
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, [videoClips, progress, currentClipName]);
+      // setVideoClips((prevState) => {
+      //   return prevState.map((clip) =>
+      //     clip.name === clipName
+      //       ? new ClipModel(clip.name, clip.filename, false)
+      //       : clip
+      //   );
+      // });
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, [videoClips, progress, currentClipName]);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -365,7 +364,6 @@ function Tool() {
   
   return (
     <div className="Tool mx-auto flex flex-col gap-4">
-      <ThemedComponent />
         {/* H1 and paragraph */}
         <div>
           <h1>Clip Creation Tool</h1>

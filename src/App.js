@@ -10,14 +10,14 @@ import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routing from "./Routes";
 import UserContext from './contexts/UserContext';
-import { ThemeProvider } from './ThemeProvider';
-import { ThemeContext } from '@emotion/react';
+import { ThemeContext } from './contexts/ThemeContext';
 
 function App() {
   const [user, setUser] = useState(null);
   const { theme } = useContext(ThemeContext);
 
-  // console.log(user)
+  const bgColor = theme === 'dark' ? 'bg-dark-primary' : 'bg-light-primary';
+  const textColor = theme === 'dark' ? 'text-dark-text' : 'text-light-text';
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -39,16 +39,17 @@ function App() {
 
   return (
     <UserContext.Provider value={{ user, setUser: handleSetUser }}>
-      <ThemeProvider>
-        <Router>
-            <Header />
-            <div className={`bg-${theme}-primary`}> {/* App p-5 */}
-              <Routing />
-            </div>
-            <Footer />
-        </Router>
-      </ThemeProvider>
+        <div className={`${bgColor} ${textColor}`}>
+          <Router>
+              <Header />
+                <div className="App p-5">
+                    <Routing />
+                </div>
+              <Footer />
+          </Router>
+        </div>
     </UserContext.Provider>
   );
 }
+
 export default App;

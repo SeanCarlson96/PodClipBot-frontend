@@ -2,12 +2,14 @@ import { useContext } from 'react';
 import { ThemeContext } from '../contexts/ThemeContext';
 
 function ThemedComponent() {
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    // const { theme, toggleTheme } = useContext(ThemeContext);
+    const { toggleTheme } = useContext(ThemeContext);
+
 
     return (
-        <div className={`bg-${theme}-bg text-${theme}-text`}>
-            Current theme: {theme}
-            <button onClick={toggleTheme}>Toggle theme</button>
+        <div className='flex'>
+            {/* Current theme: {theme} */}
+            <button className='btn btn-secondary' onClick={toggleTheme}>Toggle theme</button>
         </div>
     );
 }
