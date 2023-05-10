@@ -90,6 +90,7 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
           <option>Bottom</option>
         </select>
       </div> */}
+      
       <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
         <label htmlFor="subtitlePositionHorizontal">Subtitle Horizontal Position:</label>
         <select
@@ -119,6 +120,7 @@ function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
           onChange={handleSubtitlePositionVerticalChange}
         />
       </div>
+
       <div className="subtitle-segment-length flex gap-2 items-center advanced-plan-input">
         <label>Subtitle Segment Length:</label>
         <input

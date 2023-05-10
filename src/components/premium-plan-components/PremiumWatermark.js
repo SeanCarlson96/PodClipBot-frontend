@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 function PremiumWatermark({ watermark }) {
 //   const [customWatermark, setCustomWatermark] = useState(null);
-  const [watermarkPosition, setWatermarkPosition] = useState("top-left");
+  // const [watermarkPosition, setWatermarkPosition] = useState("top-left");
+  const [watermarkPositionHorizontal, setWatermarkPositionHorizontal] = useState("center");
+  const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(35);
   const [watermarkSize, setWatermarkSize] = useState(50);
   const [watermarkDuration, setWatermarkDuration] = useState(10);
   const [watermarkOpacity, setWatermarkOpacity] = useState(100);
@@ -11,8 +13,14 @@ function PremiumWatermark({ watermark }) {
 //     setCustomWatermark(e.target.files[0]);
 //   };
 
-  const handleWatermarkPositionChange = (e) => {
-    setWatermarkPosition(e.target.value);
+  // const handleWatermarkPositionChange = (e) => {
+  //   setWatermarkPosition(e.target.value);
+  // };
+  const handleWatermarkPositionHorizontalChange = (e) => {
+    setWatermarkPositionHorizontal(e.target.value);
+  };
+  const handleWatermarkPositionVerticalChange = (e) => {
+    setWatermarkPositionVertical(e.target.value);
   };
 
   const handleWatermarkSizeChange = (e) => {
@@ -28,7 +36,7 @@ function PremiumWatermark({ watermark }) {
   };
   return (
     <>
-      <div className="watermark-position flex gap-2 items-center premium-plan-input">
+      {/* <div className="watermark-position flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkPosition">Watermark Position:</label>
         <select
           className="form-select"
@@ -43,7 +51,39 @@ function PremiumWatermark({ watermark }) {
           <option value="bottom-left">Bottom Left</option>
           <option value="bottom-right">Bottom Right</option>
         </select>
+      </div> */}
+
+
+      <div className="watermark-position flex gap-2 items-center premium-plan-input">
+        <label htmlFor="watermarkPositionHorizontal">Watermark Horizontal Position:</label>
+        <select
+          className="form-select"
+          id="watermarkPositionHorizontal"
+          name="watermarkPositionHorizontal"
+          value={watermarkPositionHorizontal}
+          disabled={!watermark}
+          onChange={handleWatermarkPositionHorizontalChange}
+        >
+          <option value={'center'}>Center</option>
+          <option value={'left'}>Left</option>
+          <option value={'right'}>Right</option>
+        </select>
       </div>
+      <div className="watermark-position flex gap-2 items-center premium-plan-input">
+        <label htmlFor="watermarkPositionVertical">Watermark Vertical Position (%):</label>
+        <input
+          className="form-control"
+          type="number"
+          id="watermarkPositionVertical"
+          name="watermarkPositionVertical"
+          min="0"
+          max="100"
+          value={watermarkPositionVertical}
+          disabled={!watermark}
+          onChange={handleWatermarkPositionVerticalChange}
+        />
+      </div>
+
       {/* <div className="custom-watermark-upload flex gap-2 items-center premium-plan-input">
         <label htmlFor="customWatermark">Custom Watermark:</label>
         <input
@@ -70,7 +110,7 @@ function PremiumWatermark({ watermark }) {
             />
         </div>
       <div className="watermark-size flex gap-2 items-center premium-plan-input">
-        <label htmlFor="watermarkSize">Watermark Size:</label>
+        <label htmlFor="watermarkSize">Watermark Size: Hieght</label>
         <input
           className="form-control"
           type="number"
@@ -83,22 +123,8 @@ function PremiumWatermark({ watermark }) {
           disabled={!watermark}
         />
       </div>
-      <div className="watermark-duration flex gap-2 items-center premium-plan-input">
-        <label htmlFor="watermarkDuration">Watermark Duration:</label>
-        <input
-          className="form-control"
-          type="number"
-          id="watermarkDuration"
-          name="watermarkDuration"
-          min="1"
-          max="60"
-          value={watermarkDuration}
-          onChange={handleWatermarkDurationChange}
-          disabled={!watermark}
-        />
-      </div>
       <div className="watermark-opacity flex gap-2 items-center premium-plan-input">
-        <label htmlFor="watermarkOpacity">Watermark Opacity:</label>
+        <label htmlFor="watermarkOpacity">Watermark Opacity (%):</label>
         <input
           className="form-control"
           type="number"
@@ -108,6 +134,20 @@ function PremiumWatermark({ watermark }) {
           max="100"
           value={watermarkOpacity}
           onChange={handleWatermarkOpacityChange}
+          disabled={!watermark}
+        />
+      </div>
+      <div className="watermark-duration flex gap-2 items-center premium-plan-input">
+        <label htmlFor="watermarkDuration">Watermark Duration:</label>
+        <input
+          className="form-control"
+          type="number"
+          id="watermarkDuration"
+          name="watermarkDuration"
+          min="0"
+          max="100"
+          value={watermarkDuration}
+          onChange={handleWatermarkDurationChange}
           disabled={!watermark}
         />
       </div>

@@ -36,6 +36,7 @@ function PremiumSubtitles({subtitles}) {
             id="diarizationToggle"
             name="diarizationToggle"
             checked={diarization}
+            disabled={!subtitles}
             onChange={handleDiarizationToggle}
           />
           <label className="form-check-label" htmlFor="diarizationToggle">

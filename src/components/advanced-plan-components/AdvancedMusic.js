@@ -30,7 +30,6 @@ function AdvancedMusic({music}) {
 
 
         <div className="music-fade form-check form-switch flex gap-2 items-center advanced-plan-input">
-          <label className="form-check-label" htmlFor="musicFade">Fade In, Fade Out</label>
           <input
             className="form-check-input"
             type="checkbox"
@@ -40,6 +39,9 @@ function AdvancedMusic({music}) {
             disabled={!music}
             onChange={handleMusicFadeToggle}
           />
+          <label className="form-check-label" htmlFor="musicFade">
+            Fade In, Fade Out
+          </label>
         </div>
     </>
   )
