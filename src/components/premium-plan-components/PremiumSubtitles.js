@@ -3,9 +3,21 @@ import React, { useState } from "react";
 function PremiumSubtitles({subtitles}) {
   const [diarization, setDiarization] = useState(false);
   const [secondSpeakerColor, setSecondSpeakerColor] = useState("#FFFF00");
+  const [thirdSpeakerColor, setThirdSpeakerColor] = useState("#0000FF");
+  const [fourthSpeakerColor, setFourthSpeakerColor] = useState("#008000");
+  const [fifthSpeakerColor, setFifthSpeakerColor] = useState("#FF0000");
 
   const handleSecondSpeakerColorChange = (e) => {
     setSecondSpeakerColor(e.target.value);
+  }
+  const handleThirdSpeakerColorChange = (e) => {
+    setThirdSpeakerColor(e.target.value);
+  }
+  const handleFourthSpeakerColorChange = (e) => {
+    setFourthSpeakerColor(e.target.value);
+  }
+  const handleFifthSpeakerColorChange = (e) => {
+    setFifthSpeakerColor(e.target.value);
   }
   
   const handleDiarizationToggle = () => {
@@ -48,8 +60,8 @@ function PremiumSubtitles({subtitles}) {
             Diarization
           </label>
         </div>
-        <div className="second-speaker-color flex gap-2 items-center advanced-plan-input">
-          <label htmlFor="secondSpeakerColor">Second Speaker Color:</label>
+        <div className="second-speaker-color flex gap-2 items-center premium-plan-input">
+          <label htmlFor="secondSpeakerColor">Additional Speaker Colors:</label>
           <input
             className="form-control form-control-color"
             type="color"
@@ -58,6 +70,33 @@ function PremiumSubtitles({subtitles}) {
             value={secondSpeakerColor}
             disabled={!subtitles || !diarization}
             onChange={handleSecondSpeakerColorChange}
+          />
+          <input
+            className="form-control form-control-color"
+            type="color"
+            id="thirdSpeakerColor"
+            name="thirdSpeakerColor"
+            value={thirdSpeakerColor}
+            disabled={!subtitles || !diarization}
+            onChange={handleThirdSpeakerColorChange}
+          />
+          <input
+            className="form-control form-control-color"
+            type="color"
+            id="fourthSpeakerColor"
+            name="fourthSpeakerColor"
+            value={fourthSpeakerColor}
+            disabled={!subtitles || !diarization}
+            onChange={handleFourthSpeakerColorChange}
+          />
+          <input
+            className="form-control form-control-color"
+            type="color"
+            id="fifthSpeakerColor"
+            name="fifthSpeakerColor"
+            value={fifthSpeakerColor}
+            disabled={!subtitles || !diarization}
+            onChange={handleFifthSpeakerColorChange}
           />
         </div>
     </>

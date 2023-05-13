@@ -38,6 +38,7 @@ function Tool() {
   
   const [subscriptionMessage, setSubscriptionMessage] = useState('');
   const [subTextColor, setSubTextColor] = useState('');
+  const [buildAction, setBuildAction] = useState('');
 
   useEffect(() => {
     if(user){
@@ -69,11 +70,9 @@ function Tool() {
   }, [user]);
 
   useEffect(() => {
-    // console.log('videoClips', videoClips)
     const socket = io('http://127.0.0.1:5000');
-    socket.on('connect', () => {
-      // console.log('Connected to the server');
-    });
+    socket.on('connect', () => {});
+
     socket.on('current_clip_in_edit', (data) => {
       console.log('Current clip in edit:', data)
       if(data.name !== currentClipName) {
@@ -81,8 +80,10 @@ function Tool() {
       }
     });
     socket.on('video_processing_progress', (data) => {
-      // console.log('Progress:', data);
       setProgress(data.progress);
+    });
+    socket.on('build_action', (data) => {
+      setBuildAction(data.action);
     });
     socket.on('video_file_ready', (data) => {
       console.log('Received', data.name);
@@ -115,15 +116,6 @@ function Tool() {
     });
     socket.on("processing_canceled", (data) => {
       console.log('Processing canceled:', data)
-      // const clipName = data.clipName;
-    
-      // setVideoClips((prevState) => {
-      //   return prevState.map((clip) =>
-      //     clip.name === clipName
-      //       ? new ClipModel(clip.name, clip.filename, false)
-      //       : clip
-      //   );
-      // });
     });
     return () => {
       socket.disconnect();
@@ -447,7 +439,7 @@ function Tool() {
                 clip.name === currentClipName ? (
                   <div className="clip-box relative flex items-center justify-center">
                     <div className="w-11/12 flex flex-col gap-3 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        <p className='text-xs'>Building {clip.name}</p>
+                        <p className='text-xs'>{buildAction} {clip.name}</p>
                         <div className="progress w-full" style={{ height: '10px' }}>
                         <div
                             className="progress-bar"
