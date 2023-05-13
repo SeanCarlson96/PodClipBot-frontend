@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
 function PremiumSubtitles({subtitles}) {
-  const [diarization, setDiarization] = useState(false);  
+  const [diarization, setDiarization] = useState(false);
+  const [secondSpeakerColor, setSecondSpeakerColor] = useState("#FFFF00");
+
+  const handleSecondSpeakerColorChange = (e) => {
+    setSecondSpeakerColor(e.target.value);
+  }
   
   const handleDiarizationToggle = () => {
     setDiarization(!diarization);
@@ -42,6 +47,18 @@ function PremiumSubtitles({subtitles}) {
           <label className="form-check-label" htmlFor="diarizationToggle">
             Diarization
           </label>
+        </div>
+        <div className="second-speaker-color flex gap-2 items-center advanced-plan-input">
+          <label htmlFor="secondSpeakerColor">Second Speaker Color:</label>
+          <input
+            className="form-control form-control-color"
+            type="color"
+            id="secondSpeakerColor"
+            name="secondSpeakerColor"
+            value={secondSpeakerColor}
+            disabled={!subtitles || !diarization}
+            onChange={handleSecondSpeakerColorChange}
+          />
         </div>
     </>
   )

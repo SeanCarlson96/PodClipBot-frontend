@@ -258,6 +258,7 @@ function Tool() {
         setValidationMessage(error.data.message);
         cancelWholeProcess();
         console.log(error);
+        console.log(error.data.message);
         // setMessage('Error constructing clips.');
         // setLoading(false);
       });
