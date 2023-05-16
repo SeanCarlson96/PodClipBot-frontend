@@ -5,24 +5,32 @@ import { NavLink } from 'react-router-dom';
 import React, { useContext } from 'react';
 import UserContext from '../contexts/UserContext';
 import ThemedComponent from './ThemedComponent';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
+  const { theme } = useContext(ThemeContext);
+
+  const textColor = theme === 'dark' ? 'navbar-dark' : 'navbar-light';
+  const logo = theme === 'dark' ? 'PodClipBot.com (white).png' : 'PodClipBot.com3.png';
 
   const handleLogout = () => {
     // Clear the user data from the global state and local storage
     setUser(null);
     localStorage.removeItem('access_token');
+    localStorage.removeItem('videoFiles');
   };
 
   return (
-    // <nav className="navbar navbar-expand-lg navbar-light py-1 px-5 border">
-    <nav className="navbar navbar-expand-lg navbar-dark border">
-      <div className="container-fluid d-flex justify-content-between border">
-        <a className="navbar-brand" href="/">
+    <nav className={`navbar navbar-expand-lg ${textColor}`}>
+
+      <div className="flex justify-between items-center w-full px-5">
+
+        <a className="navbar-brand flex" href="/">
           {/* <img src={process.env.PUBLIC_URL + '/PodClipBot.com3.png'} alt="logo" className="logo w-44" /> */}
-          <h2>PodClipBot</h2>
+          <img src={process.env.PUBLIC_URL + '/' + logo} alt="logo" className="logo w-44" />
         </a>
+
         <ul className="navbar-nav flex flex-row space-x-2">
           <li className="nav-item">
             <NavLink
@@ -100,7 +108,9 @@ const Header = () => {
               <ThemedComponent />
             </li>
         </ul>
+
       </div>
+
     </nav>
   );
 };

@@ -26,6 +26,7 @@ const Login = () => {
                 // console.log('Access Token:', data.access_token);
                 localStorage.setItem('access_token', data.access_token);
                 setUser(data.user);
+                localStorage.removeItem('videoFiles');
                 navigate('/');
             } else {
                 setMessage('Invalid email or password.');

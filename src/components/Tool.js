@@ -295,6 +295,7 @@ function Tool() {
 
   const clearVideoClips = () => {
     setVideoClips([]);
+    console.log("Clearing video clips");
   };
 
   function handleAddClipTimeInput() {
