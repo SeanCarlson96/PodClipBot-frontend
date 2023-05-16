@@ -42,7 +42,7 @@ function App() {
         <div className={`${bgColor} ${textColor}`}>
           <Router>
               <Header />
-                <div className="App p-5">
+                <div className="App p-3">
                     <Routing />
                 </div>
               <Footer />

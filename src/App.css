@@ -22,7 +22,7 @@ progress {
 }
 
 .App {
-	min-height: 90.5vh;
+	min-height: 91vh;
 	/* background-color: #f5f5f7; */
 	/* background-color: #b9babd; */
 	/* background-color: #3F444D; */
@@ -30,6 +30,10 @@ progress {
 
 .Tool {
 	max-width: 800px;
+}
+
+.Subscriptions {
+	max-width: 1300px;
 }
 
 .clip-box {

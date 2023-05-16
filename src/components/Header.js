@@ -16,10 +16,12 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light p-1">
-      <div className="container-fluid d-flex justify-content-between">
-        <a className="navbar-brand pl-4" href="/">
-          <img src={process.env.PUBLIC_URL + '/PodClipBot.com3.png'} alt="logo" className="logo w-44" />
+    // <nav className="navbar navbar-expand-lg navbar-light py-1 px-5 border">
+    <nav className="navbar navbar-expand-lg navbar-dark border">
+      <div className="container-fluid d-flex justify-content-between border">
+        <a className="navbar-brand" href="/">
+          {/* <img src={process.env.PUBLIC_URL + '/PodClipBot.com3.png'} alt="logo" className="logo w-44" /> */}
+          <h2>PodClipBot</h2>
         </a>
         <ul className="navbar-nav flex flex-row space-x-2">
           <li className="nav-item">

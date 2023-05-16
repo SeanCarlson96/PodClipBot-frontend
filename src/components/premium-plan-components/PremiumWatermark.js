@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Tooltip } from "bootstrap";
 
 function PremiumWatermark({ watermark }) {
 //   const [customWatermark, setCustomWatermark] = useState(null);
@@ -34,6 +35,10 @@ function PremiumWatermark({ watermark }) {
   const handleWatermarkOpacityChange = (e) => {
     setWatermarkOpacity(e.target.value);
   };
+  useEffect(() => {
+    const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltips.forEach((tooltip) => new Tooltip(tooltip));
+  }, []);
   return (
     <>
       {/* <div className="watermark-position flex gap-2 items-center premium-plan-input">
@@ -97,14 +102,15 @@ function PremiumWatermark({ watermark }) {
         />
       </div> */}
       <div className="custom-watermark-upload flex gap-2 items-center premium-plan-input">
-          <label className="customWatermark flex gap-2" htmlFor="watermark-file">Custom Watermark Upload:
-                <span
+          <label className="customWatermark flex gap-2" htmlFor="watermark-file">
+            Custom Watermark Upload:
+              </label>
+              <span
                   className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
-                  title="Accepted file types: JPG, JPEG, PNG"
+                  title="Accepted file types: JPEG, PNG, GIF, BMP, SVG, TIFF, WebP, HEIF, ICO"
                 >?</span>
-              </label>
             <input type="file" id="watermark-file" name="watermark-file" className="form-control-file" disabled={!watermark} 
             // onChange={handleCustomWatermarkUpload}
             />
