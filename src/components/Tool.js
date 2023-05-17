@@ -372,6 +372,7 @@ function Tool() {
 
         {/* Form */}
         <form className='flex flex-col gap-4' id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data">
+          
           {/* Step 1 */}
           <div className="form-group flex flex-col gap-2">
               <label className="flex gap-2 font-bold" htmlFor="video-file">1. Upload your full length video file:
@@ -384,6 +385,7 @@ function Tool() {
               </label>
             <input type="file" id="video-file" name="video-file" className="form-control-file" onChange={handleVideoFileChange}/>
           </div>
+
           {/* Step 2 */}
           <div className="form-group flex flex-col gap-3">
             <div className='flex justify-between items-center p-0'>
