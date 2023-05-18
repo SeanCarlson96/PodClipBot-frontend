@@ -45,6 +45,21 @@ function PremiumWatermark({ formData, watermark }) {
 
   return (
     <>
+
+      <div className="custom-watermark-upload flex gap-2 items-center premium-plan-input">
+          <label className="customWatermark flex gap-2" htmlFor="watermark-file">
+            Custom Watermark Upload:
+              </label>
+              <span
+                  className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Accepted file types: JPEG, PNG, GIF, BMP, SVG, TIFF, WebP, HEIF, ICO"
+                >?</span>
+            <input type="file" id="watermark-file" name="watermark-file" className="form-control-file" disabled={!watermark} 
+            // onChange={handleCustomWatermarkUpload}
+            />
+      </div>
       <div className="watermark-position flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkPositionHorizontal">Watermark Horizontal Position:</label>
         <select
@@ -73,21 +88,6 @@ function PremiumWatermark({ formData, watermark }) {
           disabled={!watermark}
           onChange={handleWatermarkPositionVerticalChange}
         />
-      </div>
-
-      <div className="custom-watermark-upload flex gap-2 items-center premium-plan-input">
-          <label className="customWatermark flex gap-2" htmlFor="watermark-file">
-            Custom Watermark Upload:
-              </label>
-              <span
-                  className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="Accepted file types: JPEG, PNG, GIF, BMP, SVG, TIFF, WebP, HEIF, ICO"
-                >?</span>
-            <input type="file" id="watermark-file" name="watermark-file" className="form-control-file" disabled={!watermark} 
-            // onChange={handleCustomWatermarkUpload}
-            />
       </div>
 
       <div className="watermark-size flex gap-2 items-center premium-plan-input">

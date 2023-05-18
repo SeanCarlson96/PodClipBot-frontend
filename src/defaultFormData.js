@@ -1,4 +1,4 @@
-const freeFormData = {
+const defaultFormData = {
     subtitlesToggle: true,
     musicToggle: true,
     volume: 50,
@@ -28,34 +28,4 @@ const freeFormData = {
     watermarkDuration: 100,
 }
 
-export default freeFormData;
-
-
-
-
-
-
-
-export const baseFormData = {
-    subtitlesToggle: true,
-    musicToggle: true,
-    volume: 50,
-    font: 'Arial',
-    fontSize: 15,
-    subtitleColor: '#ffffff',
-    subtitleBackgroundToggle: false,
-    musicChoice: 'random',
-    watermarkToggle: true
-}
-
-export const advancedFormData = {
-    subtitlesToggle: true,
-    musicToggle: true,
-    volume: 50
-}
-
-export const premiumFormData = {
-    subtitlesToggle: true,
-    musicToggle: true,
-    volume: 50
-}
+export default defaultFormData;

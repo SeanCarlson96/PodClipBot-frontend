@@ -2,7 +2,7 @@
 const SubscriptionCard = ({ planName, price, benefits }) => (
   <div className="rounded-lg p-6 mx-2 my-6 w-1/3 border">
     <h2 className="mb-4 font-light">{planName}</h2>
-    <p className="text-xl text-gray-600 mb-6">${price}/month</p>
+    <p className="text-xl text-gray-400 mb-5">${price}/month</p>
     <ul className="list-unstyled">
       {benefits.map((benefit, index) => (
         <li key={index} className="mb-2">
@@ -21,28 +21,49 @@ const Subscriptions = () => {
     {
       planName: "Base",
       price: 1.99,
-      benefits: ["Toggle Watermark", "Change Text Color", "Change Font, and Font Size", "Toggle Text Background", "Randomize, or Choose Your Background Music"],
+      benefits: [
+        "Font",
+        "Font Size", 
+        "Subtitle Color", 
+        "Subtitle Background on/off", 
+        "-",
+        "Music Choice",
+        "-",
+        "Watermark on/off"
+      ],
     },
     {
       planName: "Advanced",
       price: 4.99,
-      benefits: ["Upload your own background music", 
-                "Toggle music fade in, fade out", 
-                "Text Font stroke width and color", 
-                "Position your subtitles",
-                "Change text background color",
-                "Adjust subtitle segment length"
-              ],
+      benefits: [
+        "Subtitle Background Color",
+        "Font Stroke Width",
+        "Font Stroke Color", 
+        "Subtitle Horizontal Position",
+        "Subtitle Vertical Position",
+        "Subtitle Segment Length",
+        "-",
+        "Custom Music Upload", 
+        "Music Fade on/off"
+      ],
     },
     {
       planName: "Premium",
       price: 9.99,
       benefits: [
-        "Upload your own watermark",
-        "Choose the WhisperX model",
-        "Position your watermark",
-        "Adjust watermark size, duration, and opacity",
-        "Adjust music duration"
+        "Save Your Settings",
+        "-",
+        "Diarization",
+        "Additional Speaker Colors",
+        "-",
+        "Music Duration",
+        "-",
+        "Custom Watermark Upload",
+        "Watermark Horizontal Position",
+        "Watermark Vertical Position",
+        "Watermark Size",
+        "Watermark Opacity",
+        "Watermark Duration"
       ],
     },
   ];

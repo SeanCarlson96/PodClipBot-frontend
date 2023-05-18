@@ -5,7 +5,7 @@ import Tool from './components/Tool';
 import Login from './components/Login';
 import Subscriptions from './components/Subscriptions';
 import Registration from './components/Registration';
-import Profile from './components/Profile';
+import Profile from './components/profile/Profile';
 import EmailInput from './components/EmailInput';
 import ResetPassword from './components/ResetPassword';
 

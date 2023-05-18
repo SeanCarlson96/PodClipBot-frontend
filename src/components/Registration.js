@@ -11,6 +11,7 @@ const Registration = () => {
       confirmPassword: '',
     });
   const [message, setMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -40,7 +41,10 @@ const Registration = () => {
     try {
       const response = await axios.post('http://127.0.0.1:5000/register', formData);
       console.log(response.data);
-      navigate('/login');
+      setSuccessMessage('Registration successful. Redirecting to Sign in page...');
+      setTimeout(() => {
+        navigate('/login');
+      }, 2800); 
     } catch (error) {
       console.error('Registration error:', error);
       // Check if the error response contains a message, and display it
@@ -114,6 +118,7 @@ const Registration = () => {
           )}
 
           {message && (<p className="text-red-500">{message}</p>)}
+          {successMessage && (<p className="text-green-500">{successMessage}</p>)}
 
     </div>
   );

@@ -12,8 +12,7 @@ import io from 'socket.io-client';
 import ClipModel from '../ClipModel';
 import UserContext from '../contexts/UserContext';
 import SubscriptionSwitch from './SubscriptionSwitch';
-// import freeFormData, { baseFormData, advancedFormData, premiumFormData } from '../planFormDatas';
-import freeFormData from '../planFormDatas';
+import defaultFormData from '../defaultFormData';
 
 function Tool() {
   const { user } = useContext(UserContext);
@@ -41,7 +40,7 @@ function Tool() {
   const [subTextColor, setSubTextColor] = useState('');
   const [buildAction, setBuildAction] = useState('');
 
-  const [formData, setFormData] = useState({ ...freeFormData });
+  const [formData, setFormData] = useState({ ...defaultFormData });
   const [resetPending, setResetPending] = useState(false);
 
   useEffect(() => {
@@ -60,17 +59,14 @@ function Tool() {
         case 'base':
           setSubscriptionMessage('You are using the Base plan with additional features.');
           setSubTextColor('rgb(79, 70, 229)');
-          // setFormData({ ...baseFormData })
           break;
         case 'advanced':
           setSubscriptionMessage('You are using the Advanced plan with additional features.');
           setSubTextColor('rgb(239, 68, 68)');
-          // setFormData({ ...advancedFormData })
           break;
         case 'premium':
           setSubscriptionMessage('You are using the Premium plan with all features unlocked.');
           setSubTextColor('rgb(245, 158, 11)');
-          // setFormData({ ...premiumFormData })
           break;
         default:
           setSubscriptionMessage('Unknown subscription plan.');
