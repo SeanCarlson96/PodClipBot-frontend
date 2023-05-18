@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 
-const FreePlan = () => {
-  const [subtitles, setSubtitles] = useState(true);
-  const [music, setMusic] = useState(true);
-  const [volume, setVolume] = useState(50);
+const FreePlan = ({ formData }) => {
+
+  // console.log(formData)
+
+  const [subtitles, setSubtitles] = useState(formData?.subtitlesToggle);
+  const [music, setMusic] = useState(formData?.musicToggle);
+  const [volume, setVolume] = useState(formData?.volume);
 
   const handleSubtitlesToggle = () => {
     setSubtitles(!subtitles);

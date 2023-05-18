@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 
-function PremiumSubtitles({subtitles}) {
-  const [diarization, setDiarization] = useState(false);
-  const [secondSpeakerColor, setSecondSpeakerColor] = useState("#FFFF00");
-  const [thirdSpeakerColor, setThirdSpeakerColor] = useState("#0000FF");
-  const [fourthSpeakerColor, setFourthSpeakerColor] = useState("#008000");
-  const [fifthSpeakerColor, setFifthSpeakerColor] = useState("#FF0000");
+function PremiumSubtitles({ formData, subtitles}) {
+  // const [diarization, setDiarization] = useState(false);
+  // const [secondSpeakerColor, setSecondSpeakerColor] = useState("#FFFF00");
+  // const [thirdSpeakerColor, setThirdSpeakerColor] = useState("#0000FF");
+  // const [fourthSpeakerColor, setFourthSpeakerColor] = useState("#008000");
+  // const [fifthSpeakerColor, setFifthSpeakerColor] = useState("#FF0000");
+
+  const [diarization, setDiarization] = useState(formData?.diarizationToggle);
+  const [secondSpeakerColor, setSecondSpeakerColor] = useState(formData?.secondSpeakerColor);
+  const [thirdSpeakerColor, setThirdSpeakerColor] = useState(formData?.thirdSpeakerColor);
+  const [fourthSpeakerColor, setFourthSpeakerColor] = useState(formData?.fourthSpeakerColor);
+  const [fifthSpeakerColor, setFifthSpeakerColor] = useState(formData?.fifthSpeakerColor);
 
   const handleSecondSpeakerColorChange = (e) => {
     setSecondSpeakerColor(e.target.value);

@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Tooltip } from "bootstrap";
 
-function PremiumWatermark({ watermark }) {
+function PremiumWatermark({ formData, watermark }) {
 //   const [customWatermark, setCustomWatermark] = useState(null);
-  const [watermarkPositionHorizontal, setWatermarkPositionHorizontal] = useState("center");
-  const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(25);
-  const [watermarkSize, setWatermarkSize] = useState(150);
-  const [watermarkDuration, setWatermarkDuration] = useState(100);
-  const [watermarkOpacity, setWatermarkOpacity] = useState(100);
+  // const [watermarkPositionHorizontal, setWatermarkPositionHorizontal] = useState("center");
+  // const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(25);
+  // const [watermarkSize, setWatermarkSize] = useState(150);
+  // const [watermarkDuration, setWatermarkDuration] = useState(100);
+  // const [watermarkOpacity, setWatermarkOpacity] = useState(100);
+
+  const [watermarkPositionHorizontal, setWatermarkPositionHorizontal] = useState(formData?.watermarkPositionHorizontal);
+  const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(formData?.watermarkPositionVertical);
+  const [watermarkSize, setWatermarkSize] = useState(formData?.watermarkSize);
+  const [watermarkDuration, setWatermarkDuration] = useState(formData?.watermarkDuration);
+  const [watermarkOpacity, setWatermarkOpacity] = useState(formData?.watermarkOpacity);
   
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');

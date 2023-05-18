@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import FontDropdown from "../FontDropdown";
 
-function BaseSubtitles({ subtitles, subtitlesBackground, setSubtitlesBackground }) {
+function BaseSubtitles({ formData, subtitles, subtitlesBackground, setSubtitlesBackground }) {
 
-  const [subtitleColor, setSubtitleColor] = useState("#ffffff");
-  const [font, setFont] = useState("Arial");
-  const [fontSize, setFontSize] = useState(15);
+  // const [subtitleColor, setSubtitleColor] = useState("#ffffff");
+  // const [font, setFont] = useState("Arial");
+  // const [fontSize, setFontSize] = useState(15);
+  // const [subtitleBackground, setSubtitleBackground] = useState(false);
+
+  // console.log(formData);
+  const [subtitleColor, setSubtitleColor] = useState(formData?.subtitleColor);
+  const [font, setFont] = useState(formData?.font);
+  const [fontSize, setFontSize] = useState(formData?.fontSize);
   // const [subtitleBackground, setSubtitleBackground] = useState(false);
 
   const handleSubtitleColorChange = (e) => {

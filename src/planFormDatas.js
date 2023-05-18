@@ -1,0 +1,61 @@
+const freeFormData = {
+    subtitlesToggle: true,
+    musicToggle: true,
+    volume: 50,
+    font: 'Arial',
+    fontSize: 15,
+    subtitleColor: '#ffffff',
+    subtitleBackgroundToggle: false,
+    musicChoice: 'random',
+    watermarkToggle: true,
+    subtitleBackgroundColor: '#000000',
+    strokeWidth: 0,
+    strokeColor: '#000000',
+    subtitlePositionHorizontal: 'center',
+    subtitlePositionVertical: 35,
+    subtitleSegmentLength: 10,
+    musicFadeToggle: true,
+    diarizationToggle: false,
+    secondSpeakerColor: "#FFFF00",
+    thirdSpeakerColor: "#0000FF",
+    fourthSpeakerColor: "#008000",
+    fifthSpeakerColor: "#FF0000",
+    musicDuration: 100,
+    watermarkPositionHorizontal: "center",
+    watermarkPositionVertical: 25,
+    watermarkSize: 150,
+    watermarkOpacity: 100,
+    watermarkDuration: 100,
+}
+
+export default freeFormData;
+
+
+
+
+
+
+
+export const baseFormData = {
+    subtitlesToggle: true,
+    musicToggle: true,
+    volume: 50,
+    font: 'Arial',
+    fontSize: 15,
+    subtitleColor: '#ffffff',
+    subtitleBackgroundToggle: false,
+    musicChoice: 'random',
+    watermarkToggle: true
+}
+
+export const advancedFormData = {
+    subtitlesToggle: true,
+    musicToggle: true,
+    volume: 50
+}
+
+export const premiumFormData = {
+    subtitlesToggle: true,
+    musicToggle: true,
+    volume: 50
+}

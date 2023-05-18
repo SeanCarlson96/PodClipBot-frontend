@@ -8,12 +8,18 @@ import PremiumMusic from "./PremiumMusic";
 import BaseWatermark from "../base-plan-components/BaseWatermark";
 import PremiumWatermark from "./PremiumWatermark";
 
-const PremiumPlan = () => {
-  const [subtitles, setSubtitles] = useState(true);
-  const [music, setMusic] = useState(true);
-  const [volume, setVolume] = useState(50);
-  const [subtitlesBackground, setSubtitlesBackground] = useState(false);
-  const [watermark, setWatermark] = useState(true);
+const PremiumPlan = ({formData}) => {
+  // const [subtitles, setSubtitles] = useState(true);
+  // const [music, setMusic] = useState(true);
+  // const [volume, setVolume] = useState(50);
+  // const [subtitlesBackground, setSubtitlesBackground] = useState(false);
+  // const [watermark, setWatermark] = useState(true);
+
+  const [subtitles, setSubtitles] = useState(formData?.subtitlesToggle);
+  const [music, setMusic] = useState(formData?.musicToggle);
+  const [volume, setVolume] = useState(formData?.volume);
+  const [subtitlesBackground, setSubtitlesBackground] = useState(formData?.subtitleBackgroundToggle);
+  const [watermark, setWatermark] = useState(formData?.watermarkToggle);
 
   const handleSubtitlesToggle = () => {
     setSubtitles(!subtitles);
@@ -50,9 +56,9 @@ const PremiumPlan = () => {
             Subtitles
           </label>
         </div>
-        <BaseSubtitles subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
-        <AdvancedSubtitles subtitles={subtitles} subtitlesBackground={subtitlesBackground} />
-        <PremiumSubtitles subtitles={subtitles} />
+        <BaseSubtitles formData={formData} subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
+        <AdvancedSubtitles formData={formData} subtitles={subtitles} subtitlesBackground={subtitlesBackground} />
+        <PremiumSubtitles formData={formData} subtitles={subtitles} />
       </div>
 
       {/* Music */}
@@ -85,15 +91,15 @@ const PremiumPlan = () => {
           />
           <span>{volume}</span>
         </div>
-        <BaseMusic music={music} />
-        <AdvancedMusic music={music}/>
-        <PremiumMusic music={music} />
+        <BaseMusic formData={formData} music={music} />
+        <AdvancedMusic formData={formData} music={music}/>
+        <PremiumMusic formData={formData} music={music} />
       </div>
 
       {/* Watermark */}
       <div className="flex flex-wrap gap-2">
         <BaseWatermark watermark={watermark} setWatermark={setWatermark} />
-        <PremiumWatermark watermark={watermark} />
+        <PremiumWatermark formData={formData} watermark={watermark} />
       </div>
       {/* <div class="accordion" id="accordionPanelsStayOpenExample">
         <div className="accordion-item">

@@ -1,18 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import FONTS from '../fonts';
 
 const FontDropdown = ({ value, onChange, disabled }) => {
-  const [fonts, setFonts] = useState([]);
-
-  useEffect(() => {
-    const fetchFonts = async () => {
-      const response = await fetch('http://127.0.0.1:5000/api/fonts');
-      const data = await response.json();
-      setFonts(data);
-    };
-
-    fetchFonts();
-  }, []);
-
   return (
     <select
       className="form-select"
@@ -22,7 +11,7 @@ const FontDropdown = ({ value, onChange, disabled }) => {
       onChange={onChange}
       disabled={disabled}
     >
-      {fonts.map((font, index) => (
+      {FONTS.map((font, index) => (
         <option key={index} value={font}>
           {font}
         </option>

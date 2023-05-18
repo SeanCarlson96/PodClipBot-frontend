@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
-function PremiumMusic({music}) {
+function PremiumMusic({formData, music}) {
 
-  const [musicDuration, setMusicDuration] = useState(100);
+  // const [musicDuration, setMusicDuration] = useState(100);
+  const [musicDuration, setMusicDuration] = useState(formData?.musicDuration);
   const handleMusicDurationChange = (e) => {
     setMusicDuration(e.target.value);
   };

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 
-function BaseMusic({music}) {
+function BaseMusic({formData, music}) {
 
-    const [musicChoice, setMusicChoice] = useState("random");
+    // const [musicChoice, setMusicChoice] = useState("random");
+    const [musicChoice, setMusicChoice] = useState(formData?.musicChoice);
     const [files, setFiles] = useState([]);
     const [selectedMusic, setSelectedMusic] = useState(null);
   

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Tooltip } from "bootstrap";
 
-function AdvancedMusic({ music }) {
+function AdvancedMusic({ formData, music }) {
   // const [customMusic, setCustomMusic] = useState('');
-  const [musicFade, setMusicFade] = useState(true);
+  // const [musicFade, setMusicFade] = useState(true);
+  const [musicFade, setMusicFade] = useState(formData?.musicFadeToggle);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');

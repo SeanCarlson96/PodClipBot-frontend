@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 
-function AdvancedSubtitles({ subtitles, subtitlesBackground }) {
-  const [subtitleBackgroundColor, setSubtitleBackgroundColor] =
-    useState("#000000");
-  const [strokeWidth, setStrokeWidth] = useState(0);
-  const [strokeColor, setStrokeColor] = useState("#000000");
+function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
+  // const [subtitleBackgroundColor, setSubtitleBackgroundColor] =
+  //   useState("#000000");
+  // const [strokeWidth, setStrokeWidth] = useState(0);
+  // const [strokeColor, setStrokeColor] = useState("#000000");
+  // // const [subtitlePosition, setSubtitlePosition] = useState("Bottom");
+  // const [subtitlePositionHorizontal, setSubtitlePositionHorizontal] = useState("center");
+  // const [subtitlePositionVertical, setSubtitlePositionVertical] = useState(35);
+  // const [subtitleSegmentLength, setSubtitleSegmentLength] = useState(10);
+
+  const [subtitleBackgroundColor, setSubtitleBackgroundColor] = useState(formData?.subtitleBackgroundColor);
+  const [strokeWidth, setStrokeWidth] = useState(formData?.strokeWidth);
+  const [strokeColor, setStrokeColor] = useState(formData?.strokeColor);
   // const [subtitlePosition, setSubtitlePosition] = useState("Bottom");
-  const [subtitlePositionHorizontal, setSubtitlePositionHorizontal] = useState("center");
-  const [subtitlePositionVertical, setSubtitlePositionVertical] = useState(35);
-  const [subtitleSegmentLength, setSubtitleSegmentLength] = useState(10);
+  const [subtitlePositionHorizontal, setSubtitlePositionHorizontal] = useState(formData?.subtitlePositionHorizontal);
+  const [subtitlePositionVertical, setSubtitlePositionVertical] = useState(formData?.subtitlePositionVertical);
+  const [subtitleSegmentLength, setSubtitleSegmentLength] = useState(formData?.subtitleSegmentLength);
 
   const handleSubtitleBackgroundColorChange = (e) => {
     setSubtitleBackgroundColor(e.target.value);

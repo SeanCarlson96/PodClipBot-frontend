@@ -3,12 +3,19 @@ import BaseSubtitles from "./BaseSubtitles";
 import BaseMusic from "./BaseMusic";
 import BaseWatermark from "./BaseWatermark";
 
-const BasePlan = () => {
-  const [subtitles, setSubtitles] = useState(true);
-  const [music, setMusic] = useState(true);
-  const [volume, setVolume] = useState(50);
-  const [subtitlesBackground, setSubtitlesBackground] = useState(false);
-  const [watermark, setWatermark] = useState(true);
+const BasePlan = ({ formData }) => {
+  // const [subtitles, setSubtitles] = useState(true);
+  // const [music, setMusic] = useState(true);
+  // const [volume, setVolume] = useState(50);
+  // const [subtitlesBackground, setSubtitlesBackground] = useState(false);
+  // const [watermark, setWatermark] = useState(true);
+
+
+  const [subtitles, setSubtitles] = useState(formData?.subtitlesToggle);
+  const [music, setMusic] = useState(formData?.musicToggle);
+  const [volume, setVolume] = useState(formData?.volume);
+  const [subtitlesBackground, setSubtitlesBackground] = useState(formData?.subtitleBackgroundToggle);
+  const [watermark, setWatermark] = useState(formData?.watermarkToggle);
 
   const handleSubtitlesToggle = () => {
     setSubtitles(!subtitles);
@@ -47,7 +54,7 @@ const BasePlan = () => {
         </div>
         {/* <BaseSubtitles subtitles={subtitles} /> */}
 
-        <BaseSubtitles subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
+        <BaseSubtitles formData={formData} subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
       </div>
 
         {/* Music */}
@@ -80,7 +87,7 @@ const BasePlan = () => {
           />
           <span>{volume}</span>
         </div>
-        <BaseMusic music={music} />
+        <BaseMusic formData={formData} music={music} />
       </div>
 
         {/* Watermark */}

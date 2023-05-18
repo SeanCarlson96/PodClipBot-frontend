@@ -12,8 +12,17 @@ import io from 'socket.io-client';
 import ClipModel from '../ClipModel';
 import UserContext from '../contexts/UserContext';
 import SubscriptionSwitch from './SubscriptionSwitch';
+// import freeFormData, { baseFormData, advancedFormData, premiumFormData } from '../planFormDatas';
+import freeFormData from '../planFormDatas';
 
 function Tool() {
+  const { user } = useContext(UserContext);
+  // const user = useMemo(() => ({
+  //   email: 'client@gmail.com',
+  //   username: 'c',
+  //   subscription: 'premium',
+  // }), []);
+  
   const [validationMessage, setValidationMessage] = useState('');
   const [clipInputs, setClipInputs] = useState([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} newTimes={["00:00:00", "00:00:00"]} />]);
   const [videoDuration, setVideoDuration] = useState(0);
@@ -28,21 +37,21 @@ function Tool() {
   });
   const [currentClipName, setCurrentClipName] = useState('');
   const [building, setBuilding] = useState(false);
-  const { user } = useContext(UserContext);
-
-  // const user = useMemo(() => ({
-  //   email: 'client@gmail.com',
-  //   username: 'c',
-  //   subscription: 'premium',
-  // }), []);
-  
   const [subscriptionMessage, setSubscriptionMessage] = useState('');
   const [subTextColor, setSubTextColor] = useState('');
   const [buildAction, setBuildAction] = useState('');
 
+  const [formData, setFormData] = useState({ ...freeFormData });
+  const [resetPending, setResetPending] = useState(false);
+
+  useEffect(() => {
+    if (resetPending) {
+      setResetPending(false);
+    }
+  }, [formData, resetPending]);
+
   useEffect(() => {
     if(user){
-      // console.log(user);
       switch (user.subscription) {
         case 'none':
           setSubscriptionMessage('You are using the Free plan with limited features.');
@@ -51,14 +60,17 @@ function Tool() {
         case 'base':
           setSubscriptionMessage('You are using the Base plan with additional features.');
           setSubTextColor('rgb(79, 70, 229)');
+          // setFormData({ ...baseFormData })
           break;
         case 'advanced':
           setSubscriptionMessage('You are using the Advanced plan with additional features.');
           setSubTextColor('rgb(239, 68, 68)');
+          // setFormData({ ...advancedFormData })
           break;
         case 'premium':
           setSubscriptionMessage('You are using the Premium plan with all features unlocked.');
           setSubTextColor('rgb(245, 158, 11)');
+          // setFormData({ ...premiumFormData })
           break;
         default:
           setSubscriptionMessage('Unknown subscription plan.');
@@ -354,6 +366,9 @@ function Tool() {
     // const resetTimes = ["00:00:00", "00:00:00"];
     setClipInputs([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} newTimes={["00:00:00", "00:00:00"]}/>]);
     setValidationMessage('');
+
+    setResetPending(true);
+    setFormData({ ...formData });
   };
   
   return (
@@ -383,7 +398,7 @@ function Tool() {
                   title="Accepted file types: MP4, WebM, Ogg, MOV, AVI, FLV, MKV, WMV, MPEG, 3GP, M4V"
                 >?</span>
               </label>
-            <input type="file" id="video-file" name="video-file" className="form-control-file" onChange={handleVideoFileChange}/>
+            <input type="file" id="video-file" name="video-file" className="form-control-file" onChange={handleVideoFileChange} />
           </div>
 
           {/* Step 2 */}
@@ -403,7 +418,13 @@ function Tool() {
               {<div style={{ color: subTextColor }}>{subscriptionMessage}</div>}
             </div>
             <div>
-              <SubscriptionSwitch user={user} />
+              {resetPending ? 
+                  <div className="flex flex-col gap-2 items-center">
+                      <ClipLoader color="primary" size={50} className="loading-icon" />
+                      <p className='text-xs'>Resetting form...</p>
+                  </div> :
+                  <SubscriptionSwitch user={user} formData={formData}/>
+              }
             </div>
           </div>
           {/* Step 4 */}
@@ -464,7 +485,7 @@ function Tool() {
                 ) : (
                   <div className="clip-box relative">
                     <div className="w-full flex flex-col gap-2 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <ClipLoader color="#123abc" size={50} id="loading-icon" />
+                      <ClipLoader color="primary" size={50} className="loading-icon" />
                         <p className='text-xs'>{clip.name} waiting...</p>
                     </div>
                   </div>

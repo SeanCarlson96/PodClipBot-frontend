@@ -5,14 +5,18 @@ import BaseWatermark from "../base-plan-components/BaseWatermark";
 import AdvancedSubtitles from "./AdvancedSubtitles";
 import AdvancedMusic from "./AdvancedMusic";
 
-const AdvancedPlan = () => {
-  const [subtitles, setSubtitles] = useState(true);
-  const [music, setMusic] = useState(true);
-  const [volume, setVolume] = useState(50);
-  const [subtitlesBackground, setSubtitlesBackground] = useState(false);
-  const [watermark, setWatermark] = useState(true);
+const AdvancedPlan = ({formData}) => {
+  // const [subtitles, setSubtitles] = useState(true);
+  // const [music, setMusic] = useState(true);
+  // const [volume, setVolume] = useState(50);
+  // const [subtitlesBackground, setSubtitlesBackground] = useState(false);
+  // const [watermark, setWatermark] = useState(true);
 
-
+  const [subtitles, setSubtitles] = useState(formData?.subtitlesToggle);
+  const [music, setMusic] = useState(formData?.musicToggle);
+  const [volume, setVolume] = useState(formData?.volume);
+  const [subtitlesBackground, setSubtitlesBackground] = useState(formData?.subtitleBackgroundToggle);
+  const [watermark, setWatermark] = useState(formData?.watermarkToggle);
 
   const handleSubtitlesToggle = () => {
     setSubtitles(!subtitles);
@@ -48,8 +52,8 @@ const AdvancedPlan = () => {
             Subtitles
           </label>
         </div>
-        <BaseSubtitles subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
-        <AdvancedSubtitles subtitles={subtitles} subtitlesBackground={subtitlesBackground} />
+        <BaseSubtitles formData={formData} subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
+        <AdvancedSubtitles formData={formData} subtitles={subtitles} subtitlesBackground={subtitlesBackground} />
       </div>
 
       {/* Music */}
@@ -82,8 +86,8 @@ const AdvancedPlan = () => {
           />
           <span>{volume}</span>
         </div>
-        <BaseMusic music={music} />
-        <AdvancedMusic music={music}/>
+        <BaseMusic formData={formData} music={music} />
+        <AdvancedMusic formData={formData} music={music}/>
       </div>
 
       {/* Watermark */}
