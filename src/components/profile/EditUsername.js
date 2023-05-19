@@ -4,9 +4,9 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
-function EditUsername({ user, submitHandler, setMessage }) {
+function EditUsername({ submitHandler, setMessage }) {
   const [newUsername, setNewUsername] = useState("");
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [validationMessage, setValidationMessage] = useState("");
 
   const handleUpdate = () => {

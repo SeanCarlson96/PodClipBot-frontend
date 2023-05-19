@@ -74,7 +74,6 @@ const Profile = () => {
           <div className="">
             {editUsername ? (
               <EditUsername
-                user={user}
                 submitHandler={() => setEditUsername(false)}
                 setMessage={setMessage}
               />
@@ -92,7 +91,6 @@ const Profile = () => {
 
             {editEmail ? (
               <EditEmail
-                user={user}
                 submitHandler={() => setEditEmail(false)}
                 setMessage={setMessage}
               />
@@ -110,7 +108,6 @@ const Profile = () => {
 
             {editPassword ? (
               <EditPassword
-                user={user}
                 submitHandler={() => setEditPassword(false)}
                 setMessage={setMessage}
               />
@@ -128,7 +125,6 @@ const Profile = () => {
 
             {editSubscription ? (
               <EditSubscription
-                user={user}
                 submitHandler={() => setEditSubscription(false)}
                 setMessage={setMessage}
               />
@@ -149,9 +145,7 @@ const Profile = () => {
 
             {editDefaultSettings ? (
               <EditDefaultSettings
-                user={user}
                 submitHandler={() => setEditDefaultSettings(false)}
-                setMessage={setMessage}
               />
             ) : editUsername ||
               editEmail ||
@@ -167,7 +161,6 @@ const Profile = () => {
 
             {deleteAccount ? (
               <DeleteAccount
-                user={user}
                 submitHandler={() => setDeleteAccount(false)}
                 setMessage={setMessage}
               />
@@ -206,7 +199,7 @@ const Profile = () => {
               {message}
             </p>
           ) : (
-            <p>Please sign in to view your profile.</p>
+            <p className='text-center'>Please sign in to view your profile.</p>
           )}
 
         </>

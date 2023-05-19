@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import FreePlan from './FreePlan';
 import BasePlan from './base-plan-components/BasePlan';
 import AdvancedPlan from './advanced-plan-components/AdvancedPlan';
 import PremiumPlan from './premium-plan-components/PremiumPlan';
+import UserContext from '../contexts/UserContext';
 
-function SubscriptionSwitch({ user, formData }) {
+function SubscriptionSwitch({ formData }) {
+  const { user } = useContext(UserContext);
 
   const renderPlan = () => {
     if(user){
@@ -16,7 +18,7 @@ function SubscriptionSwitch({ user, formData }) {
           case 'advanced':
             return <AdvancedPlan formData={formData} />;
           case 'premium':
-            return <PremiumPlan formData={formData} />;
+            return <PremiumPlan formData={user.defaultSettings} />;
           default:
             return <p>Invalid subscription type</p>;
         }

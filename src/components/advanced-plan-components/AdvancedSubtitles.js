@@ -109,9 +109,9 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
           disabled={!subtitles}
           onChange={handleSubtitlePositionHorizontalChange}
         >
-          <option value={'center'}>Center</option>
-          <option value={'left'}>Left</option>
-          <option value={'right'}>Right</option>
+          <option value={'Center'}>Center</option>
+          <option value={'Left'}>Left</option>
+          <option value={'Right'}>Right</option>
         </select>
       </div>
       <div className="subtitle-position flex gap-2 items-center advanced-plan-input">

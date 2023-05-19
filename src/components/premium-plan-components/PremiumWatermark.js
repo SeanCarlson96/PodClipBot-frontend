@@ -70,9 +70,9 @@ function PremiumWatermark({ formData, watermark }) {
           disabled={!watermark}
           onChange={handleWatermarkPositionHorizontalChange}
         >
-          <option value={'center'}>Center</option>
-          <option value={'left'}>Left</option>
-          <option value={'right'}>Right</option>
+          <option value={'Center'}>Center</option>
+          <option value={'Left'}>Left</option>
+          <option value={'Right'}>Right</option>
         </select>
       </div>
       <div className="watermark-position flex gap-2 items-center premium-plan-input">

@@ -4,9 +4,9 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
-function EditEmail({ user, submitHandler, setMessage }) {
+function EditEmail({ submitHandler, setMessage }) {
     const [newEmail, setNewEmail] = useState("");
-    const { setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [validationMessage, setValidationMessage] = useState("");
   
     const handleUpdate = () => {

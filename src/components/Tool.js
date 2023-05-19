@@ -21,7 +21,6 @@ function Tool() {
   //   username: 'c',
   //   subscription: 'premium',
   // }), []);
-  
   const [validationMessage, setValidationMessage] = useState('');
   const [clipInputs, setClipInputs] = useState([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} newTimes={["00:00:00", "00:00:00"]} />]);
   const [videoDuration, setVideoDuration] = useState(0);
@@ -39,7 +38,6 @@ function Tool() {
   const [subscriptionMessage, setSubscriptionMessage] = useState('');
   const [subTextColor, setSubTextColor] = useState('');
   const [buildAction, setBuildAction] = useState('');
-
   const [formData, setFormData] = useState({ ...defaultFormData });
   const [resetPending, setResetPending] = useState(false);
 
@@ -419,7 +417,8 @@ function Tool() {
                       <ClipLoader color="primary" size={50} className="loading-icon" />
                       <p className='text-xs'>Resetting form...</p>
                   </div> :
-                  <SubscriptionSwitch user={user} formData={formData}/>
+                  // <SubscriptionSwitch user={user} formData={formData}/>
+                  <SubscriptionSwitch formData={formData}/>
               }
             </div>
           </div>

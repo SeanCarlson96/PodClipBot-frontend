@@ -52,8 +52,6 @@ const BasePlan = ({ formData }) => {
                 Subtitles
             </label>
         </div>
-        {/* <BaseSubtitles subtitles={subtitles} /> */}
-
         <BaseSubtitles formData={formData} subtitles={subtitles} subtitlesBackground={subtitlesBackground} setSubtitlesBackground={setSubtitlesBackground} />
       </div>
 
