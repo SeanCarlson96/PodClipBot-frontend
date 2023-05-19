@@ -5,7 +5,7 @@ function PremiumWatermark({ formData, watermark }) {
 //   const [customWatermark, setCustomWatermark] = useState(null);
   // const [watermarkPositionHorizontal, setWatermarkPositionHorizontal] = useState("center");
   // const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(25);
-  // const [watermarkSize, setWatermarkSize] = useState(150);
+  // const [watermarkSize, setWatermarkSize] = useState(200);
   // const [watermarkDuration, setWatermarkDuration] = useState(100);
   // const [watermarkOpacity, setWatermarkOpacity] = useState(100);
 

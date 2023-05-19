@@ -40,6 +40,7 @@ function Tool() {
   const [buildAction, setBuildAction] = useState('');
   const [formData, setFormData] = useState({ ...defaultFormData });
   const [resetPending, setResetPending] = useState(false);
+  const [processCancelable, setProcessCancelable] = useState(false);
 
   useEffect(() => {
     if (resetPending) {
@@ -104,6 +105,7 @@ function Tool() {
             // Check if the current clip is the last clip in the array
             if (index === prevState.length - 1) {
               setBuilding(false);
+              setProcessCancelable(false);
             }
 
             return newVideoClip;
@@ -228,13 +230,13 @@ function Tool() {
       index++;
     }
     setBuilding(true);
+    setProcessCancelable(true);
     return { isValid: true, errorMessage: '' };
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     localStorage.removeItem('videoFiles');
-    setVideoClips([]);
     const formData = new FormData(event.target);
     const validationResult = validateForm(formData);
     if (!validationResult.isValid) {
@@ -242,6 +244,7 @@ function Tool() {
       return;
     }
     setValidationMessage('');
+    setVideoClips([]);
     buildEmptyClips(clipInputs.length);
     const file = formData.get('video-file');
     formData.set('video-file', cleanFileName(file));
@@ -249,17 +252,28 @@ function Tool() {
     axios.post('http://127.0.0.1:5000/trim', formData)
       .then((response) => {
         console.log(response.data.message);
+        setBuilding(false);
+        setProcessCancelable(false);
         // The POST request is sent, and the WebSocket event listener will
         // handle the video files as they arrive
       })
       .catch(error => {
-        setValidationMessage(error.data.message);
+        let errorMsg = '';
+        if (error.response) {
+          // The request was made and the server responded with a non-2xx status code
+          errorMsg = error.response.data.message;
+        } else if (error.request) {
+          // The request was made but no response was received
+          errorMsg = 'No response received from server. Please check your network connection or try again later.';
+        } else {
+          // Something happened in setting up the request and triggered an Error
+          errorMsg = error.message;
+        }
+        setValidationMessage(errorMsg);
         cancelWholeProcess();
         console.log(error);
-        console.log(error.data.message);
-        // setMessage('Error constructing clips.');
-        // setLoading(false);
       });
+      
   
     return () => {
       console.log("Closing");
@@ -267,7 +281,6 @@ function Tool() {
   };
 
   const handleCancel = (clipName) => {
-    console.log("Canceling " + clipName);
     setProgress(0);
     // Emit the cancel_processing message with the clip's name
     const socket = io('http://127.0.0.1:5000');
@@ -279,16 +292,16 @@ function Tool() {
         return clip.name !== clipName;
       });
         // If updatedClips is empty, set building to false
-        if (updatedClips.length === 0) {
-          setBuilding(false);
-        }
+        // if (updatedClips.length === 0) {
+          // setBuilding(false);
+        // }
       return updatedClips;
     });
     
   };
 
   const cancelWholeProcess = () => {
-    console.log("Canceling remaining process");
+    // console.log("Canceling remaining process");
     // Filter the videoClips to get the names of clips with loading value true
     const undeliveredClipNames = videoClips
       .filter((clip) => clip.loading)
@@ -296,7 +309,8 @@ function Tool() {
   
     // Loop through the undelivered clip names and call handleCancel for each
     undeliveredClipNames.forEach((clipName) => handleCancel(clipName));
-    setBuilding(false);
+    // setBuilding(false);
+    setProcessCancelable(false);
   };
 
   const clearVideoClips = () => {
@@ -428,10 +442,19 @@ function Tool() {
             {validationMessage && <p className="text-red-500">{validationMessage}</p>}
             <div className="flex justify-between">
               <div className="flex gap-3">
+              {building && !processCancelable ? (
+                <button type="submit" id="trim-button" className="btn btn-primary w-36 flex items-center" disabled>
+                <div className="flex items-center gap-2">
+                  <ClipLoader color="white" size={17} className="loading-icon" />
+                  <span>Build Clips</span>
+                </div>
+              </button>
+                ) : (
                 <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building ? true : false}>
                   <FontAwesomeIcon icon={faHammer} /> Build Clips
                 </button>
-                {building ? (
+                )}
+                {building && processCancelable ? (
                   <button className="text-xs" type="button" onClick={cancelWholeProcess}>
                     Cancel Remaining Process
                   </button>
@@ -490,6 +513,7 @@ function Tool() {
                   <CustomVideoPlayer
                     src={`http://127.0.0.1:5000/uploads/${clip.filename}?v=${Date.now()}`}
                     filename={clip.filename}
+                    clipName={clip.name}
                   />
                 </div>
               )}
