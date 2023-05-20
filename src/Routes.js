@@ -8,10 +8,12 @@ import Registration from './components/Registration';
 import Profile from './components/profile/Profile';
 import EmailInput from './components/EmailInput';
 import ResetPassword from './components/ResetPassword';
+import Landing from './components/Landing';
 
 const Routing = () => (
   <Routes>
-    <Route exact path="/" element={<Tool />} />
+    <Route exact path="/" element={<Landing />} />
+    <Route exact path="/tool" element={<Tool />} />
     <Route exact path="/login" element={<Login />} />
     <Route exact path="/subscriptions" element={<Subscriptions />} />
     <Route exact path="/registration" element={<Registration />} />

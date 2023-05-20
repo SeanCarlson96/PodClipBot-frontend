@@ -37,7 +37,7 @@ const Header = () => {
               className="nav-link"
               activeclassname="font-bold text-gray-400"
               exact='true'
-              to="/"
+              to="/tool"
             >
               Tool
             </NavLink>
