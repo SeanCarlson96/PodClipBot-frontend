@@ -9,6 +9,9 @@ import Profile from './components/profile/Profile';
 import EmailInput from './components/EmailInput';
 import ResetPassword from './components/ResetPassword';
 import Landing from './components/Landing';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfUse from './components/TermsOfUse';
+import Contact from './components/Contact';
 
 const Routing = () => (
   <Routes>
@@ -20,9 +23,9 @@ const Routing = () => (
     <Route exact path="/profile" element={<Profile />} />
     <Route exact path="/email-input" element={<EmailInput />} />
     <Route exact path="/reset-password" element={<ResetPassword />} />
-    {/* <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
+    <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
     <Route exact path="/terms-of-use" element={<TermsOfUse />} />
-    <Route exact path="/contact" element={<Contact />} /> */}
+    <Route exact path="/contact" element={<Contact />} />
   </Routes>
 );
 

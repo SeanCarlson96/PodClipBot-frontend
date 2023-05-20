@@ -476,7 +476,7 @@ function Tool() {
         {/* Display Clips */}
         <div className="flex gap-2 flex-wrap">
           {videoClips.map((clip, index) => (
-            <div key={index} className="border mr-2">
+            <div key={index} className="border border-secondary mr-2">
               {clip.loading ? (
                 clip.name === currentClipName ? (
                   <div className="clip-box relative flex items-center justify-center">

@@ -12,6 +12,10 @@ h1 {
 	font-weight: 200 !important;
 }
 
+h2 {
+	font-weight: 200 !important;
+}
+
 h4 {
 	font-weight: 200 !important;
 }
@@ -33,6 +37,10 @@ progress {
 }
 
 .Tool {
+	max-width: 800px;
+}
+
+.document {
 	max-width: 800px;
 }
 
@@ -84,4 +92,6 @@ progress {
     text-transform: capitalize;
 }
 
-  
+.my-modal .modal-dialog {
+    max-width: 80%;
+}

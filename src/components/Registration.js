@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
+import TermsModal from './TermsModal';
 
 const Registration = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,16 @@ const Registration = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [agreement, setAgreement] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+
+  const openTermsModal = () => {
+      setShowTerms(true);
+  };
+
+  const closeTermsModal = () => {
+      setShowTerms(false);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +34,9 @@ const Registration = () => {
 
     if (formData.password !== formData.confirmPassword) {
       return { isValid: false, errorMessage: 'Passwords do not match' };
+    }
+    if (agreement !== true) {
+      return { isValid: false, errorMessage: 'Please agree to our Terms of Use' };
     }
 
     return { isValid: true, errorMessage: '' };
@@ -106,10 +120,36 @@ const Registration = () => {
                 onChange={handleChange}
                 required
               />
+              <div>
+                <input
+                  type="checkbox"
+                  className="form-check-input cursor-pointer"
+                  id="agreement"
+                  name="agreement"
+                  value={agreement}
+                  onChange={(e) => setAgreement(e.target.checked)}
+                  readOnly={true}
+                  required
+                />
+                <label className='form-check-label ml-2' htmlFor="agreement">
+                  I agree to the 
+                  <button 
+                      type="button" 
+                      className='ml-1'
+                      onClick={openTermsModal}
+                      style={{background: 'none', border: 'none', padding: 0, textDecoration: 'underline', cursor: 'pointer'}}
+                  >
+                      Terms of Use
+                  </button>
+                </label>
+              </div>
 
             <button type="submit" className="btn btn-primary w-36">Register</button>
 
           </form>
+
+          <TermsModal show={showTerms} handleClose={closeTermsModal} />
+
 
           {loading && (
             <div className="flex justify-center">
@@ -117,8 +157,8 @@ const Registration = () => {
             </div>
           )}
 
-          {message && (<p className="text-red-500">{message}</p>)}
-          {successMessage && (<p className="text-green-500">{successMessage}</p>)}
+          {message && (<p className="text-red-500 text-center">{message}</p>)}
+          {successMessage && (<p className="text-green-500 text-center">{successMessage}</p>)}
 
     </div>
   );

@@ -1,3 +1,73 @@
-$primary: #5C7362;
+$primary: #93C572;
+// $primary: rgba(131,58,180,1); // nice purple color
+
+.sub-card:hover {
+	cursor: pointer;
+	box-shadow: 0 0 0 1px #fff, 0 0 0 3px $primary;
+}
+
+
+// .btn-primary {
+//     // background-image: linear-gradient(to right, red, orange, yellow, green,
+//     // blue, indigo, violet);
+//     // background-image: linear-gradient(144deg, rgba(131,58,180,1) 19%, rgba(253,29,29,0.6363162878787878) 38%, rgba(124,98,85,1) 57%, rgba(92,115,98,1) 100%);
+//     background-image: 
+//         linear-gradient(161deg, rgba(0,242,234,0.7959558823529411) 15%, rgba(131,58,180,0.7539390756302521) 30%, rgba(196,48,43,0.927608543417367) 80%, rgba(255,252,0,0.938813025210084) 54%);
+//     opacity: 0.9;
+//     // background-image: 
+//     // linear-gradient(rgba(3, 3, 3, 0.431), rgba(0, 0, 0, 0.184)),
+//     // linear-gradient(
+//     //   144deg,
+//     //   #ff0050,  /* TikTok Pink */
+//     //   #00f2ea,  /* TikTok Aqua */
+//     //   #c4302b,  /* Youtube Red */
+//     //   #FFFC00,  /* Snapchat Yellow */
+//     //   #833AB4,  /* Instagram Purple */
+//     // //   #C13584,  /* Instagram Purple Red */
+//     // //   #E1306C,  /* Instagram Rose */
+//     // //   #FD1D1D,  /* Instagram Bright Red */
+//     // //   #F56040,  /* Instagram Red Orange */
+//     // //   #F77737,  /* Instagram Orange */
+//     // //   #FCAF45,  /* Instagram Orange Yellow */
+//     // //   #FFDC80,  /* Instagram Yellow */
+//     //   #3b5998   /* Facebook Blue */
+//     // );
+//   transition: background-image 0.5s ease;
+
+//     border: none !important;
+//     // color: black !important;
+// }
+// .btn-primary:hover {
+//     opacity: 0.5;
+// }
 
 @import '~bootstrap/scss/bootstrap';
+
+
+
+// TikTok Pink
+// Hex: #ff0050
+// TikTok Aqua
+// Hex: #00f2ea
+// Youtube Red
+// #c4302b
+// snapchat yellow
+// #FFFC00
+// INSTAGRAM PURPLE
+// HEX: #833AB4
+// INSTAGRAM PURPLE RED
+// HEX: #C13584
+// INSTAGRAM ROSE
+// HEX: #E1306C
+// INSTAGRAM BRIGHT RED
+// HEX: #FD1D1D
+// INSTAGRAM RED ORANGE
+// HEX: #F56040
+// INSTAGRAM ORANGE
+// HEX: #F77737
+// INSTAGRAM ORANGE YELLOW
+// HEX: #FCAF45
+// INSTAGRAM YELLOW
+// HEX: #FFDC80
+// facebook blue
+// #3b5998
