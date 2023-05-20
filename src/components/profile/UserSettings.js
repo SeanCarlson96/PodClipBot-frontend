@@ -57,8 +57,15 @@ function UserSettings() {
         })
         .catch((err) => {
           console.error("Error updating default settings: ", err);
+          // If the server returned a message, display that
+          if (err.response && err.response.data && err.response.data.message) {
+            console.log(err.response.data.message);
+          } else {
+            // Else, display a generic error message
+            console.log("Error updating default settings");
+          }
           setEditing(null);
-        });
+        })
     } else {
       console.log("No changes in default settings.");
       setEditing(null);

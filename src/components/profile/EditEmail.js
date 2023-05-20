@@ -33,8 +33,13 @@ function EditEmail({ submitHandler, setMessage }) {
         })
         .catch((err) => {
           console.error("Error updating email: ", err);
-          setValidationMessage("Error updating email");
-        });
+          // Check if the error response contains a message, and display it
+          if (err.response && err.response.data && err.response.data.message) {
+              setValidationMessage(err.response.data.message);
+          } else {
+              setValidationMessage("Error updating email");
+          }
+      });
     };
   return (
     <div>

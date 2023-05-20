@@ -25,6 +25,11 @@ function DeleteAccount({ setMessage, submitHandler }) {
       })
       .catch((err) => {
         console.error("Error deleting account: ", err);
+        if (err.response && err.response.data && err.response.data.message) {
+          setMessage(err.response.data.message);
+        } else {
+          setMessage('Unable to delete account. Please try again later.');
+        }
       });
   };
 

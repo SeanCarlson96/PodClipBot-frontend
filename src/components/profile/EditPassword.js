@@ -37,11 +37,12 @@ function EditPassword({ submitHandler, setMessage }) {
         submitHandler();
       })
       .catch((err) => {
-        if (err.response && err.response.data && err.response.data.error === 'Incorrect current password') {
-          setValidationMessage("Incorrect current password");
+        if (err.response && err.response.data && err.response.data.message) {
+          // Here, we use the message sent back from the server
+          setValidationMessage(err.response.data.message);
         } else {
           console.error("Error updating password: ", err);
-          setValidationMessage("Error updating password");
+          setValidationMessage("An unexpected error occurred while updating your password. Please try again later.");
         }
       });
   };

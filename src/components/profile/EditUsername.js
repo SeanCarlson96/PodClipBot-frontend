@@ -26,7 +26,13 @@ function EditUsername({ submitHandler, setMessage }) {
       })
       .catch((err) => {
         console.error("Error updating username: ", err);
-        setValidationMessage("Error updating username");
+        // If the server returned a message, display that
+        if (err.response && err.response.data && err.response.data.message) {
+          setValidationMessage(err.response.data.message);
+        } else {
+          // Else, display a generic error message
+          setValidationMessage("Error updating username");
+        }
       });
   };
 

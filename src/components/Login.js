@@ -29,12 +29,15 @@ const Login = () => {
                 localStorage.removeItem('videoFiles');
                 navigate('/');
             } else {
-                setMessage('Invalid email or password.');
+                // If the response is not OK, attempt to extract the error message from the server
+                const errorData = await response.json();
+                setMessage(errorData.message || 'An error occurred. Please try again.');
             }
         } catch (error) {
             console.error('Error:', error);
-            setMessage('An error occurred. Please try again.');
+            setMessage('An unexpected error occurred. Please try again.');
         }
+    
     };
 
     return (
