@@ -51,7 +51,7 @@ function PremiumWatermark({ formData, watermark }) {
             Custom Watermark Upload:
               </label>
               <span
-                  className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
+                  className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   title="Accepted file types: JPEG, PNG, GIF, BMP, SVG, TIFF, WebP, HEIF, ICO"

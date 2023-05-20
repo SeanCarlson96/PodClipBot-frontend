@@ -1,5 +1,5 @@
-// import { useState, useEffect, useContext } from 'react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useContext } from 'react';
+// import { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import ClipTimeInput from './ClipTimeInput';
@@ -15,12 +15,12 @@ import SubscriptionSwitch from './SubscriptionSwitch';
 import defaultFormData from '../defaultFormData';
 
 function Tool() {
-  // const { user } = useContext(UserContext);
-  const user = useMemo(() => ({
-    email: 'client@gmail.com',
-    username: 'c',
-    subscription: 'none',
-  }), []);
+  const { user } = useContext(UserContext);
+  // const user = useMemo(() => ({
+  //   email: 'client@gmail.com',
+  //   username: 'c',
+  //   subscription: 'none',
+  // }), []);
   const [validationMessage, setValidationMessage] = useState('');
   const [clipInputs, setClipInputs] = useState([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} newTimes={["00:00:00", "00:00:00"]} />]);
   const [videoDuration, setVideoDuration] = useState(0);
@@ -76,59 +76,59 @@ function Tool() {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   const socket = io('http://127.0.0.1:5000');
-  //   socket.on('connect', () => {});
+  useEffect(() => {
+    const socket = io('http://127.0.0.1:5000');
+    socket.on('connect', () => {});
 
-  //   socket.on('current_clip_in_edit', (data) => {
-  //     console.log('Current clip in edit:', data)
-  //     if(data.name !== currentClipName) {
-  //       setCurrentClipName(data.name);
-  //     }
-  //   });
-  //   socket.on('video_processing_progress', (data) => {
-  //     setProgress(data.progress);
-  //   });
-  //   socket.on('build_action', (data) => {
-  //     setBuildAction(data.action);
-  //   });
-  //   socket.on('video_file_ready', (data) => {
-  //     console.log('Received', data.name);
-  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
+    socket.on('current_clip_in_edit', (data) => {
+      console.log('Current clip in edit:', data)
+      if(data.name !== currentClipName) {
+        setCurrentClipName(data.name);
+      }
+    });
+    socket.on('video_processing_progress', (data) => {
+      setProgress(data.progress);
+    });
+    socket.on('build_action', (data) => {
+      setBuildAction(data.action);
+    });
+    socket.on('video_file_ready', (data) => {
+      console.log('Received', data.name);
+      const newVideoClip = new ClipModel(data.name, data.filename, false);
     
-  //     setVideoClips((prevState) => {
-  //       let updated = false;
-  //       const updatedClips = prevState.map((clip, index) => {
-  //         if (!updated && clip.name === data.name) {
-  //           updated = true;
+      setVideoClips((prevState) => {
+        let updated = false;
+        const updatedClips = prevState.map((clip, index) => {
+          if (!updated && clip.name === data.name) {
+            updated = true;
 
-  //           // Check if the current clip is the last clip in the array
-  //           if (index === prevState.length - 1) {
-  //             setBuilding(false);
-  //             setProcessCancelable(false);
-  //           }
+            // Check if the current clip is the last clip in the array
+            if (index === prevState.length - 1) {
+              setBuilding(false);
+              setProcessCancelable(false);
+            }
 
-  //           return newVideoClip;
-  //         }
-  //         return clip;
-  //       });
+            return newVideoClip;
+          }
+          return clip;
+        });
     
-  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
-  //       return updatedClips;
-  //     });
+        localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
+        return updatedClips;
+      });
 
-  //     if (progress === 100) {
-  //       setProgress(0);
-  //     }
-  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
-  //   });
-  //   socket.on("processing_canceled", (data) => {
-  //     console.log('Processing canceled:', data)
-  //   });
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, [videoClips, progress, currentClipName]);
+      if (progress === 100) {
+        setProgress(0);
+      }
+      // setCurrentClipIndex((prevIndex) => prevIndex + 1);
+    });
+    socket.on("processing_canceled", (data) => {
+      console.log('Processing canceled:', data)
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, [videoClips, progress, currentClipName]);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -400,7 +400,7 @@ function Tool() {
           <div className="form-group flex flex-col gap-2">
               <label className="flex gap-2 font-bold" htmlFor="video-file">1. Upload your full length video file:
                 <span
-                  className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-gray-300 text-gray-700"
+                  className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   title="Accepted file types: MP4, WebM, Ogg, MOV, AVI, FLV, MKV, WMV, MPEG, 3GP, M4V"

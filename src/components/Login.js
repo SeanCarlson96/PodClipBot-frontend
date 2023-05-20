@@ -27,7 +27,7 @@ const Login = () => {
                 localStorage.setItem('access_token', data.access_token);
                 setUser(data.user);
                 localStorage.removeItem('videoFiles');
-                navigate('/');
+                navigate('/tool');
             } else {
                 // If the response is not OK, attempt to extract the error message from the server
                 const errorData = await response.json();

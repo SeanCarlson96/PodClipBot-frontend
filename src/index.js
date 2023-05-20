@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import '@fortawesome/fontawesome-free/css/all.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
+import './App.css';
 import './index.css';
+import './custom.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserContext from './contexts/UserContext';

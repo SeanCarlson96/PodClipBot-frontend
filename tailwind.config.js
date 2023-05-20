@@ -6,14 +6,14 @@ module.exports = {
       extend: {
         colors: {
           'light': {
-            'primary': '#ffffff', // white
-            'secondary': '#f8f8f8', // light gray
-            'text': '#333333', // dark gray
+            'primary': '#FBFAF5', //white
+            'secondary': '#5C7362', //green
+            'text': '#161616', //black
           },
           'dark': {
-            'primary': '#333333', // dark gray
-            'secondary': '#1a1a1a', // almost black
-            'text': '#ffffff', // white
+            'primary': '#161616', //black
+            'secondary': '#5C7362', //green
+            'text': '#FBFAF5', //white
           },
         },
       },

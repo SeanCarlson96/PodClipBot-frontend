@@ -13,7 +13,7 @@ h1 {
 }
 
 h4 {
-	font-weight: 100 !important;
+	font-weight: 200 !important;
 }
 
 p {
@@ -79,4 +79,9 @@ progress {
 	animation-duration: 3s;
 	animation-fill-mode: forwards; /* this makes the element stay at the end state of the animation */
   }
+
+.capitalize::first-letter {
+    text-transform: capitalize;
+}
+
   
