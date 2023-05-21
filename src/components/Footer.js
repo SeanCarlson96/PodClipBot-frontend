@@ -1,30 +1,32 @@
-
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 function Footer() {
+    const { theme } = useContext(ThemeContext);
   return (
     <footer>
-      <div className="container flex justify-between items-center">
+      <div className="container flex flex-wrap pl-4 justify-between items-center">
         <div>
-          <p className="text-center text-gray-500">
+          <p className=" text-gray-600">
             &copy; {new Date().getFullYear()} PodClipBot.com
           </p>
         </div>
         <div>
-          <ul className="flex space-x-4">
+          <ul className="flex gap-2  sm:space-x-4">
             <li>
-              <Link to="/privacy-policy">Privacy Policy</Link>
+              <Link className={`${theme === 'light' ? 'text-current' : ''}`} to="/privacy-policy">Privacy Policy</Link>
             </li>
             <li>
-              <Link to="/terms-of-use">Terms of Use</Link>
+              <Link className={`${theme === 'light' ? 'text-current' : ''}`} to="/terms-of-use">Terms of Use</Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link className={`${theme === 'light' ? 'text-current' : ''}`} to="/contact">Contact</Link>
             </li>
           </ul>
         </div>
       </div>
-    </footer>
+    </footer> 
   );
 }
 

@@ -1,28 +1,17 @@
 
 import { NavLink } from 'react-router-dom';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
-import React, { useState, useContext, useEffect } from 'react';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useContext} from 'react';
 import UserContext from '../contexts/UserContext';
 import ThemedComponent from './ThemedComponent';
 import { ThemeContext } from '../contexts/ThemeContext';
-import SamllHeader from './SmallHeader';
 
-const Header = () => {
+const SmallHeader = () => {
   const { user, setUser } = useContext(UserContext);
   const { theme } = useContext(ThemeContext);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); // Empty array ensures that effect is only run on mount and unmount
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const textColor = theme === 'dark' ? 'navbar-dark' : 'navbar-light';
   const logo = theme === 'dark' ? 'PodClipBot.com (white).png' : 'PodClipBot.com3.png';
@@ -35,18 +24,25 @@ const Header = () => {
   };
 
   return (
-    <nav className={`navbar navbar-expand-lg ${textColor}`}>
+    <nav className={`navbar navbar-expand-lg flex flex-col ${textColor} w-full`}>
 
-    {windowWidth < 768 ? (<SamllHeader />) : null}
+      <div className="flex flex-row justify-between items-center w-full px-3">
 
-      {/* <div className="flex justify-between items-center w-full px-5"> */}
-      <div className={`${windowWidth < 768 ? "hidden" : "flex justify-between items-center w-full px-5"}`}>
- 
         <a className="navbar-brand flex" href="/">
           <img src={process.env.PUBLIC_URL + '/' + logo} alt="logo" className="logo w-44" />
         </a>
 
-        <ul className="navbar-nav flex flex-row gap-2">
+        <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className=""
+          >
+            <FontAwesomeIcon icon={faBars} size='lg' />
+          </button>
+
+      </div>
+
+      {isMenuOpen ? (
+        <ul className="navbar-nav flex flex-col gap-2 pb-4 pt-2 mx-auto text-center border-b border-secondary w-full">
   
           <li className="nav-item">
             <NavLink
@@ -121,16 +117,15 @@ const Header = () => {
               </>
             )}
 
-            <li className="nav-item flex items-center">
+            <li className="nav-item flex items-center self-center mt-2">
               <ThemedComponent />
             </li>
 
         </ul>
-
-      </div>
+    ) : null}
 
     </nav>
   );
 };
 
-export default Header;
+export default SmallHeader;
