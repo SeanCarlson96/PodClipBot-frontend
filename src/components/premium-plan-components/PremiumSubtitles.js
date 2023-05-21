@@ -54,7 +54,7 @@ function PremiumSubtitles({ formData, subtitles}) {
         </div> */}
         <div className="form-check form-switch flex gap-2 items-center premium-plan-input">
           <input
-            className="form-check-input"
+            className="form-check-input border border-secondary"
             type="checkbox"
             id="diarizationToggle"
             name="diarizationToggle"
@@ -69,7 +69,7 @@ function PremiumSubtitles({ formData, subtitles}) {
         <div className="second-speaker-color flex gap-2 items-center premium-plan-input">
           <label htmlFor="secondSpeakerColor">Additional Speaker Colors:</label>
           <input
-            className="form-control form-control-color"
+            className="form-control form-control-color border border-secondary"
             type="color"
             id="secondSpeakerColor"
             name="secondSpeakerColor"
@@ -78,7 +78,7 @@ function PremiumSubtitles({ formData, subtitles}) {
             onChange={handleSecondSpeakerColorChange}
           />
           <input
-            className="form-control form-control-color"
+            className="form-control form-control-color border border-secondary"
             type="color"
             id="thirdSpeakerColor"
             name="thirdSpeakerColor"
@@ -87,7 +87,7 @@ function PremiumSubtitles({ formData, subtitles}) {
             onChange={handleThirdSpeakerColorChange}
           />
           <input
-            className="form-control form-control-color"
+            className="form-control form-control-color border border-secondary"
             type="color"
             id="fourthSpeakerColor"
             name="fourthSpeakerColor"
@@ -96,7 +96,7 @@ function PremiumSubtitles({ formData, subtitles}) {
             onChange={handleFourthSpeakerColorChange}
           />
           <input
-            className="form-control form-control-color"
+            className="form-control form-control-color border border-secondary"
             type="color"
             id="fifthSpeakerColor"
             name="fifthSpeakerColor"

@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import UserContext from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -8,6 +9,7 @@ const Login = () => {
     const [message, setMessage] = useState('');
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
+    const { theme } = useContext(ThemeContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,14 +43,14 @@ const Login = () => {
     };
 
     return (
-        <div className="flex flex-col gap-4 w-96 mx-auto items-center">
+        <div className="flex flex-col gap-4 w-full sm:w-96 mx-auto items-center">
 
             <h1>Sign In</h1>
 
-            <form className="flex flex-col gap-4 items-center w-full" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-4 items-center w-full sm:w-96" onSubmit={handleSubmit}>
                 
                 <input
-                    className="form-control"
+                    className="form-control border border-secondary"
                     id="email"
                     type="email"
                     placeholder="Email"
@@ -58,7 +60,7 @@ const Login = () => {
                 />
 
                 <input
-                    className="form-control"
+                    className="form-control border border-secondary"
                     id="password"
                     type="password"
                     placeholder="Password"
@@ -71,7 +73,7 @@ const Login = () => {
 
             </form>
 
-            <a href="/email-input">Forgot Password</a>
+            <a href="/email-input" className={`${theme === 'light' ? 'text-current' : ''}`}>Forgot Password</a>
             
             {message && (<p className="text-red-500">{message}</p>)}
 

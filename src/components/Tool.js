@@ -380,25 +380,26 @@ function Tool() {
   };
   
   return (
-    <div className="Tool mx-auto flex flex-col gap-4">
+    <div className="Tool mx-auto flex flex-col gap-4 mb-5">
         {/* H1 and paragraph */}
-        {/* <div>
+        <div>
           <h1>Clip Creation Tool</h1>
-          <p>
+          {/* <p>
             Upload your full length video file and enter the timestamps for your desired clips. 
             The Podcast Clip Bot will then create the clips for you to download. Each clip will 
             automatically crop the video to the proper short-form aspect ratio, center the video, add subtitles, 
             and add random royalty free background music. If you would like to customize the tool to 
             create higher value clips, we have subscription options available that allow for highly customizable clips.
-          </p>
-        </div> */}
+          </p> */}
+        </div>
 
         {/* Form */}
-        <form className='flex flex-col gap-4' id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data">
+        <form className='flex flex-col gap-5' id="trim-form" onSubmit={handleSubmit} encType="multipart/form-data">
           
           {/* Step 1 */}
           <div className="form-group flex flex-col gap-2">
-              <label className="flex gap-2 font-bold" htmlFor="video-file">1. Upload your full length video file:
+              {/* <label className="flex gap-2 font-bold" htmlFor="video-file">1. Your full length video file: */}
+              <label className="flex gap-2 font-bold">1. Your full length video file:
                 <span
                   className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
                   data-bs-toggle="tooltip"
@@ -412,7 +413,8 @@ function Tool() {
           {/* Step 2 */}
           <div className="form-group flex flex-col gap-3">
             <div className='flex justify-between items-center p-0'>
-              <label className="font-bold" htmlFor="add-clips">2. Add timestamps for as many clips as you'd like:</label>
+              {/* <label className="font-bold" htmlFor="add-clips">2. Your clip timestamps:</label> */}
+              <label className="font-bold">2. Your clip timestamps:</label>
               <button type="button" id="add-clips" className="btn btn-primary w-36" onClick={handleAddClipTimeInput}>
                 <FontAwesomeIcon icon={faPlus} /> Add A Clip
               </button>
@@ -421,8 +423,8 @@ function Tool() {
           </div>
           {/* Step 3 */}
           <div className="form-group flex flex-col gap-3">
-            <div className='flex gap-4'>
-              <label className="font-bold">3. Style your clips:</label>
+            <div className='flex flex-wrap gap-4'>
+              <label className="font-bold">3. Your clip settings:</label>
               {<div style={{ color: subTextColor }}>{subscriptionMessage}</div>}
             </div>
             <div>

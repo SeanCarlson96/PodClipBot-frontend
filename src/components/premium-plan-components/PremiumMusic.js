@@ -12,7 +12,7 @@ function PremiumMusic({formData, music}) {
         <div className="music-duration flex gap-2 items-center premium-plan-input">
           <label htmlFor="musicDuration">Music Duration (%):</label>
           <input
-            className="form-control"
+            className="form-control border border-secondary"
             type="number"
             id="musicDuration"
             name="musicDuration"

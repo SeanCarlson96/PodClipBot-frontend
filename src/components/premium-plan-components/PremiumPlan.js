@@ -45,7 +45,7 @@ const PremiumPlan = ({formData}) => {
       <div className="flex flex-wrap gap-2">
         <div className="form-check form-switch flex gap-2 items-center w-full">
           <input
-            className="form-check-input"
+            className="form-check-input border border-secondary"
             type="checkbox"
             id="subtitlesToggle"
             name="subtitlesToggle"
@@ -68,7 +68,7 @@ const PremiumPlan = ({formData}) => {
             Music
           </label>
           <input
-            className="form-check-input"
+            className="form-check-input border border-secondary"
             type="checkbox"
             id="musicToggle"
             name="musicToggle"

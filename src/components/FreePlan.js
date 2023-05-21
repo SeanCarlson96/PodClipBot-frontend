@@ -21,15 +21,17 @@ const FreePlan = ({ formData }) => {
   };
 
   return (
-    <div className="flex gap-5 items-center">
+    <div className="flex flex-wrap gap-5 items-center">
+
         <input
           type="hidden"
           name="subscription"
           value="none"
         />
+
       <div className="form-check form-switch flex gap-2 items-center">
         <input
-          className="form-check-input"
+          className="form-check-input border border-secondary"
           type="checkbox"
           id="subtitlesToggle"
           name="subtitlesToggle"
@@ -46,7 +48,7 @@ const FreePlan = ({ formData }) => {
           Music
         </label>
         <input
-          className="form-check-input"
+          className="form-check-input border border-secondary"
           type="checkbox"
           id="musicToggle"
           name="musicToggle"
@@ -58,7 +60,7 @@ const FreePlan = ({ formData }) => {
       <div className="volume-control flex gap-2 items-center">
         <label htmlFor="volume">Music Volume:</label>
         <input
-          className="volume-input"
+          className="volume-input  border border-secondary"
           type="range"
           id="volume"
           name="volume"
@@ -70,6 +72,7 @@ const FreePlan = ({ formData }) => {
         />
         <span>{volume}</span>
       </div>
+
     </div>
   );
 };

@@ -42,7 +42,7 @@ function BaseSubtitles({ formData, subtitles, subtitlesBackground, setSubtitlesB
         <div className="font-size-select flex gap-2 items-center base-plan-input">
             <label className="w-36" htmlFor="fontSize">Font Size:</label>
             <input
-                className="form-control"
+                className="form-control border border-secondary"
                 type="number"
                 id="fontSize"
                 name="fontSize"
@@ -55,7 +55,7 @@ function BaseSubtitles({ formData, subtitles, subtitlesBackground, setSubtitlesB
         <div className="subtitle-color flex gap-2 items-center base-plan-input">
             <label htmlFor="subtitleColor">Subtitle Color:</label>
             <input
-                className="form-control form-control-color"
+                className="form-control form-control-color border border-secondary"
                 type="color"
                 id="subtitleColor"
                 name="subtitleColor"
@@ -68,7 +68,7 @@ function BaseSubtitles({ formData, subtitles, subtitlesBackground, setSubtitlesB
                 Background
             </label>
             <input
-                className="form-check-input"
+                className="form-check-input border border-secondary"
                 type="checkbox"
                 id="subtitleBackgroundToggle"
                 name="subtitleBackgroundToggle"

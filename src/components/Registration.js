@@ -73,15 +73,15 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-96 mx-auto items-center">
+    <div className="flex flex-col gap-4 w-full sm:w-96 mx-auto items-center">
 
           <h1>Register</h1>
 
-          <form className="flex flex-col gap-4 items-center w-full" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-4 items-center w-full sm:w-96" onSubmit={handleSubmit}>
 
               <input
                 type="text"
-                className="form-control"
+                className="form-control border border-secondary"
                 id="username"
                 name="username"
                 placeholder="Enter name"
@@ -92,7 +92,7 @@ const Registration = () => {
 
               <input
                 type="email"
-                className="form-control"
+                className="form-control border border-secondary"
                 id="email"
                 name="email"
                 placeholder="Enter email"
@@ -102,7 +102,7 @@ const Registration = () => {
               />
               <input
                 type="password"
-                className="form-control"
+                className="form-control border border-secondary"
                 id="password"
                 name="password"
                 placeholder="Password"
@@ -112,7 +112,7 @@ const Registration = () => {
               />
               <input
                 type="password"
-                className="form-control"
+                className="form-control border border-secondary"
                 id="confirmPassword"
                 name="confirmPassword"
                 placeholder="Confirm Password"
@@ -123,7 +123,7 @@ const Registration = () => {
               <div>
                 <input
                   type="checkbox"
-                  className="form-check-input cursor-pointer"
+                  className="form-check-input cursor-pointer border border-secondary"
                   id="agreement"
                   name="agreement"
                   value={agreement}

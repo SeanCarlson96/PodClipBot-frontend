@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 const Landing = () => {
     return (
         <div className="mt-32 flex flex-col gap-4 mx-auto items-center">
-            <h1 className=''>Automatically generated short form content.</h1>
+            <h1 className='text-center'>Automatically generated short form content.</h1>
             <div className='flex flex-col gap-2'>
                 <h4>Your video.</h4>
                 <h4>Your timestamps.</h4>

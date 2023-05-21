@@ -1,6 +1,6 @@
 
 const SubscriptionCard = ({ planName, price, benefits }) => (
-  <div className="sub-card rounded-lg p-6 mx-2 my-6 w-1/3 border border-secondary">
+  <div className="sub-card rounded-lg p-6 border border-secondary w-80">
     <h2 className="mb-2 font-extralight">{planName}</h2>
     <p className="text-xl text-gray-400 mb-4">${price}/month</p>
     <ul className="list-unstyled">
@@ -69,9 +69,9 @@ const Subscriptions = () => {
   ];
 
   return (
-    <div className="Subscriptions mx-auto flex flex-col gap-3">
-      <h1>Subscription Plans</h1>
-      <div className="flex justify-center">
+    <div className="Subscriptions mx-auto flex flex-col gap-3 mb-5">
+      <h1 className="text-center">Subscription Plans</h1>
+      <div className="flex flex-wrap justify-center gap-4">
         {subscriptionOptions.map((option, index) => (
           <SubscriptionCard key={index} {...option} />
         ))}

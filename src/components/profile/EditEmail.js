@@ -58,7 +58,7 @@ function EditEmail({ submitHandler, setMessage }) {
                 <label htmlFor="email">New Email:</label>
                 <input
                     type="email"
-                    className="form-control"
+                    className="form-control border border-secondary"
                     id="email"
                     placeholder="New Email"
                     value={newEmail}

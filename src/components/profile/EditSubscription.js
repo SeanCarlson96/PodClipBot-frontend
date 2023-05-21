@@ -52,7 +52,7 @@ function EditSubscription({ submitHandler, setMessage }) {
                 <label htmlFor="subscription">New Subscription:</label>
                 <input
                     type="text"
-                    className="form-control"
+                    className="form-control border border-secondary"
                     id="subscription"
                     placeholder="New Subscription"
                     value={newSubscription}

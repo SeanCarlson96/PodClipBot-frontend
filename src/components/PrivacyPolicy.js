@@ -2,7 +2,7 @@ import React from 'react'
 
 function PrivacyPolicy() {
   return (
-    <div className="document flex flex-col gap-2 mx-auto">
+    <div className="document flex flex-col gap-2 mx-auto mb-5">
         <h3>Privacy Policy</h3>
         <h5>1. Introduction</h5>
         <p>

@@ -49,7 +49,7 @@ function AdvancedMusic({ formData, music }) {
 
       <div className="music-fade form-check form-switch flex gap-2 items-center advanced-plan-input">
         <input
-          className="form-check-input"
+          className="form-check-input border border-secondary"
           type="checkbox"
           id="musicFade"
           name="musicFade"

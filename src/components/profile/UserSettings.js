@@ -73,7 +73,7 @@ function UserSettings() {
 };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 mb-5">
 
   {Object.keys(settings)
     .sort((a, b) => SETTINGS_CONFIG[a].order - SETTINGS_CONFIG[b].order)
@@ -87,14 +87,14 @@ function UserSettings() {
             SETTINGS_CONFIG[key].type === 'boolean' ? (
               <input
                 type="checkbox"
-                className="form-check-input"
+                className="form-check-input border border-secondary"
                 checked={settings[key]}
                 onChange={(e) => handleChange(key, e.target.checked)}
               />
             ) : SETTINGS_CONFIG[key].type === 'number' ? (
               <input
                 type="number"
-                className="form-control"
+                className="form-control border border-secondary"
                 value={settings[key]}
                 min={SETTINGS_CONFIG[key].min}
                 max={SETTINGS_CONFIG[key].max}
@@ -102,7 +102,7 @@ function UserSettings() {
               />
             ) : SETTINGS_CONFIG[key].type === 'select' ? (
               <select
-                className="form-control"
+                className="form-control border border-secondary"
                 value={settings[key]}
                 onChange={(e) => handleChange(key, e.target.value)}
               >
@@ -118,21 +118,21 @@ function UserSettings() {
             ) : SETTINGS_CONFIG[key].type === 'color' ? (
               <input
                 type="color"
-                className="form-control form-control-color"
+                className="form-control form-control-color border border-secondary"
                 value={settings[key]}
                 onChange={(e) => handleChange(key, e.target.value)}
               />
             ) : (
               <input
                 type="text"
-                className="form-control"
+                className="form-control border border-secondary"
                 value={settings[key]}
                 onChange={(e) => handleChange(key, e.target.value)}
               />
             )
           ) : (
             // <span className="text-gray-400">{settings[key].toString()}</span>
-            <span className="text-gray-400">{settings[key].toString().charAt(0).toUpperCase() + settings[key].toString().slice(1)}</span>
+            <span className="text-gray-500">{settings[key].toString().charAt(0).toUpperCase() + settings[key].toString().slice(1)}</span>
 
           )}
         </div>

@@ -8,15 +8,16 @@ import EditSubscription from "./EditSubscription";
 import EditPassword from "./EditPassword";
 import EditDefaultSettings from "./EditDefaultSettings";
 import DeleteAccount from "./DeleteAccount";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const ProfileItemBlock = ({ label, userInfo, onClick }) => (
   <button
-    className="w-full border-b flex justify-between py-3"
+    className="w-full border-b border-secondary flex justify-between py-3"
     onClick={onClick}
   >
     <p>{label}</p>
     <div className="flex items-center gap-3">
-      <p className="text-gray-400">{userInfo}</p>
+      <p className="text-gray-500">{userInfo}</p>
       <FontAwesomeIcon icon={faArrowRight} />
     </div>
   </button>
@@ -32,6 +33,7 @@ const Profile = () => {
   const [deleteAccount, setDeleteAccount] = useState(false);
   const [message, setMessage] = useState("");
   const [fadeOut, setFadeOut] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (message) {
@@ -56,19 +58,22 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-1 w-96 mx-auto bg-gray-900 rounded-lg p-4">
+    <div className="flex flex-col gap-1 sm:w-96 mx-auto  rounded-lg p-4">
       {user ? (
         <>
-          <div className="flex justify-between items-center">
-            <h1>Profile</h1>
+          <div className="">
+            
             {editUsername ||
             editEmail ||
             editPassword ||
             editSubscription ||
             editDefaultSettings ||
             deleteAccount ? (
-              <FontAwesomeIcon icon={faCog} size="lg" />
-            ) : null}
+              <div className="flex justify-between items-center mb-4">
+                <h1 className="my-auto">Edit Profile</h1>
+                <FontAwesomeIcon icon={faCog} size="lg" />
+              </div>
+            ) : <h1 className="">Profile</h1>}
           </div>
 
           <div className="">
@@ -184,7 +189,7 @@ const Profile = () => {
           editDefaultSettings ||
           deleteAccount ? null : (
             <p
-              className={`mt-3 text-primary text-center ${
+              className={`mt-3 ${theme === 'light' ? 'text-current' : 'text-primary'} text-center ${
                 fadeOut ? "fade-out" : ""
               }`}
             >
@@ -195,7 +200,7 @@ const Profile = () => {
       ) : (
         <>
           {message ? (
-            <p className='text-primary text-center'>
+            <p className={`${theme === 'light' ? 'text-current' : 'text-primary'} text-center`}>
               {message}
             </p>
           ) : (

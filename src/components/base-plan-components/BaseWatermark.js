@@ -12,7 +12,7 @@ function BaseWatermark({watermark, setWatermark}) {
         Watermark
       </label>
       <input
-        className="form-check-input"
+        className="form-check-input border border-secondary"
         type="checkbox"
         id="watermarkToggle"
         name="watermarkToggle"

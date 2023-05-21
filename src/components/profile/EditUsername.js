@@ -53,7 +53,7 @@ function EditUsername({ submitHandler, setMessage }) {
                 <label htmlFor="username">New Username:</label>
                 <input
                     type="text"
-                    className="form-control"
+                    className="form-control border border-secondary"
                     id="username"
                     placeholder="New Username"
                     value={newUsername}

@@ -36,18 +36,22 @@ function ClipTimeInput({ handleRemove, clipNumber, newTimes }) {
 
       <div className="h-100 my-2 mr-12 flex justify-around items-center">
 
-        <div className="form-group">
-          <label className="m-auto">Clip {clipNumber}</label>
+        <div className="form-group w-20">
+          <label className="ml-3">Clip {clipNumber}</label>
         </div>
 
-        <div className="form-group">
-            <label htmlFor={`start-time-${clipNumber}`}>Start time (HH:MM:SS):</label>
-            <input className="form-control border border-secondary" type="text" id={`start-time-${clipNumber}`} name={`start-time-${clipNumber}`} value={startTime} onInput={handleInput(setStartTime)} />
-        </div>
+        <div className="flex flex-wrap gap-3 justify-around w-full">
 
-        <div className="form-group">
-            <label htmlFor={`end-time-${clipNumber}`}>End time (HH:MM:SS):</label>
-            <input className="form-control border border-secondary" type="text" id={`end-time-${clipNumber}`} name={`end-time-${clipNumber}`} value={endTime} onInput={handleInput(setEndTime)} />
+          <div className="form-group">
+              <label htmlFor={`start-time-${clipNumber}`}>Start time (HH:MM:SS):</label>
+              <input className="form-control border border-secondary" type="text" id={`start-time-${clipNumber}`} name={`start-time-${clipNumber}`} value={startTime} onInput={handleInput(setStartTime)} />
+          </div>
+
+          <div className="form-group">
+              <label htmlFor={`end-time-${clipNumber}`}>End time (HH:MM:SS):</label>
+              <input className="form-control border border-secondary" type="text" id={`end-time-${clipNumber}`} name={`end-time-${clipNumber}`} value={endTime} onInput={handleInput(setEndTime)} />
+          </div>
+
         </div>
 
       </div>

@@ -63,7 +63,7 @@ function PremiumWatermark({ formData, watermark }) {
       <div className="watermark-position flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkPositionHorizontal">Watermark Horizontal Position:</label>
         <select
-          className="form-select"
+          className="form-select border border-secondary"
           id="watermarkPositionHorizontal"
           name="watermarkPositionHorizontal"
           value={watermarkPositionHorizontal}
@@ -78,7 +78,7 @@ function PremiumWatermark({ formData, watermark }) {
       <div className="watermark-position flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkPositionVertical">Watermark Vertical Position (%):</label>
         <input
-          className="form-control"
+          className="form-control border border-secondary"
           type="number"
           id="watermarkPositionVertical"
           name="watermarkPositionVertical"
@@ -93,7 +93,7 @@ function PremiumWatermark({ formData, watermark }) {
       <div className="watermark-size flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkSize">Watermark Size: Hieght in px</label>
         <input
-          className="form-control"
+          className="form-control border border-secondary"
           type="number"
           id="watermarkSize"
           name="watermarkSize"
@@ -107,7 +107,7 @@ function PremiumWatermark({ formData, watermark }) {
       <div className="watermark-opacity flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkOpacity">Watermark Opacity (%):</label>
         <input
-          className="form-control"
+          className="form-control border border-secondary"
           type="number"
           id="watermarkOpacity"
           name="watermarkOpacity"
@@ -121,7 +121,7 @@ function PremiumWatermark({ formData, watermark }) {
       <div className="watermark-duration flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkDuration">Watermark Duration:</label>
         <input
-          className="form-control"
+          className="form-control border border-secondary"
           type="number"
           id="watermarkDuration"
           name="watermarkDuration"

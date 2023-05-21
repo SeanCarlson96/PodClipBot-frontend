@@ -59,7 +59,7 @@ function EditPassword({ submitHandler, setMessage }) {
           <input
             type="password"
             id="oldPassword"
-            className="form-control"
+            className="form-control border border-secondary"
             placeholder="Current Password"
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
@@ -72,7 +72,7 @@ function EditPassword({ submitHandler, setMessage }) {
           <input
             type="password"
             id="newPassword"
-            className="form-control"
+            className="form-control border border-secondary"
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
@@ -85,7 +85,7 @@ function EditPassword({ submitHandler, setMessage }) {
           <input
             type="password"
             id="confirmPassword"
-            className="form-control"
+            className="form-control border border-secondary"
             placeholder="Confirm New Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

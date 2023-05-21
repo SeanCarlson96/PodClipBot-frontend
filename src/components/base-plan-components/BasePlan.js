@@ -42,7 +42,7 @@ const BasePlan = ({ formData }) => {
       <div className="flex flex-wrap gap-x-5 gap-y-1 items-center">
         <div className="form-check form-switch flex gap-2 items-center w-full">
             <input
-                className="form-check-input"
+                className="form-check-input border border-secondary"
                 type="checkbox"
                 id="subtitlesToggle"
                 name="subtitlesToggle"
@@ -62,7 +62,7 @@ const BasePlan = ({ formData }) => {
             Music
           </label>
           <input
-            className="form-check-input"
+            className="form-check-input border border-secondary"
             type="checkbox"
             id="musicToggle"
             name="musicToggle"

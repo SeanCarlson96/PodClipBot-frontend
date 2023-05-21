@@ -48,7 +48,7 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
       <div className="subtitle-background-color flex gap-2 items-center advanced-plan-input">
         <label htmlFor="subtitleBackgroundColor">Background Color:</label>
         <input
-          className="form-control form-control-color"
+          className="form-control form-control-color border border-secondary"
           type="color"
           id="subtitleBackgroundColor"
           name="subtitleBackgroundColor"
@@ -60,7 +60,7 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
       <div className="subtitle-stroke-width flex gap-2 items-center advanced-plan-input">
         <label htmlFor="strokeWidth">Font Stroke Width:</label>
         <input
-          className="form-control"
+          className="form-control border border-secondary"
           type="number"
           id="strokeWidth"
           name="strokeWidth"
@@ -74,7 +74,7 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
       <div className="subtitle-stroke-color flex gap-2 items-center advanced-plan-input">
         <label htmlFor="strokeColor">Font Stroke Color:</label>
         <input
-          className="form-control form-control-color"
+          className="form-control form-control-color border border-secondary"
           type="color"
           id="strokeColor"
           name="strokeColor"
@@ -102,7 +102,7 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
       <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
         <label htmlFor="subtitlePositionHorizontal">Subtitle Horizontal Position:</label>
         <select
-          className="form-select"
+          className="form-select border border-secondary"
           id="subtitlePositionHorizontal"
           name="subtitlePositionHorizontal"
           value={subtitlePositionHorizontal}
@@ -117,7 +117,7 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
       <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
         <label htmlFor="subtitlePositionVertical">Subtitle Vertical Position (%):</label>
         <input
-          className="form-control"
+          className="form-control border border-secondary"
           type="number"
           id="subtitlePositionVertical"
           name="subtitlePositionVertical"
@@ -132,7 +132,7 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
       <div className="subtitle-segment-length flex gap-2 items-center advanced-plan-input">
         <label>Subtitle Segment Length:</label>
         <input
-          className="form-control"
+          className="form-control border border-secondary"
           type="number"
           id="subtitleSegmentLength"
           name="subtitleSegmentLength"

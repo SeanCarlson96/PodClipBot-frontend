@@ -2,7 +2,7 @@ import React from 'react'
 
 function TermsOfUse() {
   return (
-    <div className="document flex flex-col gap-2 mx-auto">
+    <div className="document flex flex-col gap-2 mx-auto mb-5">
         <h3>Terms of Use</h3>
         <p>
             {"Welcome to PodClipBot. Please read these Terms of Use ('Terms') carefully before using this website ('Site') operated by PodClipBot ('us', 'we', or 'our')."}
