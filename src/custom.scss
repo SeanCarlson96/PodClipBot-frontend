@@ -3,7 +3,60 @@ $primary: #93C572;
 
 .sub-card:hover {
 	cursor: pointer;
-	box-shadow: 0 0 0 1px #fff, 0 0 0 3px $primary;
+	box-shadow: 0 0 0 1px #fff, 0 0 0 2px $primary;
+}
+
+$baseColor: rgb(79, 70, 229);
+$advancedColor: #00ab6b;
+$premiumColor: #98720b;
+
+.base-color {
+	color: $baseColor;
+}
+
+.advanced-color {
+	color: $advancedColor;
+}
+
+.premium-color {
+	color: $premiumColor;
+}
+
+.base-border {
+	border: 2px solid $baseColor;
+	border-radius: 8px;  // adjust the border radius as needed
+}
+
+.advanced-border {
+	border: 2px solid $advancedColor;
+	border-radius: 8px;  // adjust the border radius as needed
+}
+
+.premium-border {
+	border: 2px solid $premiumColor;
+	border-radius: 8px;  // adjust the border radius as needed
+}
+
+
+.base-plan-input label {
+	border-bottom: 1px solid $baseColor;
+}
+.base-plan {
+	border-bottom: 1px solid $baseColor;
+}
+
+.advanced-plan-input label {
+	border-bottom: 1px solid $advancedColor;
+}
+.advanced-plan {
+	border-bottom: 1px solid $advancedColor;
+}
+
+.premium-plan-input label {
+	border-bottom: 1px solid $premiumColor;
+}
+.premium-plan {
+	border-bottom: 1px solid $premiumColor;
 }
 
 

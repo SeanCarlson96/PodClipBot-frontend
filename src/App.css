@@ -53,15 +53,15 @@ progress {
 	height: 270px;
 }
 
-.base-plan-input label {
-	border-bottom: 2px solid rgb(79, 70, 229);
+/* .base-plan-input label {
+	border-bottom: 1px solid rgb(79, 70, 229);
 }
 .advanced-plan-input label {
-	border-bottom: 2px solid rgb(239, 68, 68);
+	border-bottom: 1px solid rgb(239, 68, 68);
 }
 .premium-plan-input label {
-	border-bottom: 2px solid rgb(245, 158, 11);
-}
+	border-bottom: 1px solid rgb(245, 158, 11);
+} */
 
 .feature-contain label {
 	/* display: none; */

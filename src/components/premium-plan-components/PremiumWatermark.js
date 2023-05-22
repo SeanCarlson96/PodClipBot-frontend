@@ -2,13 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Tooltip } from "bootstrap";
 
 function PremiumWatermark({ formData, watermark }) {
-//   const [customWatermark, setCustomWatermark] = useState(null);
-  // const [watermarkPositionHorizontal, setWatermarkPositionHorizontal] = useState("center");
-  // const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(25);
-  // const [watermarkSize, setWatermarkSize] = useState(200);
-  // const [watermarkDuration, setWatermarkDuration] = useState(100);
-  // const [watermarkOpacity, setWatermarkOpacity] = useState(100);
-
   const [watermarkPositionHorizontal, setWatermarkPositionHorizontal] = useState(formData?.watermarkPositionHorizontal);
   const [watermarkPositionVertical, setWatermarkPositionVertical] = useState(formData?.watermarkPositionVertical);
   const [watermarkSize, setWatermarkSize] = useState(formData?.watermarkSize);
@@ -46,7 +39,7 @@ function PremiumWatermark({ formData, watermark }) {
   return (
     <>
 
-      <div className="custom-watermark-upload flex gap-2 items-center premium-plan-input">
+      <div className="custom-watermark-upload flex flex-wrap gap-2 items-center premium-plan-input">
           <label className="customWatermark flex gap-2" htmlFor="watermark-file">
             Custom Watermark Upload:
               </label>
@@ -61,9 +54,9 @@ function PremiumWatermark({ formData, watermark }) {
             />
       </div>
       <div className="watermark-position flex gap-2 items-center premium-plan-input">
-        <label htmlFor="watermarkPositionHorizontal">Watermark Horizontal Position:</label>
+        <label htmlFor="watermarkPositionHorizontal">Horizontal Position:</label>
         <select
-          className="form-select border border-secondary"
+          className="form-select border border-secondary w-auto"
           id="watermarkPositionHorizontal"
           name="watermarkPositionHorizontal"
           value={watermarkPositionHorizontal}
@@ -76,9 +69,15 @@ function PremiumWatermark({ formData, watermark }) {
         </select>
       </div>
       <div className="watermark-position flex gap-2 items-center premium-plan-input">
-        <label htmlFor="watermarkPositionVertical">Watermark Vertical Position (%):</label>
+        <label htmlFor="watermarkPositionVertical">Vertical Position (%):</label>
+        <span
+          className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Vertical Position refers to the percentage of the video height where the watermark will be placed"
+        >?</span>
         <input
-          className="form-control border border-secondary"
+          className="form-control border border-secondary w-auto"
           type="number"
           id="watermarkPositionVertical"
           name="watermarkPositionVertical"
@@ -91,9 +90,15 @@ function PremiumWatermark({ formData, watermark }) {
       </div>
 
       <div className="watermark-size flex gap-2 items-center premium-plan-input">
-        <label htmlFor="watermarkSize">Watermark Size: Hieght in px</label>
+        <label htmlFor="watermarkSize">Watermark Size:</label>
+        <span
+          className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="The watermark size is the height of the watermark relative to the video height"
+        >?</span>
         <input
-          className="form-control border border-secondary"
+          className="form-control border border-secondary w-auto"
           type="number"
           id="watermarkSize"
           name="watermarkSize"
@@ -106,8 +111,14 @@ function PremiumWatermark({ formData, watermark }) {
       </div>
       <div className="watermark-opacity flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkOpacity">Watermark Opacity (%):</label>
+        <span
+          className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="A value of 0% means the watermark is completely transparent, or invisible, while a value of 100% means the watermark is completely opaque, or fully visible"
+        >?</span>
         <input
-          className="form-control border border-secondary"
+          className="form-control border border-secondary w-auto"
           type="number"
           id="watermarkOpacity"
           name="watermarkOpacity"
@@ -120,8 +131,14 @@ function PremiumWatermark({ formData, watermark }) {
       </div>
       <div className="watermark-duration flex gap-2 items-center premium-plan-input">
         <label htmlFor="watermarkDuration">Watermark Duration:</label>
+        <span
+          className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="The watermark duration is the percentage of the video length you would like the watermark to appear for"
+        >?</span>
         <input
-          className="form-control border border-secondary"
+          className="form-control border border-secondary w-auto"
           type="number"
           id="watermarkDuration"
           name="watermarkDuration"

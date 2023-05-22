@@ -1,7 +1,8 @@
 
-const SubscriptionCard = ({ planName, price, benefits }) => (
-  <div className="sub-card rounded-lg p-6 border border-secondary w-80">
-    <h2 className="mb-2 font-extralight">{planName}</h2>
+const SubscriptionCard = ({ planName, price, benefits, color }) => (
+  // <div className="sub-card rounded-lg p-6 border border-secondary w-80">
+  <div className={`sub-card p-6 w-80 ${color}-border`}>
+    <h2 className={`mb-2 font-extralight ${color}-plan`}>{planName}</h2>
     <p className="text-xl text-gray-400 mb-4">${price}/month</p>
     <ul className="list-unstyled">
       {benefits.map((benefit, index) => (
@@ -13,6 +14,7 @@ const SubscriptionCard = ({ planName, price, benefits }) => (
         </li>
       ))}
     </ul>
+    <button className={`btn btn-block btn-primary mt-4`}>Try {planName}</button>
   </div>
 );
 
@@ -31,6 +33,7 @@ const Subscriptions = () => {
         "-",
         "Watermark on/off"
       ],
+      color: "base",
     },
     {
       planName: "Advanced",
@@ -46,6 +49,7 @@ const Subscriptions = () => {
         "Custom Music Upload", 
         "Music Fade on/off"
       ],
+      color: "advanced",
     },
     {
       planName: "Premium",
@@ -65,6 +69,7 @@ const Subscriptions = () => {
         "Watermark Opacity",
         "Watermark Duration"
       ],
+      color: "premium",
     },
   ];
 

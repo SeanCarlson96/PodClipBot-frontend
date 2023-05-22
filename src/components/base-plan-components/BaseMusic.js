@@ -33,10 +33,10 @@ function BaseMusic({formData, music}) {
 
   return (
     <>
-        <div className="music-choice flex gap-2 items-center base-plan-input">
-            <label className="w-48" htmlFor="musicChoice">Music Choice:</label>
+        <div className="music-choice flex flex-wrap gap-2 items-center base-plan-input">
+            <label className="" htmlFor="musicChoice">Music Choice:</label>
             <select
-            className="form-select border border-secondary"
+            className="form-select border border-secondary w-auto max-w-full"
             id="musicChoice"
             name="musicChoice"
             value={musicChoice}
@@ -52,7 +52,7 @@ function BaseMusic({formData, music}) {
             </select>
         </div>
         {selectedMusic && (
-            <div className="music-player flex gap-2 items-center base-plan-input">
+            <div className="music-player flex flex-wrap gap-2 items-center base-plan-input">
             <label>Preview Music Choice:</label>
             <audio className="h-10 border border-secondary rounded-full" key={selectedMusic} 
             disabled={!music} controls src={getMusicUrl()} />

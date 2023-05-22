@@ -21,9 +21,9 @@ function AdvancedMusic({ formData, music }) {
 
   return (
     <>
-      <div className="custom-music-upload flex gap-2 items-center advanced-plan-input">
+      <div className="custom-music-upload flex flex-wrap gap-2 items-center advanced-plan-input">
 
-        <label className="customMusic flex gap-2" htmlFor="music-file">
+        <label className="customMusic flex gap-2" >
           Custom Music Upload:
         </label>
 
@@ -58,7 +58,7 @@ function AdvancedMusic({ formData, music }) {
           onChange={handleMusicFadeToggle}
         />
         <label className="form-check-label" htmlFor="musicFade">
-          Fade In, Fade Out
+          Fade Music In and Out
         </label>
       </div>
     </>

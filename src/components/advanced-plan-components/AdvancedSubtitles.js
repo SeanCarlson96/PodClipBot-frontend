@@ -1,15 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Tooltip } from 'bootstrap';
 
 function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
-  // const [subtitleBackgroundColor, setSubtitleBackgroundColor] =
-  //   useState("#000000");
-  // const [strokeWidth, setStrokeWidth] = useState(0);
-  // const [strokeColor, setStrokeColor] = useState("#000000");
-  // // const [subtitlePosition, setSubtitlePosition] = useState("Bottom");
-  // const [subtitlePositionHorizontal, setSubtitlePositionHorizontal] = useState("center");
-  // const [subtitlePositionVertical, setSubtitlePositionVertical] = useState(35);
-  // const [subtitleSegmentLength, setSubtitleSegmentLength] = useState(10);
-
   const [subtitleBackgroundColor, setSubtitleBackgroundColor] = useState(formData?.subtitleBackgroundColor);
   const [strokeWidth, setStrokeWidth] = useState(formData?.strokeWidth);
   const [strokeColor, setStrokeColor] = useState(formData?.strokeColor);
@@ -17,6 +9,11 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
   const [subtitlePositionHorizontal, setSubtitlePositionHorizontal] = useState(formData?.subtitlePositionHorizontal);
   const [subtitlePositionVertical, setSubtitlePositionVertical] = useState(formData?.subtitlePositionVertical);
   const [subtitleSegmentLength, setSubtitleSegmentLength] = useState(formData?.subtitleSegmentLength);
+
+  useEffect(() => {
+    const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltips.forEach((tooltip) => new Tooltip(tooltip));
+  }, []);
 
   const handleSubtitleBackgroundColorChange = (e) => {
     setSubtitleBackgroundColor(e.target.value);
@@ -59,8 +56,14 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
       </div>
       <div className="subtitle-stroke-width flex gap-2 items-center advanced-plan-input">
         <label htmlFor="strokeWidth">Font Stroke Width:</label>
+          <span
+            className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Font Stroke Width refers to the thickness of the outline around each character of text"
+          >?</span>
         <input
-          className="form-control border border-secondary"
+          className="form-control border border-secondary w-auto"
           type="number"
           id="strokeWidth"
           name="strokeWidth"
@@ -102,7 +105,7 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
       <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
         <label htmlFor="subtitlePositionHorizontal">Subtitle Horizontal Position:</label>
         <select
-          className="form-select border border-secondary"
+          className="form-select border border-secondary w-auto"
           id="subtitlePositionHorizontal"
           name="subtitlePositionHorizontal"
           value={subtitlePositionHorizontal}
@@ -115,9 +118,15 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
         </select>
       </div>
       <div className="subtitle-position flex gap-2 items-center advanced-plan-input">
-        <label htmlFor="subtitlePositionVertical">Subtitle Vertical Position (%):</label>
+        <label htmlFor="subtitlePositionVertical">Subtitle Vertical Position:</label>
+        <span
+            className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Vertical Position refers to the percentage of the video height where the subtitle will be placed"
+          >?</span>
         <input
-          className="form-control border border-secondary"
+          className="form-control border border-secondary w-auto"
           type="number"
           id="subtitlePositionVertical"
           name="subtitlePositionVertical"
@@ -131,8 +140,19 @@ function AdvancedSubtitles({ formData, subtitles, subtitlesBackground }) {
 
       <div className="subtitle-segment-length flex gap-2 items-center advanced-plan-input">
         <label>Subtitle Segment Length:</label>
+        <span
+            className="cursor-pointer inline-flex items-center justify-center h-6 w-6 rounded-full bg-light-secondary"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="
+            Subtitle Segment Length refers to the maximum number of characters a 
+            subtitle segment will contain before it's broken into a new segment. 
+            Subtitle segments are automatically separated based on long pauses or 
+            a change in speakers (if diarization is enabled), but setting the segment 
+            character length is another way control when segments are cut off."
+          >?</span>
         <input
-          className="form-control border border-secondary"
+          className="form-control border border-secondary w-auto"
           type="number"
           id="subtitleSegmentLength"
           name="subtitleSegmentLength"

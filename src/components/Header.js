@@ -1,5 +1,5 @@
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useContext, useEffect } from 'react';
@@ -41,10 +41,13 @@ const Header = () => {
 
       {/* <div className="flex justify-between items-center w-full px-5"> */}
       <div className={`${windowWidth < 768 ? "hidden" : "flex justify-between items-center w-full px-5"}`}>
- 
+{/*  
         <a className="navbar-brand flex" href="/">
           <img src={process.env.PUBLIC_URL + '/' + logo} alt="logo" className="logo w-44" />
-        </a>
+        </a> */}
+        <Link className="navbar-brand flex" to="/">
+          <img src={process.env.PUBLIC_URL + '/' + logo} alt="logo" className="logo w-44" />
+        </Link>
 
         <ul className="navbar-nav flex flex-row gap-2">
   

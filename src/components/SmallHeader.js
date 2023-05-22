@@ -1,5 +1,5 @@
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -28,9 +28,12 @@ const SmallHeader = () => {
 
       <div className="flex flex-row justify-between items-center w-full px-3">
 
-        <a className="navbar-brand flex" href="/">
+        {/* <a className="navbar-brand flex" href="/">
           <img src={process.env.PUBLIC_URL + '/' + logo} alt="logo" className="logo w-44" />
-        </a>
+        </a> */}
+        <Link className="navbar-brand flex" to="/">
+          <img src={process.env.PUBLIC_URL + '/' + logo} alt="logo" className="logo w-44" />
+        </Link>
 
         <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}

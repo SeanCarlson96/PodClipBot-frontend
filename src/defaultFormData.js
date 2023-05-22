@@ -2,7 +2,7 @@ const defaultFormData = {
     subtitlesToggle: true,
     musicToggle: true,
     volume: 50,
-    font: 'Arial',
+    font: 'Arial-Bold-Italic',
     fontSize: 15,
     subtitleColor: '#ffffff',
     subtitleBackgroundToggle: false,

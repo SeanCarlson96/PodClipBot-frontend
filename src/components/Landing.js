@@ -1,4 +1,5 @@
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 // import ColorSwatch from './ColorSwatch';
 
 const Landing = () => {
@@ -10,7 +11,10 @@ const Landing = () => {
                 <h4>Your timestamps.</h4>
                 <h4>Automatically edited.</h4>
             </div>
-            <Button variant="primary" className="btn-lg w-36" href="/tool">Try it out</Button>
+            {/* <Button variant="primary" className="btn-lg w-36" href="/tool">Try it out</Button> */}
+            <Link to="/tool" className="btn btn-primary btn-lg w-36">
+                Try it out
+            </Link>
             {/* <ColorSwatch /> */}
         </div>
     );

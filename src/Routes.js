@@ -1,7 +1,7 @@
 
 import { Routes, Route } from 'react-router-dom';
 
-import Tool from './components/Tool';
+// import Tool from './components/Tool';
 import Login from './components/Login';
 import Subscriptions from './components/Subscriptions';
 import Registration from './components/Registration';
@@ -16,7 +16,8 @@ import Contact from './components/Contact';
 const Routing = () => (
   <Routes>
     <Route exact path="/" element={<Landing />} />
-    <Route exact path="/tool" element={<Tool />} />
+    {/* <Route exact path="/tool" element={<Tool />} /> */}
+    <Route exact path="/tool" element={<></>} />
     <Route exact path="/login" element={<Login />} />
     <Route exact path="/subscriptions" element={<Subscriptions />} />
     <Route exact path="/registration" element={<Registration />} />

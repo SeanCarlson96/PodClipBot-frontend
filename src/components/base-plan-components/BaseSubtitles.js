@@ -32,17 +32,17 @@ function BaseSubtitles({ formData, subtitles, subtitlesBackground, setSubtitlesB
 
   return (
     <>
-        <div className="font-select flex gap-2 items-center base-plan-input">
+        <div className="font-select flex flex-wrap gap-2 items-center base-plan-input">
             <label htmlFor="font">Font:</label>
             <FontDropdown
                 value={font}
                 onChange={handleFontChange}
                 disabled={!subtitles} />
         </div>
-        <div className="font-size-select flex gap-2 items-center base-plan-input">
-            <label className="w-36" htmlFor="fontSize">Font Size:</label>
+        <div className="font-size-select flex gap-2 items-center base-plan-input w-content">
+            <label className="" htmlFor="fontSize">Font Size:</label>
             <input
-                className="form-control border border-secondary"
+                className="form-control border border-secondary w-auto"
                 type="number"
                 id="fontSize"
                 name="fontSize"
@@ -63,9 +63,9 @@ function BaseSubtitles({ formData, subtitles, subtitlesBackground, setSubtitlesB
                 onChange={handleSubtitleColorChange}
                 disabled={!subtitles} />
         </div>
-        <div className="form-check form-switch flex gap-2 items-center base-plan-input">
+        <div className="form-check form-switch flex flex-row gap-2 items-center base-plan-input">
             <label className="form-check-label" htmlFor="subtitleBackgroundToggle">
-                Background
+                Subtitle Background
             </label>
             <input
                 className="form-check-input border border-secondary"

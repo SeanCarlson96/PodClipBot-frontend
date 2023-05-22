@@ -4,7 +4,7 @@ import FONTS from '../fonts';
 const FontDropdown = ({ value, onChange, disabled }) => {
   return (
     <select
-      className="form-select border border-secondary"
+      className="form-select border border-secondary w-auto max-w-full"
       id="font"
       name="font"
       value={value}

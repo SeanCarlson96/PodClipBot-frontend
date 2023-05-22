@@ -53,19 +53,19 @@ function Tool() {
       switch (user.subscription) {
         case 'none':
           setSubscriptionMessage('You are using the Free plan with limited features.');
-          setSubTextColor('black');
+          setSubTextColor('text-current');
           break;
         case 'base':
           setSubscriptionMessage('You are using the Base plan with additional features.');
-          setSubTextColor('rgb(79, 70, 229)');
+          setSubTextColor('base-color');
           break;
         case 'advanced':
           setSubscriptionMessage('You are using the Advanced plan with additional features.');
-          setSubTextColor('rgb(239, 68, 68)');
+          setSubTextColor('advanced-color');
           break;
         case 'premium':
           setSubscriptionMessage('You are using the Premium plan with all features unlocked.');
-          setSubTextColor('rgb(245, 158, 11)');
+          setSubTextColor('premium-color');
           break;
         default:
           setSubscriptionMessage('Unknown subscription plan.');
@@ -73,6 +73,7 @@ function Tool() {
       }
     } else {
       setSubscriptionMessage('You are using the Free plan with limited features.');
+      setSubTextColor('text-current');
     }
   }, [user]);
 
@@ -261,7 +262,8 @@ function Tool() {
         let errorMsg = '';
         if (error.response) {
           // The request was made and the server responded with a non-2xx status code
-          errorMsg = error.response.data.message;
+          // errorMsg = error.response.data.message;
+          errorMsg = error.message;
         } else if (error.request) {
           // The request was made but no response was received
           errorMsg = 'No response received from server. Please check your network connection or try again later.';
@@ -271,6 +273,8 @@ function Tool() {
         }
         setValidationMessage(errorMsg);
         cancelWholeProcess();
+        setBuilding(false);
+        errorWithDelivery();
         console.log(error);
       });
       
@@ -279,6 +283,12 @@ function Tool() {
       console.log("Closing");
     };
   };
+
+  const errorWithDelivery = () => {
+    setVideoClips(prevClips => 
+      prevClips.filter(clip => clip.loading !== true)
+    );
+  }
 
   const handleCancel = (clipName) => {
     setProgress(0);
@@ -425,7 +435,7 @@ function Tool() {
           <div className="form-group flex flex-col gap-3">
             <div className='flex flex-wrap gap-4'>
               <label className="font-bold">3. Your clip settings:</label>
-              {<div style={{ color: subTextColor }}>{subscriptionMessage}</div>}
+              {<div className={subTextColor}>{subscriptionMessage}</div>}
             </div>
             <div>
               {resetPending ? 
@@ -484,7 +494,7 @@ function Tool() {
                   <div className="clip-box relative flex items-center justify-center">
                     <div className="w-11/12 flex flex-col gap-3 items-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         <p className='text-xs'>{buildAction} {clip.name}</p>
-                        <div className="progress w-full" style={{ height: '10px' }}>
+                        <div className="progress w-full border border-secondary" style={{ height: '10px' }}>
                         <div
                             className="progress-bar"
                             role="progressbar"
