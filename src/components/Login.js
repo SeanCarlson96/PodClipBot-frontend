@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../contexts/ThemeContext';
 
 const Login = () => {
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -14,7 +15,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:5000/login', {
+            // const response = await fetch('http://127.0.0.1:5000/login', {
+            const response = await fetch(backendURL + '/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

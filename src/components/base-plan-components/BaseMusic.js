@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
 function BaseMusic({formData, music}) {
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
 
     // const [musicChoice, setMusicChoice] = useState("random");
     const [musicChoice, setMusicChoice] = useState(formData?.musicChoice);
@@ -10,7 +11,8 @@ function BaseMusic({formData, music}) {
     useEffect(() => {
       const fetchMusicFiles = async () => {
         try {
-          const response = await fetch('http://127.0.0.1:5000/api/music_files');
+          // const response = await fetch('http://127.0.0.1:5000/api/music_files');
+          const response = await fetch(backendURL + '/api/music_files');
           const data = await response.json();
           setFiles(data);
         } catch (error) {
@@ -28,7 +30,8 @@ function BaseMusic({formData, music}) {
       };
       const getMusicUrl = () => {
         if (!selectedMusic) return null;
-        return `http://127.0.0.1:5000/api/music/${selectedMusic}`;
+        // return `http://127.0.0.1:5000/api/music/${selectedMusic}`;
+        return `${backendURL}/api/music/${selectedMusic}`;
       };
 
   return (

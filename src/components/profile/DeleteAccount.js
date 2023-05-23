@@ -7,6 +7,7 @@ import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
 function DeleteAccount({ setMessage, submitHandler }) {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const { user, setUser } = useContext(UserContext);
   const [show, setShow] = useState(false);
 
@@ -16,7 +17,8 @@ function DeleteAccount({ setMessage, submitHandler }) {
   const handleDelete = () => {
     // User confirmation before deleting
     axios
-      .delete(`http://127.0.0.1:5000/delete-account`, { data: { user_id: user.id }})
+      // .delete(`http://127.0.0.1:5000/delete-account`, { data: { user_id: user.id }})
+      .delete(`${backendURL}/delete-account`, { data: { user_id: user.id }})
       .then((response) => {
         console.log("Account deleted successfully");
         setMessage("Account deleted successfully");

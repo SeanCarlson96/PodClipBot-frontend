@@ -5,6 +5,7 @@ import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
 function EditSubscription({ submitHandler, setMessage }) {
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
     const [newSubscription, setNewSubscription] = useState("");
     const { user, setUser } = useContext(UserContext);
     const [validationMessage, setValidationMessage] = useState("");
@@ -15,7 +16,8 @@ function EditSubscription({ submitHandler, setMessage }) {
           return;
       }
       axios
-        .patch(`http://127.0.0.1:5000/api/users/${user.id}`, {
+        // .patch(`http://127.0.0.1:5000/api/users/${user.id}`, {
+        .patch(`${backendURL}/api/users/${user.id}`, {
           subscription: newSubscription,
         })
         .then((response) => {

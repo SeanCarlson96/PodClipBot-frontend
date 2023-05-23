@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
 const ResetPassword = () => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -19,7 +20,8 @@ const ResetPassword = () => {
 
     try {
       // Replace with your actual backend endpoint and pass the token from the URL as a parameter
-      const response = await axios.post('http://127.0.0.1:5000/reset-password', { password, token });
+      // const response = await axios.post('http://127.0.0.1:5000/reset-password', { password, token });
+      const response = await axios.post(backendURL + '/reset-password', { password, token });
       setMessage(response.data.message);
       // Redirect the user to the login page after a short delay
       setTimeout(() => {

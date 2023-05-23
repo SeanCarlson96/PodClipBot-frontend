@@ -5,6 +5,7 @@ import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
 function EditUsername({ submitHandler, setMessage }) {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [newUsername, setNewUsername] = useState("");
   const { user, setUser } = useContext(UserContext);
   const [validationMessage, setValidationMessage] = useState("");
@@ -15,7 +16,8 @@ function EditUsername({ submitHandler, setMessage }) {
         return;
     }
     axios
-      .patch(`http://127.0.0.1:5000/api/users/${user.id}`, {
+      // .patch(`http://127.0.0.1:5000/api/users/${user.id}`, {
+      .patch(`${backendURL}/api/users/${user.id}`, {
         username: newUsername,
       })
       .then((response) => {

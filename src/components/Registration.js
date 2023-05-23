@@ -5,6 +5,7 @@ import { ClipLoader } from 'react-spinners';
 import TermsModal from './TermsModal';
 
 const Registration = () => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [formData, setFormData] = useState({
       username: '',
       email: '',
@@ -53,7 +54,8 @@ const Registration = () => {
     setMessage('');
     setLoading(true);
     try {
-      const response = await axios.post('http://127.0.0.1:5000/register', formData);
+      // const response = await axios.post('http://127.0.0.1:5000/register', formData);
+      const response = await axios.post(backendURL + '/register', formData);
       console.log(response.data);
       setSuccessMessage('Registration successful. Redirecting to Sign in page...');
       setTimeout(() => {

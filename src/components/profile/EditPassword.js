@@ -5,6 +5,7 @@ import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
 function EditPassword({ submitHandler, setMessage }) {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,7 +24,8 @@ function EditPassword({ submitHandler, setMessage }) {
     }
 
     axios
-      .post(`http://127.0.0.1:5000/change-password`, {
+      // .post(`http://127.0.0.1:5000/change-password`, {
+      .post(`${backendURL}/change-password`, {
         user_id: user.id,
         old_password: oldPassword,
         new_password: newPassword,

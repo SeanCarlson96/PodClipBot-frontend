@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const EmailInput = () => {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:5000/forgot-password', { email });
+      // const response = await axios.post('http://127.0.0.1:5000/forgot-password', { email });
+      const response = await axios.post(backendURL + '/forgot-password', { email });
       console.log(response.data);
       setMessage('A password reset link has been sent to your email.');
     } catch (error) {

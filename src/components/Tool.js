@@ -15,6 +15,7 @@ import SubscriptionSwitch from './SubscriptionSwitch';
 import defaultFormData from '../defaultFormData';
 
 function Tool() {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const { user } = useContext(UserContext);
   // const user = useMemo(() => ({
   //   email: 'client@gmail.com',
@@ -78,7 +79,8 @@ function Tool() {
   }, [user]);
 
   useEffect(() => {
-    const socket = io('http://127.0.0.1:5000');
+    // const socket = io('http://127.0.0.1:5000');
+    const socket = io(backendURL);
     socket.on('connect', () => {});
 
     socket.on('current_clip_in_edit', (data) => {
@@ -250,7 +252,8 @@ function Tool() {
     const file = formData.get('video-file');
     formData.set('video-file', cleanFileName(file));
   
-    axios.post('http://127.0.0.1:5000/trim', formData)
+    // axios.post('http://127.0.0.1:5000/trim', formData)
+    axios.post(backendURL + '/trim', formData)
       .then((response) => {
         console.log(response.data.message);
         setBuilding(false);
@@ -293,7 +296,8 @@ function Tool() {
   const handleCancel = (clipName) => {
     setProgress(0);
     // Emit the cancel_processing message with the clip's name
-    const socket = io('http://127.0.0.1:5000');
+    // const socket = io('http://127.0.0.1:5000');
+    const socket = io(backendURL);
     socket.emit("cancel_processing", { clipName: clipName });
   
     // Update the videoClips state to remove the clip with the specified clipName
@@ -523,7 +527,8 @@ function Tool() {
               ) : (
                 <div>
                   <CustomVideoPlayer
-                    src={`http://127.0.0.1:5000/uploads/${clip.filename}?v=${Date.now()}`}
+                    // src={`http://127.0.0.1:5000/uploads/${clip.filename}?v=${Date.now()}`}
+                    src={`${backendURL}/uploads/${clip.filename}?v=${Date.now()}`}
                     filename={clip.filename}
                     clipName={clip.name}
                   />

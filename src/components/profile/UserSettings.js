@@ -12,6 +12,7 @@ const MUSIC_OPTIONS = ["Random"];
 const HORIZONTAL_POSITIONS = ["Center", "Left", "Right"];
 
 function UserSettings() {
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
   const { user, setUser } = useContext(UserContext);
   const [settings, setSettings] = useState({});
   const [editing, setEditing] = useState(null);
@@ -19,7 +20,8 @@ function UserSettings() {
   useEffect(() => {
     const fetchMusicFiles = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/api/music_files');
+        // const response = await fetch('http://127.0.0.1:5000/api/music_files');
+        const response = await fetch(backendURL + '/api/music_files');
         const data = await response.json();
         MUSIC_OPTIONS.push(...data);
       } catch (error) {
@@ -46,7 +48,8 @@ function UserSettings() {
 
   const handleSave = () => {
     if (JSON.stringify(user.defaultSettings) !== JSON.stringify(settings)) {
-      axios.patch(`http://127.0.0.1:5000/api/users/${user.id}`, {
+      // axios.patch(`http://127.0.0.1:5000/api/users/${user.id}`, {
+      axios.patch(`${backendURL}/api/users/${user.id}`, {
           defaultSettings: settings,
         })
         .then((response) => {
