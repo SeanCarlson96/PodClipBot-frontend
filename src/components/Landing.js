@@ -13,7 +13,7 @@ const Landing = () => {
             </div>
             {/* <Button variant="primary" className="btn-lg w-36" href="/tool">Try it out</Button> */}
             <Link to="/tool" className="btn btn-primary btn-lg w-36">
-                Try it out here
+                Try it out
             </Link>
             {/* <ColorSwatch /> */}
         </div>
