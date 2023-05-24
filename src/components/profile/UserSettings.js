@@ -30,7 +30,7 @@ function UserSettings() {
     };
   
     fetchMusicFiles();
-  }, []);
+  }, [backendURL]);
 
   useEffect(() => {
     if (user) {

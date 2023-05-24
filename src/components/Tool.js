@@ -131,7 +131,7 @@ function Tool() {
     return () => {
       socket.disconnect();
     };
-  }, [videoClips, progress, currentClipName]);
+  }, [videoClips, progress, currentClipName, backendURL]);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');

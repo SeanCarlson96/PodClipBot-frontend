@@ -21,7 +21,7 @@ function BaseMusic({formData, music}) {
       };
     
       fetchMusicFiles();
-    }, []);
+    }, [backendURL]);
 
     const handleMusicChoiceChange = (e) => {
         const selectedMusic = e.target.value;
