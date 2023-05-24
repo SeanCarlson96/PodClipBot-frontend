@@ -13,29 +13,17 @@ function Contact() {
         <p>At PodClipBot, we're here to help. Please use the following methods to get in touch with us:</p>
         
         <div>
-            <h5>General Inquiries</h5>
-            <p>For any general questions about our service, please email us at: 
-                <a className={`${theme === 'light' ? 'text-current' : ''} ml-1`}  href="mailto:info@podclipbot.com">info@podclipbot.com</a>
+            <h5>Technical Support, Feedback, or General Inquiries</h5>
+            <p>For absolutely anything at all, we'd love to hear from you. Please email us at: 
+                <a className={`${theme === 'light' ? 'text-current' : ''} ml-1`}  href="mailto:podclipbot@gmail.com">podclipbot@gmail.com</a>
             </p>
         </div>
 
         <div>
-            <h5>Technical Support</h5>
-            <p>If you're having trouble with our site, please email our support team at: 
-                <a className={`${theme === 'light' ? 'text-current' : ''} ml-1`} href="mailto:support@podclipbot.com">support@podclipbot.com</a>
+            <h5>Connect with the creator</h5>
+            <p>If you'd like contact the creator of PodClipBot directly, connect with Sean on 
+                <a className={`${theme === 'light' ? 'text-current' : ''} ml-1`} href="https://www.linkedin.com/in/sean-carlson-5954b5161/">LinkedIn</a>
             </p>
-        </div>
-
-        <div>
-            <h5>Feedback</h5>
-            <p>If you have any feedback or suggestions for our service, we'd love to hear from you. Please email: 
-                <a className={`${theme === 'light' ? 'text-current' : ''} ml-1`} href="mailto:feedback@podclipbot.com">feedback@podclipbot.com</a>
-            </p>
-        </div>
-
-        <div>
-            <h5>Business Hours</h5>
-            <p>Our support team is available Monday to Friday, 9 AM to 5 PM EST.</p>
         </div>
 
     </div>
