@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import ReCaptchaV3 from './ReCaptchaV3';
 
 const EmailInput = () => {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [disableForm, setDisableForm] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,10 +31,12 @@ const EmailInput = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
+          disabled={disableForm}
         />
-        <button className="btn btn-primary w-36" type="submit">Send Reset Link</button>
+        <button className="btn btn-primary w-36" type="submit" disabled={disableForm}>Send Reset Link</button>
       </form>
       {message && <p>{message}</p>}
+      <ReCaptchaV3 action="forgot_password" setDisableForm={setDisableForm} />
     </div>
   );
 };

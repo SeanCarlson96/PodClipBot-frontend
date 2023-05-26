@@ -13,6 +13,7 @@ import ClipModel from '../ClipModel';
 import UserContext from '../contexts/UserContext';
 import SubscriptionSwitch from './SubscriptionSwitch';
 import defaultFormData from '../defaultFormData';
+import ReCaptchaV3 from './ReCaptchaV3';
 
 function Tool() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -42,6 +43,7 @@ function Tool() {
   const [formData, setFormData] = useState({ ...defaultFormData });
   const [resetPending, setResetPending] = useState(false);
   const [processCancelable, setProcessCancelable] = useState(false);
+  const [disableForm, setDisableForm] = useState(false);
 
   useEffect(() => {
     if (resetPending) {
@@ -421,7 +423,7 @@ function Tool() {
                   title="Accepted file types: MP4, WebM, Ogg, MOV, AVI, FLV, MKV, WMV, MPEG, 3GP, M4V"
                 >?</span>
               </label>
-            <input type="file" id="video-file" name="video-file" className="form-control-file" onChange={handleVideoFileChange} />
+            <input type="file" id="video-file" name="video-file" className="form-control-file" onChange={handleVideoFileChange} disabled={disableForm}/>
           </div>
 
           {/* Step 2 */}
@@ -429,7 +431,7 @@ function Tool() {
             <div className='flex justify-between items-center p-0'>
               {/* <label className="font-bold" htmlFor="add-clips">2. Your clip timestamps:</label> */}
               <label className="font-bold">2. Your clip timestamps:</label>
-              <button type="button" id="add-clips" className="btn btn-primary w-36" onClick={handleAddClipTimeInput}>
+              <button type="button" id="add-clips" className="btn btn-primary w-36" onClick={handleAddClipTimeInput} disabled={disableForm}>
                 <FontAwesomeIcon icon={faPlus} /> Add A Clip
               </button>
             </div>
@@ -466,7 +468,8 @@ function Tool() {
                 </div>
               </button>
                 ) : (
-                <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building ? true : false}>
+                <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building || disableForm}
+                >
                   <FontAwesomeIcon icon={faHammer} /> Build Clips
                 </button>
                 )}
@@ -487,6 +490,9 @@ function Tool() {
               </button>
             </div>
           </div>
+
+          <ReCaptchaV3 action={'tool'} setDisableForm={setDisableForm}/>
+          
         </form>
 
         {/* Display Clips */}

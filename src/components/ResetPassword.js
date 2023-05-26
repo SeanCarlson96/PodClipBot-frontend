@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import ReCaptchaV3 from './ReCaptchaV3';
 
 const ResetPassword = () => {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -9,6 +10,7 @@ const ResetPassword = () => {
   const [message, setMessage] = useState('');
   const location = useLocation();
   const token = new URLSearchParams(location.search).get('token');
+  const [disableForm, setDisableForm] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +45,7 @@ const ResetPassword = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          disabled={disableForm}
         />
         <input
           className="form-control"
@@ -51,8 +54,10 @@ const ResetPassword = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
+          disabled={disableForm}
         />
-        <button className="btn btn-primary w-36" type="submit">Reset Password</button>
+        <button className="btn btn-primary w-36" type="submit" disabled={disableForm}>Reset Password</button>
+        <ReCaptchaV3 action="reset_password" setDisableForm={setDisableForm} />
       </form>
       {message && <p>{message}</p>}
     </div>

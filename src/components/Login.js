@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import UserContext from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../contexts/ThemeContext';
+import ReCaptchaV3 from './ReCaptchaV3';
 
 const Login = () => {
     const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -11,6 +12,7 @@ const Login = () => {
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const { theme } = useContext(ThemeContext);
+    const [disableForm, setDisableForm] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,6 +61,7 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    disabled={disableForm}
                 />
 
                 <input
@@ -69,15 +72,18 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    disabled={disableForm}
                 />
 
-                <button className="btn btn-primary w-36" type="submit">Sign In</button>
+                <button className="btn btn-primary w-36" type="submit" disabled={disableForm}>Sign In</button>
 
             </form>
 
             <a href="/email-input" className={`${theme === 'light' ? 'text-current' : ''}`}>Forgot Password</a>
             
             {message && (<p className="text-red-500">{message}</p>)}
+
+            <ReCaptchaV3 action={'login'} setDisableForm={setDisableForm}/>
 
             {/* <a href="/registration">Register</a> */}
 

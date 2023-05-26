@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import TermsModal from './TermsModal';
+import ReCaptchaV3 from './ReCaptchaV3';
 
 const Registration = () => {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -18,6 +19,7 @@ const Registration = () => {
   const [loading, setLoading] = useState(false);
   const [agreement, setAgreement] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
+  const [disableForm, setDisableForm] = useState(false);
 
   const openTermsModal = () => {
       setShowTerms(true);
@@ -90,6 +92,7 @@ const Registration = () => {
                 value={formData.username}
                 onChange={handleChange}
                 required
+                disabled={disableForm}
               />
 
               <input
@@ -101,6 +104,7 @@ const Registration = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                disabled={disableForm}
               />
               <input
                 type="password"
@@ -111,6 +115,7 @@ const Registration = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                disabled={disableForm}
               />
               <input
                 type="password"
@@ -121,6 +126,7 @@ const Registration = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
+                disabled={disableForm}
               />
               <div>
                 <input
@@ -132,6 +138,7 @@ const Registration = () => {
                   onChange={(e) => setAgreement(e.target.checked)}
                   readOnly={true}
                   required
+                  disabled={disableForm}
                 />
                 <label className='form-check-label ml-2' htmlFor="agreement">
                   I agree to the 
@@ -146,7 +153,9 @@ const Registration = () => {
                 </label>
               </div>
 
-            <button type="submit" className="btn btn-primary w-36">Register</button>
+            <button type="submit" className="btn btn-primary w-36" disabled={disableForm}>Register</button>
+            
+            <ReCaptchaV3 action={'register'} setDisableForm={setDisableForm}/>
 
           </form>
 

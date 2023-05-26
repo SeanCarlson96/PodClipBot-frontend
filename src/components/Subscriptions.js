@@ -1,5 +1,8 @@
+import React, {useState} from "react";
+import ReCaptchaV3 from "./ReCaptchaV3";
 
-const SubscriptionCard = ({ planName, price, benefits, color }) => (
+const SubscriptionCard = ({ planName, price, benefits, color, disableForm }) => {
+  return (
   // <div className="sub-card rounded-lg p-6 border border-secondary w-80">
   <div className={`sub-card p-6 w-80 ${color}-border`}>
     <h2 className={`mb-2 font-extralight ${color}-plan`}>{planName}</h2>
@@ -14,11 +17,14 @@ const SubscriptionCard = ({ planName, price, benefits, color }) => (
         </li>
       ))}
     </ul>
-    <button className={`btn btn-block btn-primary mt-4`}>Try {planName}</button>
+    <button className={`btn btn-block btn-primary mt-4`} disabled={disableForm}>Try {planName}</button>
   </div>
-);
+  );
+};
 
 const Subscriptions = () => {
+  const [disableForm, setDisableForm] = useState(false);
+
   const subscriptionOptions = [
     {
       planName: "Base",
@@ -78,9 +84,10 @@ const Subscriptions = () => {
       <h1 className="text-center">Subscription Plans</h1>
       <div className="flex flex-wrap justify-center gap-4">
         {subscriptionOptions.map((option, index) => (
-          <SubscriptionCard key={index} {...option} />
+          <SubscriptionCard key={index} {...option} disableForm={disableForm} />
         ))}
       </div>
+      <ReCaptchaV3 action="subscriptions" setDisableForm={setDisableForm} />
     </div>
   );
 };
