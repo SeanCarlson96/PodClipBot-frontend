@@ -85,20 +85,20 @@ function Tool() {
     const socket = io(backendURL);
     socket.on('connect', () => {});
     
-    socket.onAny((event, data) => {
-      console.log(event, data);
-    });
+    // socket.onAny((event, data) => {
+    //   console.log(event, data);
+    // });
 
-    socket.on('subscription_updated', (data) => {
-      console.log("subscription_updated event received in tool");
-      if (data.user_id === user.id) {
-        console.log("Updating user subscription");
-        setUser({ ...user, subscription: data.subscription });
-      }
-    });
-    socket.on('test_event', (data) => {
-      console.log(data);
-    });
+    // socket.on('subscription_updated', (data) => {
+    //   console.log("subscription_updated event received in tool");
+    //   if (data.user_id === user.id) {
+    //     console.log("Updating user subscription");
+    //     setUser({ ...user, subscription: data.subscription });
+    //   }
+    // });
+    // socket.on('test_event', (data) => {
+    //   console.log(data);
+    // });
     socket.on('current_clip_in_edit', (data) => {
       console.log('Current clip in edit:', data)
       if(data.name !== currentClipName) {

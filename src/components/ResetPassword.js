@@ -59,7 +59,7 @@ const ResetPassword = () => {
         <button className="btn btn-primary w-36" type="submit" disabled={disableForm}>Reset Password</button>
         <ReCaptchaV3 action="reset_password" setDisableForm={setDisableForm} />
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className='text-center'>{message}</p>}
     </div>
   );
 };
