@@ -30,7 +30,7 @@ const ResetPassword = () => {
         window.location.href = '/login';
       }, 2000);
     } catch (error) {
-      setMessage('Error resetting password. Please try again.');
+      setMessage(error.response.data.message);
     }
   };
 
