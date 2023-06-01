@@ -12,6 +12,7 @@ import Landing from './components/Landing';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfUse from './components/TermsOfUse';
 import Contact from './components/Contact';
+import ReturnedFromStripe from './components/ReturnedFromStripe';
 
 const Routing = () => (
   <Routes>
@@ -27,6 +28,7 @@ const Routing = () => (
     <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
     <Route exact path="/terms-of-use" element={<TermsOfUse />} />
     <Route exact path="/contact" element={<Contact />} />
+    <Route exact path="/returnedFromStripe/:userId" element={<ReturnedFromStripe />} />
   </Routes>
 );
 

@@ -19,7 +19,7 @@ const ReCaptchaV3 = ({ action, setDisableForm }) => {
                             }
                         })
                         .then(response => {
-                            console.log(response.data);
+                            // console.log(response.data);
                         })
                         .catch(error => {
                             console.error('Error:', error);

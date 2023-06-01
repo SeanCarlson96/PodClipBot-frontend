@@ -1,42 +1,22 @@
 import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import { faArrowLeft, faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import UserContext from "../../contexts/UserContext";
 
 function EditSubscription({ submitHandler, setMessage }) {
-    const backendURL = process.env.REACT_APP_BACKEND_URL;
-    const [newSubscription, setNewSubscription] = useState("");
-    const { user, setUser } = useContext(UserContext);
-    const [validationMessage, setValidationMessage] = useState("");
-  
-    const handleUpdate = () => {
-      if (!newSubscription.trim()) { // checks if the new subscription is blank or only contains spaces
-          setValidationMessage("New subscription cannot be blank");
-          return;
-      }
-      axios
-        // .patch(`http://127.0.0.1:5000/api/users/${user.id}`, {
-        .patch(`${backendURL}/api/users/${user.id}`, {
-          subscription: newSubscription,
-        })
-        .then((response) => {
-          console.log("Subscription updated successfully");
-          setUser({ ...user, subscription: newSubscription });
-          setMessage("Subscription updated successfully");
-          submitHandler();
-        })
-        .catch((err) => {
-          console.error("Error updating subscription: ", err);
-          // If the server returned a message, display that
-          if (err.response && err.response.data && err.response.data.message) {
-            setValidationMessage(err.response.data.message);
-          } else {
-            // Else, display a generic error message
-            setValidationMessage("Error updating subscription");
-          }
-        });
+    // const backendURL = process.env.REACT_APP_BACKEND_URL;
+    // const [newSubscription, setNewSubscription] = useState("");
+    // const { user, setUser } = useContext(UserContext);
+    // const [validationMessage, setValidationMessage] = useState("");
+
+    const { user } = useContext(UserContext);
+    const [validationMessage] = useState("");
+    const manageStripeLink = process.env.REACT_APP_MANAGE_STRIPE_LINK;
+
+    const handleClick = () => {
+      window.open(manageStripeLink, '_blank');
     };
+
   return (
     <div>
 
@@ -47,25 +27,21 @@ function EditSubscription({ submitHandler, setMessage }) {
         <div className="pt-3 flex flex-col gap-2">
             <div className="flex flex-col gap-1 mb-2">
                 <label>Current Subscription:</label>
-                <p>{user.subscription}</p>
+                <p>
+                {
+                  user.subscription.charAt(0).toUpperCase() +
+                  user.subscription.slice(1).toLowerCase()
+                }
+                </p>
             </div>
 
-            <div className="flex flex-col gap-1">
-                <label htmlFor="subscription">New Subscription:</label>
-                <input
-                    type="text"
-                    className="form-control border border-secondary"
-                    id="subscription"
-                    placeholder="New Subscription"
-                    value={newSubscription}
-                    onChange={(e) => setNewSubscription(e.target.value)}
-                    required
-                />
-            </div>
+            <button className="btn btn-primary" onClick={handleClick}>
+              Manage Subscription With Stripe
+              <FontAwesomeIcon className="ml-2" icon={faUpRightFromSquare} />
+            </button>
 
             <p className="text-red-500">{validationMessage}</p>
 
-            <button className="btn btn-primary w-36" onClick={handleUpdate}>Update</button>
         </div>
 
     </div>

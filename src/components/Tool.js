@@ -17,7 +17,7 @@ import ReCaptchaV3 from './ReCaptchaV3';
 
 function Tool() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   // const user = useMemo(() => ({
   //   email: 'client@gmail.com',
   //   username: 'c',
@@ -84,7 +84,21 @@ function Tool() {
     // const socket = io('http://127.0.0.1:5000');
     const socket = io(backendURL);
     socket.on('connect', () => {});
+    
+    socket.onAny((event, data) => {
+      console.log(event, data);
+    });
 
+    socket.on('subscription_updated', (data) => {
+      console.log("subscription_updated event received in tool");
+      if (data.user_id === user.id) {
+        console.log("Updating user subscription");
+        setUser({ ...user, subscription: data.subscription });
+      }
+    });
+    socket.on('test_event', (data) => {
+      console.log(data);
+    });
     socket.on('current_clip_in_edit', (data) => {
       console.log('Current clip in edit:', data)
       if(data.name !== currentClipName) {
@@ -133,7 +147,7 @@ function Tool() {
     return () => {
       socket.disconnect();
     };
-  }, [videoClips, progress, currentClipName, backendURL]);
+  }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');

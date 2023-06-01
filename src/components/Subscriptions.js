@@ -1,7 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import ReCaptchaV3 from "./ReCaptchaV3";
+import CheckIfLoggedIn from "./CheckIfLoggedIn";
+import UserContext from "../contexts/UserContext";
+import axios from "axios";
 
-const SubscriptionCard = ({ planName, price, benefits, color, disableForm }) => {
+const SubscriptionCard = ({ planName, price, benefits, color, disableForm, handleClick }) => {
   return (
   // <div className="sub-card rounded-lg p-6 border border-secondary w-80">
   <div className={`sub-card p-6 w-80 ${color}-border`}>
@@ -17,13 +20,57 @@ const SubscriptionCard = ({ planName, price, benefits, color, disableForm }) => 
         </li>
       ))}
     </ul>
-    <button className={`btn btn-block btn-primary mt-4`} disabled={disableForm}>Try {planName}</button>
+    <button
+        className={`btn btn-block btn-primary mt-4`} 
+        disabled={disableForm}
+        onClick={() => handleClick(planName)}
+    >
+        Try {planName}
+    </button>
+
   </div>
   );
 };
 
 const Subscriptions = () => {
   const [disableForm, setDisableForm] = useState(false);
+  // const [stripeLink, setStripeLink] = useState("");
+  const baseStripeLink = process.env.REACT_APP_BASE_STRIPE_LINK
+  const advancedStripeLink = process.env.REACT_APP_ADVANCED_STRIPE_LINK
+  const premiumStripeLink = process.env.REACT_APP_PREMIUM_STRIPE_LINK
+  // const [redirectToStripe, setRedirectToStripe] = useState(false);
+  const user = useContext(UserContext);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
+
+  const handleSubscriptionButtonClick = async (plan) => {
+    if(!user.user) {
+      setShowLoginPrompt(true)
+    } else {
+      const userId = user.user.id;  
+      // Define your Stripe Price IDs
+      const stripePriceIds = {
+          'Base': 'price_1NDYKnBnRV7ZyiYAyfWXXZwX',  // Replace with your actual Stripe Price ID for the "Base" plan
+          'Advanced': 'price_1NDaErBnRV7ZyiYAgo7pMUfi',  // Replace with your actual Stripe Price ID for the "Advanced" plan
+          'Premium': 'price_1NDaGMBnRV7ZyiYA2Q0Vf0X4'  // Replace with your actual Stripe Price ID for the "Premium" plan
+      };
+
+      // Get the correct Stripe Price ID based on the plan name
+      const stripePriceId = stripePriceIds[plan];
+      
+      // Make the request to your server to create the Checkout Session
+      const response = await axios.post(backendURL + '/create-checkout-session', {
+          userId: userId,
+          priceId: stripePriceId
+      });
+
+      const { sessionId } = response.data;
+
+      // Redirect the user to Stripe Checkout
+      const stripe = window.Stripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+      await stripe.redirectToCheckout({ sessionId });
+    }
+}
 
   const subscriptionOptions = [
     {
@@ -40,6 +87,7 @@ const Subscriptions = () => {
         "Watermark on/off"
       ],
       color: "base",
+      stripeLink: baseStripeLink,
     },
     {
       planName: "Advanced",
@@ -56,6 +104,7 @@ const Subscriptions = () => {
         "Music Fade on/off"
       ],
       color: "advanced",
+      stripeLink: advancedStripeLink,
     },
     {
       planName: "Premium",
@@ -76,18 +125,26 @@ const Subscriptions = () => {
         "Watermark Duration"
       ],
       color: "premium",
+      stripeLink: premiumStripeLink,
     },
   ];
 
   return (
     <div className="Subscriptions mx-auto flex flex-col gap-3 mb-5">
-      <h1 className="text-center">Subscription Plans</h1>
-      <div className="flex flex-wrap justify-center gap-4">
-        {subscriptionOptions.map((option, index) => (
-          <SubscriptionCard key={index} {...option} disableForm={disableForm} />
-        ))}
-      </div>
-      <ReCaptchaV3 action="subscriptions" setDisableForm={setDisableForm} />
+
+      {showLoginPrompt ? <CheckIfLoggedIn setShowLoginPrompt={setShowLoginPrompt} /> : (
+      <>
+        <h1 className="text-center">Subscription Plans</h1>
+        <div className="flex flex-wrap justify-center gap-4">
+          {subscriptionOptions.map((option, index) => (
+            // <SubscriptionCard key={index} {...option} disableForm={disableForm} handleClick={handleClick} />
+            <SubscriptionCard key={index} {...option} disableForm={disableForm} handleClick={handleSubscriptionButtonClick} />
+          ))}
+        </div>
+        <ReCaptchaV3 action="subscriptions" setDisableForm={setDisableForm} />
+      </>
+      )}
+
     </div>
   );
 };

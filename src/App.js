@@ -32,7 +32,9 @@ function App() {
     const storedAccessToken = localStorage.getItem('access_token');
 
     if (storedUser && storedAccessToken) {
-      setUser(JSON.parse(storedUser));
+      if(storedUser !== 'undefined') {
+        setUser(JSON.parse(storedUser));
+      }
     }
   }, []);
 
