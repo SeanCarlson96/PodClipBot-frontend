@@ -145,6 +145,7 @@ function Tool() {
       console.log('Processing canceled:', data)
     });
     return () => {
+      console.log("Closing")
       socket.disconnect();
     };
   }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
