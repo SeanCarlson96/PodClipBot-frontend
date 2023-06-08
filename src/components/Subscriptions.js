@@ -81,9 +81,7 @@ const Subscriptions = () => {
         "Font Size", 
         "Subtitle Color", 
         "Subtitle Background on/off", 
-        "-",
         "Music Choice",
-        "-",
         "Watermark on/off"
       ],
       color: "base",
@@ -99,7 +97,6 @@ const Subscriptions = () => {
         "Subtitle Horizontal Position",
         "Subtitle Vertical Position",
         "Subtitle Segment Length",
-        "-",
         "Custom Music Upload", 
         "Music Fade on/off"
       ],
@@ -111,12 +108,9 @@ const Subscriptions = () => {
       price: 9.99,
       benefits: [
         "Save Your Settings",
-        "-",
         "Diarization",
         "Additional Speaker Colors",
-        "-",
         "Music Duration",
-        "-",
         "Custom Watermark Upload",
         "Watermark Horizontal Position",
         "Watermark Vertical Position",

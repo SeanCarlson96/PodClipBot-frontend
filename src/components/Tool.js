@@ -83,7 +83,7 @@ function Tool() {
   useEffect(() => {
     // const socket = io('http://127.0.0.1:5000');
     const socket = io(backendURL);
-    socket.on('connect', () => {});
+    socket.on('connect', () => {console.log("Connected")});
     
     // socket.onAny((event, data) => {
     //   console.log(event, data);
