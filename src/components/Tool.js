@@ -80,65 +80,65 @@ function Tool() {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   // const socket = io('http://127.0.0.1:5000');
-  //   const socket = io(backendURL);
-  //   socket.on('connect', () => {console.log("Connected")});
+  useEffect(() => {
+    // const socket = io('http://127.0.0.1:5000');
+    const socket = io(backendURL);
+    socket.on('connect', () => {console.log("Connected")});
     
-  //   // socket.onAny((event, data) => {
-  //   //   console.log(event, data);
-  //   // });
+    // socket.onAny((event, data) => {
+    //   console.log(event, data);
+    // });
 
-  //   socket.on('current_clip_in_edit', (data) => {
-  //     console.log('Current clip in edit:', data)
-  //     if(data.name !== currentClipName) {
-  //       setCurrentClipName(data.name);
-  //     }
-  //   });
-  //   socket.on('video_processing_progress', (data) => {
-  //     setProgress(data.progress);
-  //   });
-  //   socket.on('build_action', (data) => {
-  //     setBuildAction(data.action);
-  //   });
-  //   socket.on('video_file_ready', (data) => {
-  //     console.log('Received', data.name);
-  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
+    socket.on('current_clip_in_edit', (data) => {
+      console.log('Current clip in edit:', data)
+      if(data.name !== currentClipName) {
+        setCurrentClipName(data.name);
+      }
+    });
+    socket.on('video_processing_progress', (data) => {
+      setProgress(data.progress);
+    });
+    socket.on('build_action', (data) => {
+      setBuildAction(data.action);
+    });
+    socket.on('video_file_ready', (data) => {
+      console.log('Received', data.name);
+      const newVideoClip = new ClipModel(data.name, data.filename, false);
     
-  //     setVideoClips((prevState) => {
-  //       let updated = false;
-  //       const updatedClips = prevState.map((clip, index) => {
-  //         if (!updated && clip.name === data.name) {
-  //           updated = true;
+      setVideoClips((prevState) => {
+        let updated = false;
+        const updatedClips = prevState.map((clip, index) => {
+          if (!updated && clip.name === data.name) {
+            updated = true;
 
-  //           // Check if the current clip is the last clip in the array
-  //           if (index === prevState.length - 1) {
-  //             setBuilding(false);
-  //             setProcessCancelable(false);
-  //           }
+            // Check if the current clip is the last clip in the array
+            if (index === prevState.length - 1) {
+              setBuilding(false);
+              setProcessCancelable(false);
+            }
 
-  //           return newVideoClip;
-  //         }
-  //         return clip;
-  //       });
+            return newVideoClip;
+          }
+          return clip;
+        });
     
-  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
-  //       return updatedClips;
-  //     });
+        localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
+        return updatedClips;
+      });
 
-  //     if (progress === 100) {
-  //       setProgress(0);
-  //     }
-  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
-  //   });
-  //   socket.on("processing_canceled", (data) => {
-  //     console.log('Processing canceled:', data)
-  //   });
-  //   return () => {
-  //     console.log("Closing")
-  //     socket.disconnect();
-  //   };
-  // }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
+      if (progress === 100) {
+        setProgress(0);
+      }
+      // setCurrentClipIndex((prevIndex) => prevIndex + 1);
+    });
+    socket.on("processing_canceled", (data) => {
+      console.log('Processing canceled:', data)
+    });
+    return () => {
+      console.log("Closing")
+      socket.disconnect();
+    };
+  }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
 
   useEffect(() => {
     axios.get(backendURL + '/test') //replace localhost and port with your actual server address and port
