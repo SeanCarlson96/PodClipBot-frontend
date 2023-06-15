@@ -11,6 +11,7 @@ function ThemedComponent() {
             <input
                 className="form-check-input cursor-pointer my-0 border border-secondary"
                 type="checkbox"
+                id="themeSwitch"
                 checked={theme === 'dark'}
                 onClick={toggleTheme}
                 readOnly={true}

@@ -17,7 +17,8 @@ import ReCaptchaV3 from './ReCaptchaV3';
 
 function Tool() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
-  const { user, setUser } = useContext(UserContext);
+  // const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   // const user = useMemo(() => ({
   //   email: 'client@gmail.com',
   //   username: 'c',
@@ -44,6 +45,7 @@ function Tool() {
   const [resetPending, setResetPending] = useState(false);
   const [processCancelable, setProcessCancelable] = useState(false);
   const [disableForm, setDisableForm] = useState(false);
+  const [shouldCloseWebsocket, setShouldCloseWebsocket] = useState(false);
 
   useEffect(() => {
     if (resetPending) {
@@ -91,7 +93,7 @@ function Tool() {
     });
 
     socket.on('current_clip_in_edit', (data) => {
-      console.log('Current clip in edit:', data)
+      // console.log('Current clip in edit:', data)
       if(data.name !== currentClipName) {
         setCurrentClipName(data.name);
       }
@@ -139,35 +141,85 @@ function Tool() {
       console.log("Disconnected")
       socket.disconnect();
     };
-  }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
+  }, []);
+  // }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
+
+  // function websocketOpen() {
+  //   console.log("Websocket opened")
+  //   const socket = io(backendURL);
+  //   socket.on('connect', () => {
+  //     // console.log("Connected")
+  //   });
+    
+  //   socket.onAny((event, data) => {
+  //     console.log(event, data);
+  //   });
+
+  //   socket.on('current_clip_in_edit', (data) => {
+  //     // console.log('Current clip in edit:', data)
+  //     if(data.name !== currentClipName) {
+  //       setCurrentClipName(data.name);
+  //     }
+  //   });
+  //   socket.on('video_processing_progress', (data) => {
+  //     setProgress(data.progress);
+  //   });
+  //   socket.on('build_action', (data) => {
+  //     setBuildAction(data.action);
+  //   });
+  //   socket.on('video_file_ready', (data) => {
+  //     // console.log('Received', data.name);
+  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
+    
+  //     setVideoClips((prevState) => {
+  //       let updated = false;
+  //       const updatedClips = prevState.map((clip, index) => {
+  //         if (!updated && clip.name === data.name) {
+  //           updated = true;
+
+  //           // Check if the current clip is the last clip in the array
+  //           if (index === prevState.length - 1) {
+  //             setBuilding(false);
+  //             setProcessCancelable(false);
+  //             closeWebsocket(socket);
+  //           }
+
+  //           return newVideoClip;
+  //         }
+  //         return clip;
+  //       });
+    
+  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
+  //       return updatedClips;
+  //     });
+
+  //     if (progress === 100) {
+  //       setProgress(0);
+  //     }
+  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
+  //   });
+  //   socket.on("processing_canceled", (data) => {
+  //     // console.log('Processing canceled:', data)
+  //   });
+  //   return socket; // Important to return socket
+  // }
+
+  // function closeWebsocket(socket) {
+  //     console.log("Websocket closed")
+  //     console.log("Disconnected");
+  //     socket.disconnect();
+  // }
 
   // useEffect(() => {
-  //   axios.get(backendURL + '/test')
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-
-  //   const data = {
-  //     token: "03AL8dmw9BGKEQU_QdE-x9GTiS3_0697yRK8cTOa-CKGbIVVBNi-dTOYdAQfn-NTlBef_mmyPq9MWAJLLkhXWsCu0GfFPtmUHTWp_OV7M4qs_BnJXN_GSp8PKoRZzqC2sHOA_iT81TQtY0_GevElYql0_-QIxsFQ1RjMtd09SxRGMuuBaJvBmSs17Mr5nY3VgZTGr2SQlcJYbcG7Pmn9B1yyfhIm8dERai26CE0Z9MOMsETXnVcFssuuZeqPb5pqJayoCUAWXMpNLpuj2-nEp3vRleopAh-yt0EMe79oegheuaQj_lkH2zl8hykUFkMacyOcBKbWnLRObBbfJcjFD5KzOH1MUZv1Qb18vyDrI-8zIGhi7Ed32fAS49Kj-ARllYwUbSLBdNJzBHhE92JWzvdyRTXmw3MfhOcA0icsVIuYGPdyIi4V7d4CFEuXOKp35dNSf8MKm9Ctgw1dkB-PgNYPP3lptGw6vW38B8kEcaSUDbFpc3QC__MvchNsrbYKKMH6KKzjwoFaznIST6BiuKF8iHlCFgdofkoOybT5C7F_qXjP1H5k6uazg6D0FC3NXbYBJlABmVAPH2xrHNYW1Smk3CGtUOGsBQS5NSDsSytWBKw2aIL3Sxl6C0_TUVcOPJy2sN0QZwv4uh25aSIRvH3gcuJ2I9h9Ug1_imyIPUk5srpxb-JsEBhHcG_qaZ3vCsi9Qyf574r8_NJQLEoMdaiTxQE9CRIBF30R23d2VpGdokz1iUGh3KyzUmruBuyuMUi50vRRz7J1f7Ae3FVfcJ-axf0RDI_QUyV_WCcTNRBX3pTbA5cob-_pEBwReJiF5DRk7yqJ1lmMZNiqeb_pfhTlckZKNaADaV9fFlVtvvvJFlaUPZupjY4d6s1r1b6Q_387pI4S77DzAOgeBGWSNulfrjgoQ4kJGGCuOK2tBTrojVtZU5UuHYp_fqP5Ft51AWP5F4-2w3oXrzo5D03Yg2EtYC37jIQv9ZENV06ATEkWbRBes_NewbEI4f-gwWJG2YI-pJwIUK5uM-f_e-BsAtbUrwN-cHLa-y6jwW7_3MCa5VexqXxwvAWkWf7UfKIc8lyZAAgtSef33P_IVzmQYQm83trDOUl-od8Ag9LiSxZMr2SJP895AkPJPZQPGe4j1JKa9L1Rzit7zAaglIyZItDeOrGen0F4Zc9Delm9kQJMm0_b3TIT82p5AJxLAvXqjhKEvNqKPdzBznHcqtFNqytje7vCu2rKekIWWPalXYOcWGHHAqhTS-zvtUx32jOcUKDmHOciOioST3LQbaetb43WNovlonO05dHluUAMv43kyq05Qmw8U7HYZ9Rk1cTv4dG7NVNdDrOZAKZSan55Os9xF6i2sXKtKeFU4PqCDRbbZSyKSzqqdu6BuqLL6wfjSNJWa8r1q05Oc4HZitpDhqkeWGbfhbZ-IWHzM7-y5xIe_oGGOOLYN06BXji7hEaupliySWyId_0TQ_Qm64MPUty72GT8f_a8w04w"
-  //   };
-    
-  //   const config = {
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   };
-    
-  //   axios.post(backendURL + '/endpoint', data, config)
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(`There was an error! ${error}`);
-  //     });
+  //     const socket = websocketOpen();
+  //     return () => closeWebsocket(socket);
   // }, []);
+  // useEffect(() => {
+  //   if (shouldCloseWebsocket) {
+  //     closeWebsocket(io(backendURL));
+  //   }
+  // }, [shouldCloseWebsocket, backendURL]);
+
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -274,6 +326,7 @@ function Tool() {
   };
 
   const handleSubmit = (event) => {
+    console.log("Submitting");
     event.preventDefault();
     localStorage.removeItem('videoFiles');
     const formData = new FormData(event.target);
@@ -289,6 +342,7 @@ function Tool() {
     formData.set('video-file', cleanFileName(file));
   
     // axios.post('http://127.0.0.1:5000/trim', formData)
+    // websocketOpen();
     axios.post(backendURL + '/trim', formData)
       .then((response) => {
         console.log(response.data.message);
@@ -315,12 +369,11 @@ function Tool() {
         setBuilding(false);
         errorWithDelivery();
         console.log(error);
+      })
+      .finally(() => {
+        console.log("handleSubmit Closing");
       });
-      
-  
-    return () => {
-      console.log("Closing");
-    };
+
   };
 
   const errorWithDelivery = () => {
@@ -331,8 +384,6 @@ function Tool() {
 
   const handleCancel = (clipName) => {
     setProgress(0);
-    // Emit the cancel_processing message with the clip's name
-    // const socket = io('http://127.0.0.1:5000');
     const socket = io(backendURL);
     socket.emit("cancel_processing", { clipName: clipName });
   
@@ -342,9 +393,11 @@ function Tool() {
         return clip.name !== clipName;
       });
         // If updatedClips is empty, set building to false
-        // if (updatedClips.length === 0) {
+        if (updatedClips.length === 0) {
           // setBuilding(false);
-        // }
+          setProcessCancelable(false);
+          // setShouldCloseWebsocket(true);
+        }
       return updatedClips;
     });
     
