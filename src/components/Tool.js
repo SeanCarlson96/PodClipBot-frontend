@@ -45,7 +45,10 @@ function Tool() {
   const [resetPending, setResetPending] = useState(false);
   const [processCancelable, setProcessCancelable] = useState(false);
   const [disableForm, setDisableForm] = useState(false);
-  const [shouldCloseWebsocket, setShouldCloseWebsocket] = useState(false);
+  const [dontBuildYet, setDontBuildYet] = useState(true);
+  const [fileKey, setFileKey] = useState(0);
+  const [uploadPercentage, setUploadPercentage] = useState(0);
+  // const [shouldCloseWebsocket, setShouldCloseWebsocket] = useState(false);
 
   useEffect(() => {
     if (resetPending) {
@@ -141,7 +144,8 @@ function Tool() {
       console.log("Disconnected")
       socket.disconnect();
     };
-  }, []);
+  });
+  // }, []);
   // }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
 
   // function websocketOpen() {
@@ -230,10 +234,50 @@ function Tool() {
     localStorage.setItem('videoFiles', JSON.stringify(videoClips));
   }, [videoClips]);
 
-  const handleVideoFileChange = (event) => {
+  useEffect(() => {
+    if (fileKey) {
+        //set a variable to enable the build button
+        setDontBuildYet(false);
+    }
+
+  }, [fileKey]);
+
+  const handleVideoFileChange = async (event) => {
     const file = event.target.files[0];
 
     if (file) {
+      // Request the pre-signed URL from the server
+      try {
+        console.log("Retreiving presigned url...")
+        const response = await axios.post(backendURL + '/generate-presigned-url', {
+          fileName: file.name,
+          fileType: file.type,
+        });
+  
+        const presignedUrl = response.data.presigned_url;
+        const uniqueFileKey = response.data.fileName;
+
+  
+        // Upload the file to S3
+        console.log("Uploading file to s3...")
+        await axios.put(presignedUrl, file, {
+          headers: {
+            'Content-Type': file.type
+          },
+          onUploadProgress: function(progressEvent) {
+            let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            setUploadPercentage(percentCompleted);
+          }
+        });
+        console.log('File uploaded successfully');        
+        
+        //set the file key value so it can be used in the post request later
+        setFileKey(uniqueFileKey)
+  
+      } catch (err) {
+        console.error('Error generating pre-signed URL or uploading file', err);
+      }
+  
       const video = document.createElement('video');
       video.preload = 'metadata';
       video.src = URL.createObjectURL(file);
@@ -260,15 +304,15 @@ function Tool() {
     return hours * 3600 + minutes * 60 + seconds;
   }  
 
-  const cleanFileName = (file) => {
-    if (file) {
-      // Clean the file name by replacing any unwanted characters
-      const cleanFileName = file.name.replace(/[^\w.-]+/g, '_');
+  // const cleanFileName = (file) => {
+  //   if (file) {
+  //     // Clean the file name by replacing any unwanted characters
+  //     const cleanFileName = file.name.replace(/[^\w.-]+/g, '_');
 
-      // Create a new File object with the clean file name and same properties as the original file
-      return new File([file], cleanFileName, { type: file.type, lastModified: file.lastModified });
-    }
-  }
+  //     // Create a new File object with the clean file name and same properties as the original file
+  //     return new File([file], cleanFileName, { type: file.type, lastModified: file.lastModified });
+  //   }
+  // }
 
   const validateForm = (formData) => {
     const videoFile = formData.get('video-file');
@@ -338,8 +382,10 @@ function Tool() {
     setValidationMessage('');
     setVideoClips([]);
     buildEmptyClips(clipInputs.length);
-    const file = formData.get('video-file');
-    formData.set('video-file', cleanFileName(file));
+    // const file = formData.get('video-file');
+    // formData.set('video-file', cleanFileName(file));
+    console.log("File key:", fileKey);
+    formData.set('video-file', fileKey);
   
     // axios.post('http://127.0.0.1:5000/trim', formData)
     // websocketOpen();
@@ -511,6 +557,16 @@ function Tool() {
                 >?</span>
               </label>
             <input type="file" id="video-file" name="video-file" className="form-control-file" onChange={handleVideoFileChange} disabled={disableForm}/>
+            <div className="progress w-full border border-secondary" style={{ height: '10px' }}>
+              <div
+                  className="progress-bar"
+                  role="progressbar"
+                  style={{ width: `${uploadPercentage}%` }}
+                  aria-valuenow={uploadPercentage}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+              ></div>
+            </div>
           </div>
 
           {/* Step 2 */}
@@ -555,7 +611,7 @@ function Tool() {
                 </div>
               </button>
                 ) : (
-                <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building || disableForm}
+                <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building || disableForm || dontBuildYet}
                 >
                   <FontAwesomeIcon icon={faHammer} /> Build Clips
                 </button>
