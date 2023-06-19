@@ -13,6 +13,7 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfUse from './components/TermsOfUse';
 import Contact from './components/Contact';
 import ReturnedFromStripe from './components/ReturnedFromStripe';
+import NewSubscription from './components/NewSubscription';
 
 const Routing = () => (
   <Routes>
@@ -20,7 +21,8 @@ const Routing = () => (
     {/* <Route exact path="/tool" element={<Tool />} /> */}
     <Route exact path="/tool" element={<></>} />
     <Route exact path="/login" element={<Login />} />
-    <Route exact path="/subscriptions" element={<Subscriptions />} />
+    {/* <Route exact path="/subscriptions" element={<Subscriptions />} /> */}
+    <Route exact path="/subscriptions" element={<NewSubscription />} />
     <Route exact path="/registration" element={<Registration />} />
     <Route exact path="/profile" element={<Profile />} />
     <Route exact path="/email-input" element={<EmailInput />} />

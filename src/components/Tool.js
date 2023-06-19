@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 // import { useState, useEffect, useMemo } from 'react';
+import { Link } from "react-router-dom";
+import { ThemeContext } from '../contexts/ThemeContext';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import ClipTimeInput from './ClipTimeInput';
@@ -48,6 +50,7 @@ function Tool() {
   const [dontBuildYet, setDontBuildYet] = useState(true);
   const [fileKey, setFileKey] = useState(0);
   const [uploadPercentage, setUploadPercentage] = useState(0);
+  const { theme } = useContext(ThemeContext);
   // const [shouldCloseWebsocket, setShouldCloseWebsocket] = useState(false);
 
   useEffect(() => {
@@ -60,7 +63,12 @@ function Tool() {
     if(user){
       switch (user.subscription) {
         case 'none':
-          setSubscriptionMessage('You are using the Free plan with limited features.');
+          // setSubscriptionMessage('Subscribe to unlock all disabled features.');
+          setSubscriptionMessage(
+            <span>
+              <Link className={`${theme === 'light' ? 'text-current' : ''}`} to="/subscriptions">Subscribe</Link> to unlock all disabled features.
+            </span>
+          );
           setSubTextColor('text-current');
           break;
         case 'base':
@@ -76,7 +84,7 @@ function Tool() {
           setSubTextColor('premium-color');
           break;
         default:
-          setSubscriptionMessage('Unknown subscription plan.');
+          setSubscriptionMessage('Subscribe to unlock all disabled features.');
           break;
       }
     } else {
@@ -145,85 +153,7 @@ function Tool() {
       socket.disconnect();
     };
   });
-  // }, []);
   // }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
-
-  // function websocketOpen() {
-  //   console.log("Websocket opened")
-  //   const socket = io(backendURL);
-  //   socket.on('connect', () => {
-  //     // console.log("Connected")
-  //   });
-    
-  //   socket.onAny((event, data) => {
-  //     console.log(event, data);
-  //   });
-
-  //   socket.on('current_clip_in_edit', (data) => {
-  //     // console.log('Current clip in edit:', data)
-  //     if(data.name !== currentClipName) {
-  //       setCurrentClipName(data.name);
-  //     }
-  //   });
-  //   socket.on('video_processing_progress', (data) => {
-  //     setProgress(data.progress);
-  //   });
-  //   socket.on('build_action', (data) => {
-  //     setBuildAction(data.action);
-  //   });
-  //   socket.on('video_file_ready', (data) => {
-  //     // console.log('Received', data.name);
-  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
-    
-  //     setVideoClips((prevState) => {
-  //       let updated = false;
-  //       const updatedClips = prevState.map((clip, index) => {
-  //         if (!updated && clip.name === data.name) {
-  //           updated = true;
-
-  //           // Check if the current clip is the last clip in the array
-  //           if (index === prevState.length - 1) {
-  //             setBuilding(false);
-  //             setProcessCancelable(false);
-  //             closeWebsocket(socket);
-  //           }
-
-  //           return newVideoClip;
-  //         }
-  //         return clip;
-  //       });
-    
-  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
-  //       return updatedClips;
-  //     });
-
-  //     if (progress === 100) {
-  //       setProgress(0);
-  //     }
-  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
-  //   });
-  //   socket.on("processing_canceled", (data) => {
-  //     // console.log('Processing canceled:', data)
-  //   });
-  //   return socket; // Important to return socket
-  // }
-
-  // function closeWebsocket(socket) {
-  //     console.log("Websocket closed")
-  //     console.log("Disconnected");
-  //     socket.disconnect();
-  // }
-
-  // useEffect(() => {
-  //     const socket = websocketOpen();
-  //     return () => closeWebsocket(socket);
-  // }, []);
-  // useEffect(() => {
-  //   if (shouldCloseWebsocket) {
-  //     closeWebsocket(io(backendURL));
-  //   }
-  // }, [shouldCloseWebsocket, backendURL]);
-
 
   useEffect(() => {
     const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -382,20 +312,15 @@ function Tool() {
     setValidationMessage('');
     setVideoClips([]);
     buildEmptyClips(clipInputs.length);
-    // const file = formData.get('video-file');
-    // formData.set('video-file', cleanFileName(file));
+
     console.log("File key:", fileKey);
     formData.set('video-file', fileKey);
   
-    // axios.post('http://127.0.0.1:5000/trim', formData)
-    // websocketOpen();
     axios.post(backendURL + '/trim', formData)
       .then((response) => {
         console.log(response.data.message);
         setBuilding(false);
         setProcessCancelable(false);
-        // The POST request is sent, and the WebSocket event listener will
-        // handle the video files as they arrive
       })
       .catch(error => {
         let errorMsg = '';

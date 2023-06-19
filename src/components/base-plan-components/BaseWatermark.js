@@ -1,6 +1,6 @@
 import React from "react";
 
-function BaseWatermark({watermark, setWatermark, watermarkOpen, setWatermarkOpen}) {
+function BaseWatermark({watermark, setWatermark, watermarkOpen, setWatermarkOpen, freeplan}) {
 
   const handleWatermarkToggle = () => {
     if(watermark === true) {
@@ -10,7 +10,7 @@ function BaseWatermark({watermark, setWatermark, watermarkOpen, setWatermarkOpen
   };
 
   return (
-      <div className="form-check form-switch flex gap-2 w-36 base-plan-input">
+      <div className="form-check form-switch flex gap-2 w-36 base-plan-input pro-plan-input">
         <input
           className="form-check-input cursor-pointer border border-secondary"
           type="checkbox"
@@ -18,6 +18,7 @@ function BaseWatermark({watermark, setWatermark, watermarkOpen, setWatermarkOpen
           name="watermarkToggle"
           checked={watermark}
           onChange={handleWatermarkToggle}
+          disabled={freeplan}
         />
         <label className="form-check-label" htmlFor="watermarkToggle">
           Watermark

@@ -3,6 +3,7 @@ import FreePlan from './FreePlan';
 import BasePlan from './base-plan-components/BasePlan';
 import AdvancedPlan from './advanced-plan-components/AdvancedPlan';
 import PremiumPlan from './premium-plan-components/PremiumPlan';
+import FreeValuePlan from './premium-plan-components/FreeValuePlan';
 import UserContext from '../contexts/UserContext';
 
 function SubscriptionSwitch({ formData }) {
@@ -12,7 +13,8 @@ function SubscriptionSwitch({ formData }) {
     if(user){
         switch (user.subscription) {
           case 'none':
-            return <FreePlan formData={formData} />;
+            // return <FreePlan formData={formData} />;
+            return <FreeValuePlan formData={formData} />;
           case 'base':
             return <BasePlan formData={formData} />;
           case 'advanced':

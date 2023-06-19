@@ -6,9 +6,14 @@ $primary: #93C572;
 // 	box-shadow: 0 0 0 1px #fff, 0 0 0 2px $primary;
 // }
 
-$baseColor: rgb(79, 70, 229);
-$advancedColor: #00ab6b;
-$premiumColor: #98720b;
+// $baseColor: rgb(79, 70, 229);
+// $advancedColor: #00ab6b;
+// $premiumColor: #98720b;
+
+$baseColor: none;
+$advancedColor: none;
+$premiumColor: none;
+$proColor: #98720b;
 
 .base-color {
 	color: $baseColor;
@@ -20,6 +25,10 @@ $premiumColor: #98720b;
 
 .premium-color {
 	color: $premiumColor;
+}
+
+.pro-color {
+	color: $proColor;
 }
 
 .base-border {
@@ -37,6 +46,10 @@ $premiumColor: #98720b;
 	border-radius: 8px;  // adjust the border radius as needed
 }
 
+.pro-border {
+	border: 2px solid $proColor;
+	border-radius: 8px;  // adjust the border radius as needed
+}
 
 .base-plan-input label {
 	border-bottom: 1px solid $baseColor;
@@ -57,6 +70,13 @@ $premiumColor: #98720b;
 }
 .premium-plan {
 	border-bottom: 1px solid $premiumColor;
+}
+
+.pro-plan-input label {
+	border-bottom: 1px solid $proColor;
+}
+.pro-plan {
+	border-bottom: 1px solid $proColor;
 }
 
 

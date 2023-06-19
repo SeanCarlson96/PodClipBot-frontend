@@ -3,7 +3,7 @@ import PremiumSubtitles from "./PremiumSubtitles";
 import BaseSubtitles from "../base-plan-components/BaseSubtitles";
 import AdvancedSubtitles from "../advanced-plan-components/AdvancedSubtitles";
 import BaseMusic from "../base-plan-components/BaseMusic";
-import AdvancedMusic from "../advanced-plan-components/AdvancedMusic";
+import FVAdvancedMusic from "../advanced-plan-components/FVAdvancedMusic";
 import PremiumMusic from "./PremiumMusic";
 import BaseWatermark from "../base-plan-components/BaseWatermark";
 import PremiumWatermark from "./PremiumWatermark";
@@ -71,7 +71,7 @@ const PremiumPlan = ({ formData }) => {
             disabled={!subtitles}
           >
             <div className="flex justify-between items-center  sm:w-60 gap-2">
-              <div>Premium Subtitle Settings</div>
+              <div>Subtitle Settings</div>
               <div>
                 {subtitlesOpen ? (
                   <FontAwesomeIcon icon={faAngleUp} />
@@ -114,7 +114,7 @@ const PremiumPlan = ({ formData }) => {
             disabled={!music}
           >
             <div className="flex justify-between items-center sm:w-60 gap-2">
-              <div>Premium Music Settings</div>
+              <div>Music Settings</div>
               <div>
                 {musicOpen ? (
                   <FontAwesomeIcon icon={faAngleUp} />
@@ -143,7 +143,7 @@ const PremiumPlan = ({ formData }) => {
             <span>{volume}</span>
           </div>
           <BaseMusic formData={formData} music={music} />
-          <AdvancedMusic formData={formData} music={music} />
+          <FVAdvancedMusic formData={formData} music={music} />
           <PremiumMusic formData={formData} music={music} />
         </div>
       </div>
@@ -156,7 +156,7 @@ const PremiumPlan = ({ formData }) => {
             setWatermark={setWatermark}
             watermarkOpen={watermarkOpen}
             setWatermarkOpen={setWatermarkOpen}
-            freeplan={false}
+            freeplan={true}
           />
 
           <div
@@ -166,7 +166,7 @@ const PremiumPlan = ({ formData }) => {
             disabled={!watermark}
           >
             <div className="flex justify-between items-center sm:w-60 gap-2">
-              <div>Premium Watermark Settings </div>
+              <div>Watermark Settings </div>
               <div>
                 {watermarkOpen ? (
                   <FontAwesomeIcon icon={faAngleUp} />
@@ -179,7 +179,7 @@ const PremiumPlan = ({ formData }) => {
         </div>
 
         <div className={`p-2 flex flex-col gap-2 ${watermarkOpen ? "" : "hidden"}`}>
-          <PremiumWatermark formData={formData} watermark={watermark} freeplan={false} />
+          <PremiumWatermark formData={formData} watermark={watermark} freeplan={true} />
         </div>
       </div>
 

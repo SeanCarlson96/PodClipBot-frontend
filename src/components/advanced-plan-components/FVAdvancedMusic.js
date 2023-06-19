@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Tooltip } from "bootstrap";
 
-function AdvancedMusic({ formData, music }) {
+function FVAdvancedMusic({ formData, music }) {
   // const [customMusic, setCustomMusic] = useState('');
   // const [musicFade, setMusicFade] = useState(true);
   const [musicFade, setMusicFade] = useState(formData?.musicFadeToggle);
@@ -41,7 +41,7 @@ function AdvancedMusic({ formData, music }) {
           id="music-file"
           name="music-file"
           className="form-control-file"
-          disabled={!music}
+          disabled={true}
           // onChange={handleCustomMusicUpload}
         />
 
@@ -65,4 +65,4 @@ function AdvancedMusic({ formData, music }) {
   );
 }
 
-export default AdvancedMusic;
+export default FVAdvancedMusic;
