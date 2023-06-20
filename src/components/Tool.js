@@ -195,18 +195,38 @@ function Tool() {
 
   
         // Upload the file to S3
+        // console.log("Uploading file to s3...")
+        // await axios.put(presignedUrl, file, {
+        //   headers: {
+        //     'Content-Type': file.type
+        //   },
+        //   timeout: 0,  // no timeout
+        //   onUploadProgress: function(progressEvent) {
+        //     let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        //     setUploadPercentage(percentCompleted);
+        //   }
+        // });
+        // console.log('File uploaded successfully');        
         console.log("Uploading file to s3...")
-        await axios.put(presignedUrl, file, {
-          headers: {
-            'Content-Type': file.type
-          },
-          timeout: 0,  // no timeout
-          onUploadProgress: function(progressEvent) {
-            let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            setUploadPercentage(percentCompleted);
-          }
+        const putRequest = new Request(presignedUrl, {
+          method: 'PUT',
+          body: file,
+          headers: new Headers({
+            'Content-Type': file.type,
+          }),
         });
-        console.log('File uploaded successfully');        
+
+        fetch(putRequest).then(response => {
+          if(response.ok) {
+            console.log('File uploaded successfully');
+          } else {
+            response.text().then(text => {
+              console.error('Error during upload:', text);
+            });
+          }
+        }).catch(error => {
+          console.error('Network error:', error);
+        });
         
         //set the file key value so it can be used in the post request later
         setFileKey(uniqueFileKey)
