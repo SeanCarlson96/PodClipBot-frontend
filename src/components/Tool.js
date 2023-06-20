@@ -349,24 +349,46 @@ function Tool() {
         setBuilding(false);
         setProcessCancelable(false);
       })
+      // .catch(error => {
+      //   let errorMsg = '';
+      //   if (error.response) {
+      //     // The request was made and the server responded with a non-2xx status code
+      //     // errorMsg = error.response.data.message;
+      //     errorMsg = error.message;
+      //   } else if (error.request) {
+      //     // The request was made but no response was received
+      //     errorMsg = 'No response received from server. Please check your network connection or try again later.';
+      //   } else {
+      //     // Something happened in setting up the request and triggered an Error
+      //     errorMsg = error.message;
+      //   }
+      //   setValidationMessage(errorMsg);
+      //   cancelWholeProcess();
+      //   setBuilding(false);
+      //   errorWithDelivery();
+      //   console.log(error);
+      // })
       .catch(error => {
         let errorMsg = '';
         if (error.response) {
           // The request was made and the server responded with a non-2xx status code
-          // errorMsg = error.response.data.message;
-          errorMsg = error.message;
+          errorMsg = 'Server responded with non-2xx status code. Error: ' + error.message;
+          console.error('Error response data:', error.response.data);
+          console.error('Error response status:', error.response.status);
+          console.error('Error response headers:', error.response.headers);
         } else if (error.request) {
           // The request was made but no response was received
           errorMsg = 'No response received from server. Please check your network connection or try again later.';
+          console.error('The request was made but no response was received. Request:', error.request);
         } else {
           // Something happened in setting up the request and triggered an Error
-          errorMsg = error.message;
+          errorMsg = 'Error in setting up the request. Message: ' + error.message;
         }
         setValidationMessage(errorMsg);
         cancelWholeProcess();
         setBuilding(false);
         errorWithDelivery();
-        console.log(error);
+        console.error('Error Configuration:', error.config);
       })
       .finally(() => {
         console.log("handleSubmit Closing");
