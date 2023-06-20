@@ -35,8 +35,8 @@ const SubscriptionCard = ({ planName, price, benefits, color, disableForm, handl
 const NewSubscription = () => {
   const [disableForm, setDisableForm] = useState(false);
   // const [stripeLink, setStripeLink] = useState("");
-  const baseStripeLink = process.env.REACT_APP_BASE_STRIPE_LINK
-  const advancedStripeLink = process.env.REACT_APP_ADVANCED_STRIPE_LINK
+//   const baseStripeLink = process.env.REACT_APP_BASE_STRIPE_LINK
+//   const advancedStripeLink = process.env.REACT_APP_ADVANCED_STRIPE_LINK
   const premiumStripeLink = process.env.REACT_APP_PREMIUM_STRIPE_LINK
   // const [redirectToStripe, setRedirectToStripe] = useState(false);
   const user = useContext(UserContext);

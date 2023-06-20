@@ -80,7 +80,7 @@ function Tool() {
           setSubTextColor('advanced-color');
           break;
         case 'premium':
-          setSubscriptionMessage('You are using the Premium plan with all features unlocked.');
+          setSubscriptionMessage('You are using the Pro plan with all features unlocked.');
           setSubTextColor('premium-color');
           break;
         default:
@@ -91,7 +91,7 @@ function Tool() {
       setSubscriptionMessage('You are using the Free plan with limited features.');
       setSubTextColor('text-current');
     }
-  }, [user]);
+  }, [user, theme]);
 
   useEffect(() => {
     console.log("Websocket useEffect called")
@@ -194,6 +194,7 @@ function Tool() {
           headers: {
             'Content-Type': file.type
           },
+          timeout: 0,  // no timeout
           onUploadProgress: function(progressEvent) {
             let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
             setUploadPercentage(percentCompleted);
@@ -562,6 +563,12 @@ function Tool() {
           <ReCaptchaV3 action={'tool'} setDisableForm={setDisableForm}/>
           
         </form>
+
+        {buildAction === 'Being Retreived' && (
+          <div>
+            Your video is being retrieved. Please wait...
+          </div>
+        )}
 
         {/* Display Clips */}
         <div className="flex gap-2 flex-wrap">
