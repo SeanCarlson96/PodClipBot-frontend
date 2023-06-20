@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import FreePlan from './FreePlan';
+// import FreePlan from './FreePlan';
 import BasePlan from './base-plan-components/BasePlan';
 import AdvancedPlan from './advanced-plan-components/AdvancedPlan';
 import PremiumPlan from './premium-plan-components/PremiumPlan';
@@ -26,7 +26,8 @@ function SubscriptionSwitch({ formData }) {
         }
 
     } else {
-        return <FreePlan formData={formData} />;
+        // return <FreePlan formData={formData} />;
+        return <FreeValuePlan formData={formData} />;
     }
   };
 

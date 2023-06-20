@@ -16,6 +16,7 @@ import UserContext from '../contexts/UserContext';
 import SubscriptionSwitch from './SubscriptionSwitch';
 import defaultFormData from '../defaultFormData';
 import ReCaptchaV3 from './ReCaptchaV3';
+import AgreementBanner from './AgreementBanner';
 
 function Tool() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -88,7 +89,12 @@ function Tool() {
           break;
       }
     } else {
-      setSubscriptionMessage('You are using the Free plan with limited features.');
+      // setSubscriptionMessage('You are using the Free plan with limited features.');
+      setSubscriptionMessage(
+        <span>
+          <Link className={`${theme === 'light' ? 'text-current' : ''}`} to="/subscriptions">Subscribe</Link> to unlock all disabled features.
+        </span>
+      );
       setSubTextColor('text-current');
     }
   }, [user, theme]);
@@ -449,13 +455,14 @@ function Tool() {
     // const resetTimes = ["00:00:00", "00:00:00"];
     setClipInputs([<ClipTimeInput key={1} clipNumber={1} handleRemove={handleRemoveClipTimeInput(1)} newTimes={["00:00:00", "00:00:00"]}/>]);
     setValidationMessage('');
-
+    setUploadPercentage(0);
     setResetPending(true);
     setFormData({ ...formData });
   };
   
   return (
     <div className="Tool mx-auto flex flex-col gap-4 mb-5">
+        <AgreementBanner />
         {/* H1 and paragraph */}
         <div>
           <h1>Clip Creation Tool</h1>

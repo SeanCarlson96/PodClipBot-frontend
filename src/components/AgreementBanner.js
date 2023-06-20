@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TermsModal from './TermsModal';
 
-const AgreementBanner = ({openTermsModal}) => {
+const AgreementBanner = () => {
   const [agreement, setAgreement] = useState(false);
   const [firstVisit, setFirstVisit] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
