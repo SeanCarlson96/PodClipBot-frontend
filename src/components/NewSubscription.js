@@ -50,10 +50,10 @@ const NewSubscription = () => {
       const userId = user.user.id;  
       // Define your Stripe Price IDs
       const stripePriceIds = {
-          'Base': 'price_1NDYKnBnRV7ZyiYAyfWXXZwX',  // Replace with your actual Stripe Price ID for the "Base" plan
-          'Advanced': 'price_1NDaErBnRV7ZyiYAgo7pMUfi',  // Replace with your actual Stripe Price ID for the "Advanced" plan
-          'Premium': 'price_1NDaGMBnRV7ZyiYA2Q0Vf0X4',  // Replace with your actual Stripe Price ID for the "Premium" plan
-          'Pro': 'price_1NDaGMBnRV7ZyiYA2Q0Vf0X4'  // Replace with your actual Stripe Price ID for the "Pro" plan
+          'Base': 'price_1NLa4iBnRV7ZyiYAgZvuu3pq',  // Replace with your actual Stripe Price ID for the "Base" plan
+          'Advanced': 'price_1NLa4ZBnRV7ZyiYAMCAou20M',  // Replace with your actual Stripe Price ID for the "Advanced" plan
+          'Premium': 'price_1NLa2iBnRV7ZyiYAGnnZt6my',  // Replace with your actual Stripe Price ID for the "Premium" plan
+          'Pro': 'price_1NLa2iBnRV7ZyiYAGnnZt6my'  // Replace with your actual Stripe Price ID for the "Pro" plan
       };
 
       // Get the correct Stripe Price ID based on the plan name
