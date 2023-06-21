@@ -135,6 +135,7 @@ function Tool() {
             if (index === prevState.length - 1) {
               setBuilding(false);
               setProcessCancelable(false);
+              setCurrentClipName('');
             }
 
             return newVideoClip;
@@ -342,6 +343,8 @@ function Tool() {
 
     console.log("File key:", fileKey);
     formData.set('video-file', fileKey);
+
+    setBuildAction('Being Retreived')
   
     axios.post(backendURL + '/trim', formData)
       .then((response) => {
@@ -368,7 +371,7 @@ function Tool() {
       //   errorWithDelivery();
       //   console.log(error);
       // })
-      .catch(error => {
+      .catch(error => { //more detailed error output
         let errorMsg = '';
         if (error.response) {
           // The request was made and the server responded with a non-2xx status code
@@ -505,6 +508,7 @@ function Tool() {
   return (
     <div className="Tool mx-auto flex flex-col gap-4 mb-5">
         <AgreementBanner />
+        
         {/* H1 and paragraph */}
         <div>
           <h1>Clip Creation Tool</h1>
@@ -576,6 +580,11 @@ function Tool() {
           <div className="form-group flex flex-col gap-2">
             <label className="font-bold">4. Build your clips:</label>
             {validationMessage && <p className="text-red-500">{validationMessage}</p>}
+            {dontBuildYet && uploadPercentage > 0 ? 
+                  <p className="text-sm">
+                    Waiting for file upload to complete...
+                  </p>
+                : null}
             <div className="flex justify-between">
               <div className="flex gap-3">
               {building && !processCancelable ? (
@@ -615,7 +624,7 @@ function Tool() {
 
         {buildAction === 'Being Retreived' && (
           <div>
-            Your video is being retrieved. Please wait...
+            Preparing video for edit. Please wait...
           </div>
         )}
 
