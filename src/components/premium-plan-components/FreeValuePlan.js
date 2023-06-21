@@ -46,7 +46,7 @@ const PremiumPlan = ({ formData }) => {
 
   return (
     <div className="feature-contain flex flex-col gap-4">
-      <input type="hidden" name="subscription" value="premium" />
+      <input type="hidden" name="subscription" value="none" />
 
       {/* Subtitles */}
       <div className="flex flex-col gap-2 pb-2 border-b border-secondary">

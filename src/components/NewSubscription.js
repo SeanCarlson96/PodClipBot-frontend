@@ -52,7 +52,8 @@ const NewSubscription = () => {
       const stripePriceIds = {
           'Base': 'price_1NDYKnBnRV7ZyiYAyfWXXZwX',  // Replace with your actual Stripe Price ID for the "Base" plan
           'Advanced': 'price_1NDaErBnRV7ZyiYAgo7pMUfi',  // Replace with your actual Stripe Price ID for the "Advanced" plan
-          'Premium': 'price_1NDaGMBnRV7ZyiYA2Q0Vf0X4'  // Replace with your actual Stripe Price ID for the "Premium" plan
+          'Premium': 'price_1NDaGMBnRV7ZyiYA2Q0Vf0X4',  // Replace with your actual Stripe Price ID for the "Premium" plan
+          'Pro': 'price_1NDaGMBnRV7ZyiYA2Q0Vf0X4'  // Replace with your actual Stripe Price ID for the "Pro" plan
       };
 
       // Get the correct Stripe Price ID based on the plan name
@@ -74,7 +75,7 @@ const NewSubscription = () => {
 
   const subscriptionOptions = [
     {
-      planName: "Pro Plan",
+      planName: "Pro",
       price: 9.99,
       benefits: [
         "Save Your Settings",
