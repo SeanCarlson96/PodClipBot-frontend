@@ -1,9 +1,22 @@
 version: 1
-applications:
-  - appRoot: .
-    redirects:
-      - source: /sitemap.xml
-        headers:
-          - key: Content-Type
-            value: application/xml
-        status: 200
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+  redirects:
+    - source: /sitemap.xml
+      headers:
+        - key: Content-Type
+          value: application/xml
+      status: 200
