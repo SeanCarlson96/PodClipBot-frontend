@@ -17,6 +17,7 @@ import SubscriptionSwitch from './SubscriptionSwitch';
 import defaultFormData from '../defaultFormData';
 import ReCaptchaV3 from './ReCaptchaV3';
 import AgreementBanner from './AgreementBanner';
+import IssueForm from './IssueForm';
 
 function Tool() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -612,9 +613,12 @@ function Tool() {
                   )
                 )}
               </div>
-              <button className="text-xs" type="button" onClick={handleReset}>
-                Reset Form
-              </button>
+              <div className="flex gap-3">
+                <button className="text-xs" type="button" onClick={handleReset}>
+                  Reset Form
+                </button>
+                <IssueForm disableForm={disableForm}/>
+              </div>
             </div>
           </div>
 

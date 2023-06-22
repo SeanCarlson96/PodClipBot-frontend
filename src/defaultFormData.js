@@ -23,7 +23,7 @@ const defaultFormData = {
     musicDuration: 100,
     watermarkPositionHorizontal: "center",
     watermarkPositionVertical: 25,
-    watermarkSize: 200,
+    watermarkSize: 300,
     watermarkOpacity: 100,
     watermarkDuration: 100,
 }
