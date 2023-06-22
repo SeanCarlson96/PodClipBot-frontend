@@ -4,20 +4,21 @@ import Footer from './components/Footer';
 import Tool from './components/Tool';
 
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Routing from "./Routes";
 import UserContext from './contexts/UserContext';
 import { ThemeContext } from './contexts/ThemeContext';
 
-function usePageViews() {
-  const location = useLocation();
+// function usePageViews() {
+//   const location = useLocation();
 
-  useEffect(() => {
-    window.gtag('config', 'G-NPPCKP16GN', {
-      page_path: location.pathname,
-    });
-  }, [location]);
-}
+//   useEffect(() => {
+//     window.gtag('config', 'G-NPPCKP16GN', {
+//       page_path: location.pathname,
+//     });
+//   }, [location]);
+// }
 
 // ToolWithRouting component
 const ToolWithRouting = () => {
@@ -37,13 +38,6 @@ function App() {
   const textColor = theme === 'dark' ? 'text-dark-text' : 'text-light-text';
 
   // usePageViews();
-  const location = useLocation();
-
-  useEffect(() => {
-    window.gtag('config', 'G-NPPCKP16GN', {
-      page_path: location.pathname,
-    });
-  }, [location]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
