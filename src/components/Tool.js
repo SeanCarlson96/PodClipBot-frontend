@@ -81,7 +81,7 @@ function Tool() {
           setSubTextColor('advanced-color');
           break;
         case 'premium':
-          setSubscriptionMessage('You are using the Pro plan with all features unlocked.');
+          setSubscriptionMessage('You are using the Premium Plan with all features unlocked.');
           setSubTextColor('premium-color');
           break;
         default:

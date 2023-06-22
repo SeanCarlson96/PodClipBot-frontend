@@ -75,7 +75,7 @@ const NewSubscription = () => {
 
   const subscriptionOptions = [
     {
-      planName: "Pro",
+      planName: "Premium",
       price: 9.99,
       benefits: [
         "Save Your Settings",
@@ -88,7 +88,7 @@ const NewSubscription = () => {
         "Watermark Opacity",
         "Watermark Duration"
       ],
-      color: "pro",
+      color: "premium",
       stripeLink: premiumStripeLink,
     },
   ];
