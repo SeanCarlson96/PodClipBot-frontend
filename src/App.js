@@ -19,7 +19,6 @@ const ToolWithRouting = () => {
   );
 }
 
-
 function App() {
   const [user, setUser] = useState(null);
   const { theme } = useContext(ThemeContext);
