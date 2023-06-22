@@ -9,6 +9,16 @@ import Routing from "./Routes";
 import UserContext from './contexts/UserContext';
 import { ThemeContext } from './contexts/ThemeContext';
 
+function usePageViews() {
+  const location = useLocation();
+
+  useEffect(() => {
+    gtag('config', 'G-NPPCKP16GN', {
+      page_path: location.pathname,
+    });
+  }, [location]);
+}
+
 // ToolWithRouting component
 const ToolWithRouting = () => {
   const location = useLocation();
@@ -25,6 +35,8 @@ function App() {
   // const location = useLocation();
   const bgColor = theme === 'dark' ? 'bg-dark-primary' : 'bg-light-primary';
   const textColor = theme === 'dark' ? 'text-dark-text' : 'text-light-text';
+
+  usePageViews();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
