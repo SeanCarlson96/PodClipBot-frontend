@@ -14,9 +14,13 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
-  redirects:
-    - source: /sitemap.xml
+  customHeaders:
+    - pattern: '/sitemap.xml'
       headers:
-        - key: Content-Type
-          value: application/xml
-      status: 200
+        - key: 'Content-Type'
+          value: 'application/xml'
+  redirects:
+    - source: '/sitemap.xml'
+      target: '/sitemap.xml'
+      status: '200'
+      condition: null
