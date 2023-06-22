@@ -13,7 +13,7 @@ function usePageViews() {
   const location = useLocation();
 
   useEffect(() => {
-    gtag('config', 'G-NPPCKP16GN', {
+    window.gtag('config', 'G-NPPCKP16GN', {
       page_path: location.pathname,
     });
   }, [location]);
