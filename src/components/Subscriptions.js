@@ -3,6 +3,8 @@ import ReCaptchaV3 from "./ReCaptchaV3";
 import CheckIfLoggedIn from "./CheckIfLoggedIn";
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const SubscriptionCard = ({ planName, price, benefits, color, disableForm, handleClick }) => {
   return (
@@ -16,7 +18,7 @@ const SubscriptionCard = ({ planName, price, benefits, color, disableForm, handl
           <span className="text-success mr-2">
             <i className="bi bi-check-circle-fill"></i>
           </span>
-          {benefit}
+          <FontAwesomeIcon icon={faCheck} />{benefit}
         </li>
       ))}
     </ul>
