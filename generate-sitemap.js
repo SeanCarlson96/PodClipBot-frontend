@@ -12,6 +12,6 @@ sitemap.end();
 
 // This will generate a sitemap.xml file in your project root
 streamToPromise(sitemap).then((data) => {
-  createWriteStream("sitemap.xml").write(data.toString());
+  createWriteStream("./public/sitemap.xml").write(data.toString());
 })
 .catch((error) => console.error(error));
