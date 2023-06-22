@@ -3,6 +3,8 @@ import ReCaptchaV3 from "./ReCaptchaV3";
 import CheckIfLoggedIn from "./CheckIfLoggedIn";
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const SubscriptionCard = ({ planName, price, benefits, color, disableForm, handleClick }) => {
   return (
@@ -12,11 +14,8 @@ const SubscriptionCard = ({ planName, price, benefits, color, disableForm, handl
     <p className="text-xl text-gray-400 mb-4">${price}/month</p>
     <ul className="list-unstyled">
       {benefits.map((benefit, index) => (
-        <li key={index} className="mb-2">
-          <span className="text-success mr-2">
-            <i className="bi bi-check-circle-fill"></i>
-          </span>
-          {benefit}
+        <li key={index} className="mb-3 flex items-center gap-2">
+          <FontAwesomeIcon icon={faCheck} color="#93C572" /> {benefit}
         </li>
       ))}
     </ul>
@@ -78,17 +77,16 @@ const NewSubscription = () => {
       planName: "Premium",
       price: 9.99,
       benefits: [
-        "Save Your Settings",
-        "Custom Music Upload",
-        "Custom Watermark Upload",
-        "Watermark On/Off",
-        "Watermark Horizontal Position",
-        "Watermark Vertical Position",
-        "Watermark Size",
-        "Watermark Opacity",
-        "Watermark Duration"
+        "Toggle Watermark Display",
+        "Add Your Own Watermark",
+        "Save Preferred Settings",
+        "Upload Your Music",
+        "Control Watermark Position",
+        "Adjust Watermark Size",
+        "Change Watermark Opacity",
+        "Set Watermark Duration"
       ],
-      color: "premium",
+      color: "pro",
       stripeLink: premiumStripeLink,
     },
   ];
