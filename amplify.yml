@@ -1,0 +1,9 @@
+version: 1
+applications:
+  - appRoot: .
+    redirects:
+      - source: /sitemap.xml
+        headers:
+          - key: Content-Type
+            value: application/xml
+        status: 200
