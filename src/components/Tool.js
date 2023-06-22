@@ -160,7 +160,8 @@ function Tool() {
       console.log("Disconnected")
       socket.disconnect();
     };
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
 
   useEffect(() => {
