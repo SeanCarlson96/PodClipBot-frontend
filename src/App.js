@@ -36,7 +36,14 @@ function App() {
   const bgColor = theme === 'dark' ? 'bg-dark-primary' : 'bg-light-primary';
   const textColor = theme === 'dark' ? 'text-dark-text' : 'text-light-text';
 
-  usePageViews();
+  // usePageViews();
+  const location = useLocation();
+
+  useEffect(() => {
+    window.gtag('config', 'G-NPPCKP16GN', {
+      page_path: location.pathname,
+    });
+  }, [location]);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
