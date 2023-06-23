@@ -377,8 +377,10 @@ function Tool() {
     console.log("File key:", fileKey);
     formData.set('video-file', fileKey);
 
-    formData.set('user_id', myUserId);
+    // formData.set('user_id', myUserId);
     // formData.set('user_id', localStorage.getItem('userId'));
+    formData.set('user_id', myUserId ? myUserId : localStorage.getItem('userId'));
+
 
     setBuildAction('Being Retreived')
   
