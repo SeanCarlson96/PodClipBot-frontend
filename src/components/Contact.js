@@ -37,16 +37,16 @@ function Contact() {
             </p>
         </div>
 
-        <div>
+        {/* <div>
             <h5>Connect with the creator</h5>
             <p>If you'd like contact the creator of PodClipBot directly, connect with Sean on 
                 {
                     disableForm 
                     ? <span className={`${theme === 'light' ? 'text-current' : ''} ml-1`}>LinkedIn</span>
-                    : <a className={`${theme === 'light' ? 'text-current' : ''} ml-1`} href="https://www.linkedin.com/in/sean-carlson-5954b5161/">LinkedIn</a>
+                    : <a className={`${theme === 'light' ? 'text-current' : ''} ml-1`} href="https://www.linkedin.com/in/sean-carlson-5954b5161/" target="_blank">LinkedIn</a>
                 }
             </p>
-        </div>
+        </div> */}
 
         <ReCaptchaV3 action={'contact'} setDisableForm={setDisableForm}/>
 
