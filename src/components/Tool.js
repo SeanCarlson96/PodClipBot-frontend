@@ -411,17 +411,22 @@ function Tool() {
         let errorMsg = '';
         if (error.response) {
           // The request was made and the server responded with a non-2xx status code
-          errorMsg = 'Server responded with non-2xx status code. Error: ' + error.message;
+          errorMsg = 'There was an error with this request. Please try again later.';
+          // errorMsg = 'Server responded with non-2xx status code. Error: ' + error.message;
           console.error('Error response data:', error.response.data);
           console.error('Error response status:', error.response.status);
           console.error('Error response headers:', error.response.headers);
+          cancelWholeProcess();
         } else if (error.request) {
           // The request was made but no response was received
-          errorMsg = 'No response received from server. Please check your network connection or try again later. If your clip does not have any dialogue, please turn off subtitles for that clip.';
+          errorMsg = 'No response received from server. Try again with fewer or shorter clips.';
           console.error('The request was made but no response was received. Request:', error.request);
+          cancelWholeProcess();
         } else {
           // Something happened in setting up the request and triggered an Error
-          errorMsg = 'Error in setting up the request. Message: ' + error.message;
+          errorMsg = 'There was an error constructing your request.';
+          // errorMsg = 'Error in setting up the request. Message: ' + error.message;
+          cancelWholeProcess();
         }
         setValidationMessage(errorMsg);
         cancelWholeProcess();
