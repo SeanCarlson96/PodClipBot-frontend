@@ -53,6 +53,7 @@ function Tool() {
   const [fileKey, setFileKey] = useState(0);
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const { theme } = useContext(ThemeContext);
+  const [myUserId, setMyUserId] = useState('');
   // const [shouldCloseWebsocket, setShouldCloseWebsocket] = useState(false);
 
   useEffect(() => {
@@ -104,7 +105,19 @@ function Tool() {
     console.log("Websocket useEffect called")
     // const socket = io('http://127.0.0.1:5000');
     const socket = io(backendURL);
-    socket.on('connect', () => {console.log("Connected")});
+    // socket.on('connect', () => {console.log("Connected")});
+
+    socket.on('connect', function() {
+        console.log("Connected")
+        socket.emit('get_sid');
+    });
+    
+    // listen for 'your_sid' events from the server
+    socket.on('your_sid', function(data) {
+        // store the received sid in a variable
+        // myUserId = data.sid;
+        setMyUserId(data.sid);
+    });
     
     socket.onAny((event, data) => {
       console.log(event, data);
@@ -346,6 +359,8 @@ function Tool() {
     console.log("File key:", fileKey);
     formData.set('video-file', fileKey);
 
+    formData.set('user_id', myUserId);
+
     setBuildAction('Being Retreived')
   
     axios.post(backendURL + '/trim', formData)
@@ -383,7 +398,7 @@ function Tool() {
           console.error('Error response headers:', error.response.headers);
         } else if (error.request) {
           // The request was made but no response was received
-          errorMsg = 'No response received from server. Please check your network connection or try again later.';
+          errorMsg = 'No response received from server. Please check your network connection or try again later. If your clip does not have any dialogue, please turn off subtitles for that clip.';
           console.error('The request was made but no response was received. Request:', error.request);
         } else {
           // Something happened in setting up the request and triggered an Error
