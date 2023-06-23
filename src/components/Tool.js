@@ -412,6 +412,7 @@ function Tool() {
       })
       .finally(() => {
         console.log("handleSubmit Closing");
+        cancelWholeProcess();
       });
 
   };
