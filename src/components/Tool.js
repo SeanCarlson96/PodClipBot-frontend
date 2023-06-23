@@ -425,7 +425,7 @@ function Tool() {
   const handleCancel = (clipName) => {
     setProgress(0);
     const socket = io(backendURL);
-    socket.emit("cancel_processing", { clipName: clipName });
+    socket.emit("cancel_processing", { clipName: clipName, socketId: myUserId });
   
     // Update the videoClips state to remove the clip with the specified clipName
     setVideoClips((prevState) => {
