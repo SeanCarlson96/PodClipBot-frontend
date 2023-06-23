@@ -18,6 +18,7 @@ import defaultFormData from '../defaultFormData';
 import ReCaptchaV3 from './ReCaptchaV3';
 import AgreementBanner from './AgreementBanner';
 import IssueForm from './IssueForm';
+import { v4 as uuidv4 } from 'uuid';
 
 function Tool() {
   const backendURL = process.env.REACT_APP_BACKEND_URL;
@@ -103,21 +104,38 @@ function Tool() {
 
   useEffect(() => {
     console.log("Websocket useEffect called")
-    // const socket = io('http://127.0.0.1:5000');
-    const socket = io(backendURL);
-    // socket.on('connect', () => {console.log("Connected")});
 
+    // Generate a new user ID if one doesn't exist yet
+    let userId = localStorage.getItem('userId');
+    if (userId === null) {
+        userId = uuidv4();  // Replace this with your function to generate a unique ID
+        localStorage.setItem('userId', userId);
+    }
+    setMyUserId(userId);
+
+    const socket = io(backendURL);
+    
     socket.on('connect', function() {
         console.log("Connected")
-        socket.emit('get_sid');
+        
+        // Send the user ID to the server
+        socket.emit('user_connected', {userId: userId});
     });
+
+    // const socket = io(backendURL);
+    // // socket.on('connect', () => {console.log("Connected")});
+
+    // socket.on('connect', function() {
+    //     console.log("Connected")
+    //     socket.emit('get_sid');
+    // });
     
     // listen for 'your_sid' events from the server
-    socket.on('your_sid', function(data) {
-        // store the received sid in a variable
-        // myUserId = data.sid;
-        setMyUserId(data.sid);
-    });
+    // socket.on('your_sid', function(data) {
+    //     // store the received sid in a variable
+    //     // myUserId = data.sid;
+    //     setMyUserId(data.sid);
+    // });
     
     socket.onAny((event, data) => {
       console.log(event, data);
@@ -360,6 +378,7 @@ function Tool() {
     formData.set('video-file', fileKey);
 
     formData.set('user_id', myUserId);
+    // formData.set('user_id', localStorage.getItem('userId'));
 
     setBuildAction('Being Retreived')
   
