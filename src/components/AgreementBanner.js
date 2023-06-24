@@ -35,17 +35,18 @@ const AgreementBanner = () => {
           background: 'rgba(0, 0, 0, 0.5)',
           zIndex: 1000,
         }}>
-          <div style={{ 
-            position: 'absolute',
-            top: '20%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            padding: '1rem',
-            background: backgroundColor,
-            color: textColor,
-            zIndex: 1001,
-            borderRadius: '0.5rem',
-          }}>
+          <div className='md:w-auto w-4/5'
+                style={{ 
+                  position: 'absolute',
+                  top: '20%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  padding: '1rem',
+                  background: backgroundColor,
+                  color: textColor,
+                  zIndex: 1001,
+                  borderRadius: '0.5rem',
+                }}>
             {/* <h1>Welcome to our website!</h1> */}
             <p>Before using the clip creation tool, we require all first time visitors to agree to our terms of use.</p>
             <div className='text-center mt-4'>

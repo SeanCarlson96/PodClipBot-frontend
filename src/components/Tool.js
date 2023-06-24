@@ -629,15 +629,15 @@ function Tool() {
                     Waiting for file upload to complete...
                   </p>
                 : null}
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-3 flex-wrap">
               <div className="flex gap-3">
-              {building && !processCancelable ? (
-                <button type="submit" id="trim-button" className="btn btn-primary w-36 flex items-center" disabled>
-                <div className="flex items-center gap-2">
-                  <ClipLoader color="white" size={17} className="loading-icon" />
-                  <span>Build Clips</span>
-                </div>
-              </button>
+                {building && !processCancelable ? (
+                  <button type="submit" id="trim-button" className="btn btn-primary w-36 flex items-center" disabled>
+                  <div className="flex items-center gap-2">
+                    <ClipLoader color="white" size={17} className="loading-icon" />
+                    <span>Build Clips</span>
+                  </div>
+                </button>
                 ) : (
                 <button type="submit" id="trim-button" className="btn btn-primary w-36" disabled={building || disableForm || dontBuildYet}
                 >
@@ -657,10 +657,13 @@ function Tool() {
                 )}
               </div>
               <div className="flex gap-3">
-                <button className="text-xs" type="button" onClick={handleReset}>
+                <button className="text-xs hidden sm:block" type="button" onClick={handleReset}>
                   Reset Form
                 </button>
                 <IssueForm disableForm={disableForm}/>
+                <button className="text-xs sm:hidden" type="button" onClick={handleReset}>
+                  Reset Form
+                </button>
               </div>
             </div>
           </div>
