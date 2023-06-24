@@ -382,7 +382,7 @@ function Tool() {
     formData.set('user_id', myUserId ? myUserId : localStorage.getItem('userId'));
 
 
-    setBuildAction('Being Retreived')
+    setBuildAction('Retrieving')
   
     axios.post(backendURL + '/trim', formData)
       .then((response) => {
@@ -669,7 +669,7 @@ function Tool() {
           
         </form>
 
-        {buildAction === 'Being Retreived' && (
+        {buildAction === 'Retrieving' && (
           <div>
             Preparing video for edit. Please wait...
           </div>
