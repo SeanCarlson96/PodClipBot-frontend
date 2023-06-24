@@ -40,7 +40,7 @@ function IssueForm({disableForm}) {
 
   return (
     <>
-      <Button variant="secondary" onClick={handleShow} disabled={disableForm}>
+      <Button className="w-36" variant="secondary" onClick={handleShow} disabled={disableForm}>
         Report an Issue
       </Button>
 
