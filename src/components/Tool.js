@@ -413,7 +413,8 @@ function Tool() {
         let errorMsg = '';
         if (error.response) {
           // The request was made and the server responded with a non-2xx status code
-          errorMsg = 'There was an error with this request. Please try again later.';
+          errorMsg = 'This application is currently undergoing maintenance.';
+          // errorMsg = 'There was an error with this request. Please try again later.';
           // errorMsg = 'Server responded with non-2xx status code. Error: ' + error.message;
           console.error('Error response data:', error.response.data);
           console.error('Error response status:', error.response.status);
