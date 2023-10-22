@@ -23,7 +23,8 @@ const ReCaptchaV3 = ({ action, setDisableForm }) => {
                         })
                         .catch(error => {
                             console.error('Error:', error);
-                            setMessage('reCaptcha could not verify that you are human. Please try again.');
+                            // setMessage('reCaptcha could not verify that you are human. Please try again.');
+                            setMessage('Our configuration is undergoing changes. Please try again later.');
                             setDisableForm(true);
                         });
                         

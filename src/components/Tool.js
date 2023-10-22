@@ -102,97 +102,98 @@ function Tool() {
     }
   }, [user, theme]);
 
-  useEffect(() => {
-    console.log("Websocket useEffect called")
+  // Commenting out the websocket code while backend is down
+  // useEffect(() => {
+  //   console.log("Websocket useEffect called")
 
-    // Generate a new user ID if one doesn't exist yet
-    let userId = localStorage.getItem('userId');
-    if (userId === null) {
-        userId = uuidv4();  // Replace this with your function to generate a unique ID
-        localStorage.setItem('userId', userId);
-    }
-    setMyUserId(userId);
+  //   // Generate a new user ID if one doesn't exist yet
+  //   let userId = localStorage.getItem('userId');
+  //   if (userId === null) {
+  //       userId = uuidv4();  // Replace this with your function to generate a unique ID
+  //       localStorage.setItem('userId', userId);
+  //   }
+  //   setMyUserId(userId);
 
-    const socket = io(backendURL);
+  //   const socket = io(backendURL);
     
-    socket.on('connect', function() {
-        console.log("Connected")
+  //   socket.on('connect', function() {
+  //       console.log("Connected")
         
-        // Send the user ID to the server
-        socket.emit('user_connected', {userId: userId});
-    });
+  //       // Send the user ID to the server
+  //       socket.emit('user_connected', {userId: userId});
+  //   });
 
-    // const socket = io(backendURL);
-    // // socket.on('connect', () => {console.log("Connected")});
+  //   // const socket = io(backendURL);
+  //   // // socket.on('connect', () => {console.log("Connected")});
 
-    // socket.on('connect', function() {
-    //     console.log("Connected")
-    //     socket.emit('get_sid');
-    // });
+  //   // socket.on('connect', function() {
+  //   //     console.log("Connected")
+  //   //     socket.emit('get_sid');
+  //   // });
     
-    // listen for 'your_sid' events from the server
-    // socket.on('your_sid', function(data) {
-    //     // store the received sid in a variable
-    //     // myUserId = data.sid;
-    //     setMyUserId(data.sid);
-    // });
+  //   // listen for 'your_sid' events from the server
+  //   // socket.on('your_sid', function(data) {
+  //   //     // store the received sid in a variable
+  //   //     // myUserId = data.sid;
+  //   //     setMyUserId(data.sid);
+  //   // });
     
-    socket.onAny((event, data) => {
-      console.log(event, data);
-    });
+  //   socket.onAny((event, data) => {
+  //     console.log(event, data);
+  //   });
 
-    socket.on('current_clip_in_edit', (data) => {
-      // console.log('Current clip in edit:', data)
-      if(data.name !== currentClipName) {
-        setCurrentClipName(data.name);
-      }
-    });
-    socket.on('video_processing_progress', (data) => {
-      setProgress(data.progress);
-    });
-    socket.on('build_action', (data) => {
-      setBuildAction(data.action);
-    });
-    socket.on('video_file_ready', (data) => {
-      console.log('Received', data.name);
-      const newVideoClip = new ClipModel(data.name, data.filename, false);
+  //   socket.on('current_clip_in_edit', (data) => {
+  //     // console.log('Current clip in edit:', data)
+  //     if(data.name !== currentClipName) {
+  //       setCurrentClipName(data.name);
+  //     }
+  //   });
+  //   socket.on('video_processing_progress', (data) => {
+  //     setProgress(data.progress);
+  //   });
+  //   socket.on('build_action', (data) => {
+  //     setBuildAction(data.action);
+  //   });
+  //   socket.on('video_file_ready', (data) => {
+  //     console.log('Received', data.name);
+  //     const newVideoClip = new ClipModel(data.name, data.filename, false);
     
-      setVideoClips((prevState) => {
-        let updated = false;
-        const updatedClips = prevState.map((clip, index) => {
-          if (!updated && clip.name === data.name) {
-            updated = true;
+  //     setVideoClips((prevState) => {
+  //       let updated = false;
+  //       const updatedClips = prevState.map((clip, index) => {
+  //         if (!updated && clip.name === data.name) {
+  //           updated = true;
 
-            // Check if the current clip is the last clip in the array
-            if (index === prevState.length - 1) {
-              setBuilding(false);
-              setProcessCancelable(false);
-              setCurrentClipName('');
-            }
+  //           // Check if the current clip is the last clip in the array
+  //           if (index === prevState.length - 1) {
+  //             setBuilding(false);
+  //             setProcessCancelable(false);
+  //             setCurrentClipName('');
+  //           }
 
-            return newVideoClip;
-          }
-          return clip;
-        });
+  //           return newVideoClip;
+  //         }
+  //         return clip;
+  //       });
     
-        localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
-        return updatedClips;
-      });
+  //       localStorage.setItem('videoFiles', JSON.stringify(updatedClips));
+  //       return updatedClips;
+  //     });
 
-      if (progress === 100) {
-        setProgress(0);
-      }
-      // setCurrentClipIndex((prevIndex) => prevIndex + 1);
-    });
-    socket.on("processing_canceled", (data) => {
-      console.log('Processing canceled:', data)
-    });
-    return () => {
-      console.log("Disconnected")
-      socket.disconnect();
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //     if (progress === 100) {
+  //       setProgress(0);
+  //     }
+  //     // setCurrentClipIndex((prevIndex) => prevIndex + 1);
+  //   });
+  //   socket.on("processing_canceled", (data) => {
+  //     console.log('Processing canceled:', data)
+  //   });
+  //   return () => {
+  //     console.log("Disconnected")
+  //     socket.disconnect();
+  //   };
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   // }, [videoClips, progress, currentClipName, backendURL, user, setUser]);
 
   useEffect(() => {
