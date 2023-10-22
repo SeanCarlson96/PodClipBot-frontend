@@ -8,20 +8,21 @@ function BaseMusic({formData, music}) {
     const [files, setFiles] = useState([]);
     const [selectedMusic, setSelectedMusic] = useState(null);
   
-    useEffect(() => {
-      const fetchMusicFiles = async () => {
-        try {
-          // const response = await fetch('http://127.0.0.1:5000/api/music_files');
-          const response = await fetch(backendURL + '/api/music_files');
-          const data = await response.json();
-          setFiles(data);
-        } catch (error) {
-          console.error('Error fetching music files:', error);
-        }
-      };
+    // Commented out because the backend is terminated
+    // useEffect(() => {
+    //   const fetchMusicFiles = async () => {
+    //     try {
+    //       // const response = await fetch('http://127.0.0.1:5000/api/music_files');
+    //       const response = await fetch(backendURL + '/api/music_files');
+    //       const data = await response.json();
+    //       setFiles(data);
+    //     } catch (error) {
+    //       console.error('Error fetching music files:', error);
+    //     }
+    //   };
     
-      fetchMusicFiles();
-    }, [backendURL]);
+    //   fetchMusicFiles();
+    // }, [backendURL]);
 
     const handleMusicChoiceChange = (e) => {
         const selectedMusic = e.target.value;
